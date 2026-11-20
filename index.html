@@ -111,9 +111,37 @@
          ======================================================================== -->
     <section class="sec" id="desks" aria-label="Choose a desk">
       <a class="room e" href="#engineer" aria-label="Enter The Engineer Desk">
+        <div class="room-grid-glow" aria-hidden="true"></div>
+        <div class="room-seam-glow" aria-hidden="true"></div>
         <div class="rv"><span class="k">01 / Logic &amp; Cloud Data</span></div>
+        
+        <!-- Hover-Reveal Floating Card: Mini Data-Pipeline & Code Snippet -->
+        <div class="room-floating-card card-engineer" aria-hidden="true">
+          <div class="card-glass-header">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="window-title">pipeline.py • Fabric Delta Stream</span>
+            <span class="window-status"><span class="pulse-dot"></span> 99.9% SLA</span>
+          </div>
+          <div class="pipeline-flow">
+            <div class="pipe-node"><span class="node-icon">⚡</span> Kafka / API</div>
+            <div class="pipe-arrow">➔</div>
+            <div class="pipe-node"><span class="node-icon">🔷</span> PySpark Medallion</div>
+            <div class="pipe-arrow">➔</div>
+            <div class="pipe-node"><span class="node-icon">📊</span> Power BI &amp; AI</div>
+          </div>
+          <pre class="code-snippet"><code><span class="kw">def</span> <span class="fn">stream_telemetry</span>(events):
+    <span class="kw">return</span> (events.transform(cleanse)
+                  .writeStream.format(<span class="str">"delta"</span>)
+                  .toTable(<span class="str">"gold_lakehouse"</span>))</code></pre>
+        </div>
+
         <div class="rv">
           <h2>The<br>Engineer</h2>
+          <p class="room-pitch">Building scalable data pipelines, dashboards, and AI automation.</p>
           <ul class="tags">
             <li>Python</li>
             <li>SQL</li>
@@ -122,14 +150,58 @@
             <li>Power BI</li>
             <li>Agentic AI</li>
           </ul>
-          <span class="go">Enter the desk →</span>
+          <div class="desk-cta-btn btn-engineer">
+            <span class="cta-text">Explore Engineering</span>
+            <span class="cta-arrow-circle" aria-hidden="true">→</span>
+          </div>
         </div>
       </a>
 
       <a class="room c" href="#creator" aria-label="Enter The Creator Desk">
         <div class="rv"><span class="k">02 / Creativity &amp; Growth</span></div>
+        
+        <!-- Hover-Reveal Floating Card: Tilted UI Wireframe Preview -->
+        <div class="room-floating-card card-creator" aria-hidden="true">
+          <div class="card-glass-header">
+            <div class="window-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="window-title">Opulence Live • UI Preview</span>
+            <span class="window-status creator-status"><span class="pink-dot"></span> PROTOTYPE</span>
+          </div>
+          <div class="wireframe-mockup">
+            <div class="wf-nav-bar">
+              <div class="wf-brand-pill"></div>
+              <div class="wf-nav-links">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="wf-hero-banner">
+              <div class="wf-hero-badge"></div>
+              <div class="wf-hero-heading">Crafting Digital Excellence</div>
+              <div class="wf-hero-sub">High-converting experiences with precision UI/UX</div>
+            </div>
+            <div class="wf-grid-cards">
+              <div class="wf-card">
+                <span class="wf-metric">+240%</span>
+                <span class="wf-card-label">Engagement</span>
+              </div>
+              <div class="wf-card">
+                <span class="wf-metric">&lt; 0.8s</span>
+                <span class="wf-card-label">Load Speed</span>
+              </div>
+              <div class="wf-card wf-card-cta">
+                <span>Launch →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="rv">
           <h2>The<br>Creator</h2>
+          <p class="room-pitch">Crafting high-converting websites, brand identities, and digital experiences.</p>
           <ul class="tags">
             <li>Websites</li>
             <li>Branding</li>
@@ -138,7 +210,10 @@
             <li>Automation</li>
             <li>Opulence Live</li>
           </ul>
-          <span class="go">Enter the desk →</span>
+          <div class="desk-cta-btn btn-creator">
+            <span class="cta-text">Explore Design</span>
+            <span class="cta-arrow-circle" aria-hidden="true">→</span>
+          </div>
         </div>
       </a>
     </section>

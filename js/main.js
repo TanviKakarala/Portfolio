@@ -402,4 +402,23 @@
     }
   });
 
+  // Cursor-Following Radial Glow on Left Grid (.room.e)
+  const roomEngineer = document.querySelector('.room.e');
+  if (roomEngineer) {
+    let glowTicking = false;
+    roomEngineer.addEventListener('mousemove', (e) => {
+      if (!glowTicking) {
+        requestAnimationFrame(() => {
+          const rect = roomEngineer.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          roomEngineer.style.setProperty('--gx', `${x.toFixed(1)}%`);
+          roomEngineer.style.setProperty('--gy', `${y.toFixed(1)}%`);
+          glowTicking = false;
+        });
+        glowTicking = true;
+      }
+    });
+  }
+
 })();
