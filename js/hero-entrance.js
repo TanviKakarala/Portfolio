@@ -77,7 +77,7 @@
       if (topNavBar) {
         gsap.set(topNavBar, {
           opacity: 0,
-          y: -22,
+          y: -14,
           pointerEvents: 'none'
         });
       }
@@ -127,7 +127,7 @@
         });
       }
 
-      // Step D: Top-Right Floating Pill Navbar Glides Into Corner
+      // Step D: Top-Right Rectangular Navbar Glides Into Corner
       if (topNavBar) {
         gsap.to(topNavBar, {
           opacity: 1,
@@ -137,6 +137,7 @@
           ease: 'power3.out',
           onComplete: function () {
             topNavBar.style.pointerEvents = 'auto';
+            topNavBar.style.transform = 'translateY(0)';
           }
         });
       }

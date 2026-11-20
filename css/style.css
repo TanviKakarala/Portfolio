@@ -343,12 +343,13 @@ a, button {
    - Placement: Top right of screen
    - Shape: Clean RECTANGLE with subtle rounded corners (border-radius: 8px)
    - Color Palette: Dark cosmic navy glass container with electric cyan / neon pink
-     accents, cyan-hover links, and vibrant blue-pink gradient "WORK WITH ME" button
+     accents, cyan-hover links, and vibrant blue-pink gradient "WORK WITH US" button
+   - Geometry: Compact, balanced proportions matching the verified rectangle navbar
    ========================================================================== */
 .top-nav-bar {
   position: fixed;
-  top: clamp(16px, 2.6vh, 28px);
-  right: clamp(16px, 2.6vw, 36px);
+  top: 24px;
+  right: 28px;
   z-index: 100;
   pointer-events: auto;
   opacity: 1;
@@ -360,11 +361,11 @@ a, button {
 .nav-pill-container {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: rgba(4, 14, 23, 0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  padding: 5px 6px 5px 18px;
+  padding: 4px 5px 4px 16px;
   border-radius: 8px; /* Strict rectangular geometry */
   border: 1px solid rgba(0, 245, 255, 0.35);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.7), 
@@ -384,14 +385,14 @@ a, button {
 
 .nav-rect-link,
 .nav-pill-link {
-  font-family: var(--font-display), sans-serif;
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.10em;
+  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #cfe3f4;
   text-decoration: none;
-  padding: 7px 12px;
+  padding: 6px 11px;
   border-radius: 6px; /* Rectangular link */
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -407,22 +408,22 @@ a, button {
 .nav-rect-link.active,
 .nav-pill-link.active {
   color: #00f5ff;
-  font-weight: 800;
-  background: rgba(0, 245, 255, 0.14);
+  font-weight: 700;
+  background: rgba(0, 245, 255, 0.12);
   text-shadow: 0 0 14px rgba(0, 245, 255, 0.75);
 }
 
 .nav-rect-btn,
 .nav-pill-btn {
-  font-family: var(--font-display), sans-serif;
-  font-size: 11.5px;
+  font-family: var(--font-display), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.10em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #040e17 !important;
   background: linear-gradient(135deg, #00f5ff 0%, #ff2a85 100%);
   text-decoration: none;
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: 6px; /* Strict rectangular button with subtle rounded corners */
   border: none;
   box-shadow: 0 0 16px rgba(0, 245, 255, 0.45), 0 0 20px rgba(255, 42, 133, 0.35);
