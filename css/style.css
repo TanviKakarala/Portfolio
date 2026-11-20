@@ -339,12 +339,16 @@ a, button {
 }
 
 /* ==========================================================================
-   TOP-RIGHT FLOATING PILL NAVBAR (Restored to Top-Right Corner)
+   TOP-RIGHT RECTANGULAR NAVBAR (IntegratedBio Structure with Blue-Pink Palette)
+   - Placement: Top right of screen
+   - Shape: Clean RECTANGLE with subtle rounded corners (border-radius: 8px)
+   - Color Palette: Dark cosmic navy glass container with electric cyan / neon pink
+     accents, cyan-hover links, and vibrant blue-pink gradient "WORK WITH ME" button
    ========================================================================== */
 .top-nav-bar {
   position: fixed;
-  top: clamp(18px, 2.8vh, 28px);
-  right: clamp(18px, 2.8vw, 36px);
+  top: clamp(16px, 2.6vh, 28px);
+  right: clamp(16px, 2.6vw, 36px);
   z-index: 100;
   pointer-events: auto;
   opacity: 1;
@@ -352,30 +356,33 @@ a, button {
   will-change: transform, opacity;
 }
 
+.nav-rect-container,
 .nav-pill-container {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(4, 14, 23, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  gap: 12px;
+  background: rgba(4, 14, 23, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   padding: 5px 6px 5px 18px;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px; /* Strict rectangular geometry */
+  border: 1px solid rgba(0, 245, 255, 0.35);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.7), 
-              0 0 20px rgba(0, 245, 255, 0.15), 
-              0 0 20px rgba(255, 42, 133, 0.12);
+              0 0 20px rgba(0, 245, 255, 0.18), 
+              0 0 20px rgba(255, 42, 133, 0.14);
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.nav-rect-container:hover,
 .nav-pill-container:hover {
-  background: rgba(6, 18, 30, 0.92);
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.8), 
-              0 0 28px rgba(0, 245, 255, 0.24), 
-              0 0 28px rgba(255, 42, 133, 0.18);
+  background: rgba(6, 18, 30, 0.94);
+  border-color: rgba(255, 42, 133, 0.5);
+  box-shadow: 0 12px 42px rgba(0, 0, 0, 0.8), 
+              0 0 26px rgba(0, 245, 255, 0.26), 
+              0 0 26px rgba(255, 42, 133, 0.22);
 }
 
+.nav-rect-link,
 .nav-pill-link {
   font-family: var(--font-display), sans-serif;
   font-size: 11.5px;
@@ -385,17 +392,19 @@ a, button {
   color: #cfe3f4;
   text-decoration: none;
   padding: 7px 12px;
-  border-radius: 9999px;
+  border-radius: 6px; /* Rectangular link */
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
+.nav-rect-link:hover,
 .nav-pill-link:hover {
   color: #00f5ff;
   background: rgba(0, 245, 255, 0.10);
   text-shadow: 0 0 12px rgba(0, 245, 255, 0.6);
 }
 
+.nav-rect-link.active,
 .nav-pill-link.active {
   color: #00f5ff;
   font-weight: 800;
@@ -403,6 +412,7 @@ a, button {
   text-shadow: 0 0 14px rgba(0, 245, 255, 0.75);
 }
 
+.nav-rect-btn,
 .nav-pill-btn {
   font-family: var(--font-display), sans-serif;
   font-size: 11.5px;
@@ -413,7 +423,7 @@ a, button {
   background: linear-gradient(135deg, #00f5ff 0%, #ff2a85 100%);
   text-decoration: none;
   padding: 8px 18px;
-  border-radius: 9999px;
+  border-radius: 6px; /* Strict rectangular button with subtle rounded corners */
   border: none;
   box-shadow: 0 0 16px rgba(0, 245, 255, 0.45), 0 0 20px rgba(255, 42, 133, 0.35);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -423,12 +433,14 @@ a, button {
   justify-content: center;
 }
 
+.nav-rect-btn:hover,
 .nav-pill-btn:hover {
   transform: translateY(-1px) scale(1.02);
   filter: brightness(1.15);
   box-shadow: 0 0 24px rgba(0, 245, 255, 0.65), 0 0 30px rgba(255, 42, 133, 0.55);
 }
 
+.nav-rect-btn:active,
 .nav-pill-btn:active {
   transform: translateY(0) scale(0.98);
 }
@@ -2483,28 +2495,34 @@ a, button {
     --gap: .025;
   }
 
-  /* Top-Right Floating Pill Navbar Mobile Optimization */
+  /* Top-Right Rectangular Navbar Mobile Optimization */
   .top-nav-bar {
     top: 12px;
     right: 12px;
     max-width: calc(100vw - 24px);
   }
 
+  .nav-rect-container,
   .nav-pill-container {
     padding: 3px 4px 3px 12px;
     gap: 4px;
+    border-radius: 6px;
   }
 
+  .nav-rect-link,
   .nav-pill-link {
     font-size: 10px;
     padding: 5px 8px;
     letter-spacing: 0.06em;
+    border-radius: 4px;
   }
 
+  .nav-rect-btn,
   .nav-pill-btn {
     font-size: 10px;
     padding: 6px 12px;
     letter-spacing: 0.06em;
+    border-radius: 4px;
   }
 
   .hero-service-badge {
