@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="aastha-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#180b18"/>
+      <stop offset="50%" stop-color="#241022"/>
+      <stop offset="100%" stop-color="#0a040b"/>
+    </linearGradient>
+    <linearGradient id="warm-brew" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff758c"/>
+      <stop offset="50%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#800040"/>
+    </linearGradient>
+    <filter id="aastha-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="15" stdDeviation="20" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="500" fill="url(#aastha-bg)"/>
+
+  <!-- Browser Frame -->
+  <g filter="url(#aastha-shadow)" transform="translate(60, 45)">
+    <rect width="680" height="410" rx="14" fill="#130814" stroke="rgba(255, 42, 133, 0.25)" stroke-width="1"/>
+    <rect width="680" height="42" rx="14" fill="#200d20"/>
+    <circle cx="25" cy="21" r="6" fill="#ef4444"/>
+    <circle cx="45" cy="21" r="6" fill="#f59e0b"/>
+    <circle cx="65" cy="21" r="6" fill="#10b981"/>
+    <rect x="110" y="9" width="460" height="24" rx="6" fill="#0c040d" stroke="rgba(255,255,255,0.08)"/>
+    <text x="125" y="25" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" fill="#e2b4d4">https://aasthaenterprises.com <tspan fill="#ff2a85">● CLIENT STAGING</tspan></text>
+
+    <!-- Content -->
+    <g transform="translate(40, 75)">
+      <rect x="0" y="0" width="180" height="24" rx="12" fill="rgba(255, 42, 133, 0.15)" stroke="url(#warm-brew)" stroke-width="1"/>
+      <text x="12" y="16" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="600" fill="#ff758c">BEVERAGE SOLUTIONS</text>
+      
+      <text x="0" y="62" font-family="'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="800" fill="#ffffff">AASTHA ENTERPRISES</text>
+      <text x="0" y="92" font-family="'Segoe UI', system-ui, sans-serif" font-size="15" fill="#fbcfe8">Smart Vending Machines &amp; Premium Instant Premixes</text>
+
+      <!-- Flavor cards preview -->
+      <g transform="translate(0, 130)">
+        <rect x="0" y="0" width="115" height="150" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255, 42, 133, 0.2)"/>
+        <circle cx="57" cy="45" r="28" fill="url(#warm-brew)" opacity="0.3"/>
+        <text x="57" y="52" font-family="'Segoe UI', system-ui, sans-serif" font-size="20" text-anchor="middle">☕</text>
+        <text x="57" y="100" font-family="'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Cardamom Tea</text>
+        <text x="57" y="125" font-family="'Segoe UI', system-ui, sans-serif" font-size="10" fill="#f472b6" text-anchor="middle">AI Visual Render</text>
+
+        <rect x="130" y="0" width="115" height="150" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255, 42, 133, 0.2)"/>
+        <circle cx="187" cy="45" r="28" fill="url(#warm-brew)" opacity="0.3"/>
+        <text x="187" y="52" font-family="'Segoe UI', system-ui, sans-serif" font-size="20" text-anchor="middle">✨</text>
+        <text x="187" y="100" font-family="'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Filter Coffee</text>
+        <text x="187" y="125" font-family="'Segoe UI', system-ui, sans-serif" font-size="10" fill="#f472b6" text-anchor="middle">3D Product Shot</text>
+
+        <rect x="260" y="0" width="115" height="150" rx="10" fill="rgba(255,255,255,0.04)" stroke="rgba(255, 42, 133, 0.2)"/>
+        <circle cx="317" cy="45" r="28" fill="url(#warm-brew)" opacity="0.3"/>
+        <text x="317" y="52" font-family="'Segoe UI', system-ui, sans-serif" font-size="20" text-anchor="middle">⚡</text>
+        <text x="317" y="100" font-family="'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Smart Vending</text>
+        <text x="317" y="125" font-family="'Segoe UI', system-ui, sans-serif" font-size="10" fill="#f472b6" text-anchor="middle">IoT Commercial</text>
+      </g>
+    </g>
+
+    <!-- AI Visual Storytelling showcase on right -->
+    <g transform="translate(440, 75)">
+      <rect width="200" height="280" rx="12" fill="#080209" stroke="rgba(255, 42, 133, 0.3)"/>
+      <rect x="15" y="15" width="170" height="130" rx="8" fill="rgba(255, 42, 133, 0.08)" stroke="rgba(255, 42, 133, 0.2)"/>
+      <circle cx="100" cy="80" r="35" fill="none" stroke="#ff2a85" stroke-width="2"/>
+      <path d="M 85 80 Q 100 60 115 80 Q 100 100 85 80" fill="#ff758c"/>
+      <text x="100" y="175" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">AI-Generated Media</text>
+      <text x="100" y="200" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" fill="#f472b6" text-anchor="middle">Photorealistic Content</text>
+      <text x="100" y="220" font-family="'Segoe UI', system-ui, sans-serif" font-size="10" fill="#9d4edd" text-anchor="middle">Product Animations</text>
+      <rect x="30" y="240" width="140" height="26" rx="6" fill="url(#warm-brew)"/>
+      <text x="100" y="257" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Live Client Demo</text>
+    </g>
+  </g>
+</svg>

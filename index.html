@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Tanvi Kakarala — Data Engineer &amp; Digital Solutions Architect | Portfolio</title>
+  <meta name="description" content="Portfolio of Tanvi Kakarala — Enterprise Data Engineer at TEKsystems, 4× Gold Medalist, Swecha Leader, and Independent Digital Solutions Freelancer specializing in modern web design, AI automation, and cloud data architecture.">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Typography: Clash Display, Syne, Fraunces, JetBrains Mono, Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=8.0">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP-RIGHT FLOATING PILL NAVBAR (Sleek Dark Glassmorphism)
+       ========================================================================== -->
+  <header class="top-nav-bar" id="topNavBar" aria-label="Main Navigation">
+    <nav class="nav-pill-container" id="navPillContainer">
+      <a href="#desks" class="nav-pill-link" data-section="desks">EXPERTISE</a>
+      <a href="#work" class="nav-pill-link" data-section="work">PROJECTS</a>
+      <a href="#about" class="nav-pill-link" data-section="about">ABOUT</a>
+      <a href="#contact" class="nav-pill-btn" data-section="contact">WORK WITH ME</a>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       HERO STAGE — "ANTI-GRAVITY" FLOATING BRAIN OVER FULL-SCREEN LOOPING VIDEO
+       ========================================================================== -->
+  <main class="stage" id="hero" aria-label="Hero Anti-Gravity Dual Brain Showcase">
+    <!-- 1. Full-Screen Continuously Looping HTML5 Cosmic Smoke Video Background (Instant) -->
+    <video class="stage-bg-video" id="stageBgVideo" autoplay loop muted playsinline poster="assets/hero-bg-live.webp" aria-hidden="true">
+      <source src="assets/hero-bg-video.mp4" type="video/mp4">
+    </video>
+
+    <!-- 2. Physical 2D Wave-Equation Water Simulation Canvas (Right Hemisphere) -->
+    <canvas class="cv" id="water" aria-hidden="true"></canvas>
+
+    <!-- 3. Subtle Film Grain Texture -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Layer 2 (Middle): Central Brain Graphic (80% to 90% Viewport Height) -->
+    <div class="brain-focal" id="bb" role="img" aria-label="Anti-Gravity Dual Brain: Left cybernetic data circuits, Right creative UI wireframes">
+      <!-- Left Hemisphere (Electric Cyan / Logic Core) -->
+      <div class="hm l" id="hl">
+        <img id="bLeft" src="assets/images/brain-left.webp" alt="Left cerebral hemisphere — Logic &amp; Cloud Data Engineering" draggable="false">
+      </div>
+
+      <!-- Right Hemisphere (Electric Rose & Magenta / Creative Core) -->
+      <div class="hm r" id="hr">
+        <img id="bRight" src="assets/images/brain-right.webp" alt="Right cerebral hemisphere — Creative Studio &amp; UI/UX Solutions" draggable="false">
+      </div>
+    </div>
+
+    <!-- Clickable Service Badges Anchoring the Split-Brain Concept -->
+    <a href="#engineer" class="hero-service-badge badge-left" id="badgeLeft" aria-label="Explore AI & Automation Services">
+      <div class="badge-header">
+        <span class="badge-dot dot-cyan"></span>
+        <span class="badge-title">AI &amp; AUTOMATION</span>
+        <span class="badge-arrow">→</span>
+      </div>
+      <div class="badge-sub">Workflows • Data • Systems</div>
+    </a>
+
+    <a href="#creator" class="hero-service-badge badge-right" id="badgeRight" aria-label="Explore UI/UX & Web Design Services">
+      <div class="badge-header">
+        <span class="badge-dot dot-pink"></span>
+        <span class="badge-title">UI/UX &amp; WEB DESIGN</span>
+        <span class="badge-arrow">→</span>
+      </div>
+      <div class="badge-sub">Websites • Branding • Dashboards</div>
+    </a>
+
+    <!-- Canvas Effects -->
+    <canvas class="cv" id="bolt" aria-hidden="true"></canvas>
+
+    <!-- Layer 3 (Front/Top): Massive 'TANVI KAKARALA' Typography (Completely IN FRONT of the brain, 100% legible) -->
+    <div class="hero-massive-title" id="heroMassiveTitle" aria-label="Tanvi Kakarala">
+      <div class="hero-parallax-layer" id="heroParallaxLayer">
+        <h1 class="massive-text" id="massiveText">
+          <span class="word"><span class="char">T</span><span class="char">A</span><span class="char">N</span><span class="char">V</span><span class="char">I</span></span>
+          <span class="word-gap">&nbsp;</span>
+          <span class="word"><span class="char">K</span><span class="char">A</span><span class="char">K</span><span class="char">A</span><span class="char">R</span><span class="char">A</span><span class="char">L</span><span class="char">A</span></span>
+        </h1>
+        <p class="hero-tagline" id="heroTagline">
+          DESIGN ENGINEER <span class="tagline-dot">•</span> AI &amp; UI/UX
+        </p>
+      </div>
+    </div>
+
+    <!-- Clean, Subtle Animated Vertical Scroll Cue positioned at bottom center -->
+    <a href="#desks" class="hero-scroll-cue" id="heroScrollCue" aria-label="Scroll down to content">
+      <span class="scroll-cue-text">SCROLL</span>
+      <span class="scroll-cue-line"></span>
+    </a>
+  </main>
+
+  <!-- ==========================================================================
+       PAGE BODY AFTER HERO
+       ========================================================================== -->
+  <div class="after">
+
+    <!-- ========================================================================
+         SECTION 1: THE DUAL DESKS — INTERACTIVE EXPANDABLE ROOMS
+         ======================================================================== -->
+    <section class="sec" id="desks" aria-label="Choose a desk">
+      <a class="room e" href="#engineer" aria-label="Enter The Engineer Desk">
+        <div class="rv"><span class="k">01 / Logic &amp; Cloud Data</span></div>
+        <div class="rv">
+          <h2>The<br>Engineer</h2>
+          <ul class="tags">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>PySpark</li>
+            <li>Microsoft Fabric</li>
+            <li>Power BI</li>
+            <li>Agentic AI</li>
+          </ul>
+          <span class="go">Enter the desk →</span>
+        </div>
+      </a>
+
+      <a class="room c" href="#creator" aria-label="Enter The Creator Desk">
+        <div class="rv"><span class="k">02 / Creativity &amp; Growth</span></div>
+        <div class="rv">
+          <h2>The<br>Creator</h2>
+          <ul class="tags">
+            <li>Websites</li>
+            <li>Branding</li>
+            <li>UI/UX</li>
+            <li>AI Commercials</li>
+            <li>Automation</li>
+            <li>Opulence Live</li>
+          </ul>
+          <span class="go">Enter the desk →</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- Quick Stats Bar -->
+    <div class="quick-stats-bar">
+      <div class="stat-cell">
+        <b class="stat-num stat-cyan" data-target="2" data-suffix="+ Yrs">2+ Yrs</b>
+        <span class="stat-desc">Enterprise Data Eng @ TEKsystems</span>
+      </div>
+      <div class="stat-cell">
+        <b class="stat-num stat-gold" data-target="4" data-suffix="×">4×</b>
+        <span class="stat-desc">Gold Medalist (College Topper Every Year)</span>
+      </div>
+      <div class="stat-cell">
+        <b class="stat-num stat-pink" data-target="93" data-suffix="%">93%</b>
+        <span class="stat-desc">B.Tech Aggregate (98% Intermediate)</span>
+      </div>
+      <div class="stat-cell">
+        <b class="stat-num stat-duo" data-target="1000" data-suffix="+">1,000+</b>
+        <span class="stat-desc">Students Mentored in Swecha Free Software</span>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         SECTION 2: THE ENGINEER LAB — DATA PIPELINE & AGENTIC AI SIMULATOR
+         ======================================================================== -->
+    <section class="sec eng" id="engineer">
+      <div class="container">
+        <span class="k rv">Enterprise Data Engineering &amp; AI</span>
+        <h2 class="rv">High-throughput pipelines.<br><i>Zero data friction.</i></h2>
+        <p class="lead rv">
+          At <strong>TEKsystems</strong>, I engineer resilient Microsoft Fabric Lakehouse architectures, automate PySpark data validation, and modernize legacy reporting to interactive Power BI. Grounded in rigor, powered by agentic AI capabilities.
+        </p>
+
+        <!-- 4-Stage Data Pipeline with Animated Flow -->
+        <div class="pipe rv" id="pipelineFlow">
+          <div style="--d: 0.1s">
+            <span class="pipe-num">01</span>
+            <b>INGEST</b>
+            <small>SQL Server · SSMS · Multi-Source APIs · Raw Lakehouse</small>
+          </div>
+          <div style="--d: 0.3s">
+            <span class="pipe-num">02</span>
+            <b>TRANSFORM</b>
+            <small>PySpark ETL/ELT · Medallion Bronze-Silver · Schema Cleansing</small>
+          </div>
+          <div style="--d: 0.5s">
+            <span class="pipe-num">03</span>
+            <b>MODEL</b>
+            <small>Microsoft Fabric · Gold Star Schemas · Delta Tables</small>
+          </div>
+          <div style="--d: 0.7s">
+            <span class="pipe-num">04</span>
+            <b>VISUALIZE</b>
+            <small>Power BI Dashboards · SSRS Modernization · Executive KPIs</small>
+          </div>
+        </div>
+
+        <!-- Interactive Agentic AI Migration Simulator -->
+        <div class="terminal-card rv" id="aiSimulator">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
+            </div>
+            <div class="terminal-title">agentic_migration_daemon.py — Autonomous AI Validation Engine</div>
+            <div class="terminal-status"><span class="pulse-green"></span> ACTIVE AGENT</div>
+          </div>
+
+          <div class="terminal-body" id="terminalLogs">
+            <div class="log-line text-cyan">[INIT] Initializing Antigravity Agentic Migration Controller v2.4...</div>
+            <div class="log-line text-muted">[INFO] Connected to Source: Enterprise SQL Server &amp; SSMS (Legacy Datamart)</div>
+            <div class="log-line text-muted">[INFO] Target Lakehouse: Microsoft Fabric (OneLake Medallion Architecture)</div>
+            <div class="log-line text-yellow">[AGENT] Autonomous Agent: Ready to perform schema mapping &amp; validation tasks.</div>
+          </div>
+
+          <div class="terminal-actions">
+            <button class="sim-btn" id="btnRunValidation">⚡ Run Agentic Schema Validation</button>
+            <button class="sim-btn" id="btnSimulateFabric">🔄 Modernize SSRS to Fabric</button>
+            <button class="sim-btn" id="btnChecksumCheck">🛡️ Checksum Parity Verification</button>
+            <button class="sim-btn secondary" id="btnClearTerminal">Clear Logs</button>
+          </div>
+        </div>
+
+        <!-- 3 Deep Technical Architecture Glass Cards -->
+        <div class="grid3">
+          <div class="glass rv">
+            <div class="card-icon-tag text-cyan">☁️ ARCHITECTURE</div>
+            <h3>Microsoft Fabric &amp; Medallion Lakehouse</h3>
+            <p>Architecting multi-hop Bronze (Raw), Silver (Cleansed), and Gold (Curated Business) lakehouse zones on OneLake, eliminating data silos and enabling lightning-fast analytical queries.</p>
+            <ul class="micro-tags">
+              <li>Delta Lake</li>
+              <li>OneLake</li>
+              <li>Direct Lake</li>
+            </ul>
+          </div>
+
+          <div class="glass rv" style="--d: 0.1s">
+            <div class="card-icon-tag text-cyan">⚡ DATA PROCESSING</div>
+            <h3>PySpark &amp; SQL Server Optimization</h3>
+            <p>Developing high-performance distributed PySpark transformations, index-tuned stored procedures, automated schema mapping, and regression-proof data reconciliation routines.</p>
+            <ul class="micro-tags">
+              <li>PySpark</li>
+              <li>T-SQL</li>
+              <li>Data Validation</li>
+            </ul>
+          </div>
+
+          <div class="glass rv" style="--d: 0.2s">
+            <div class="card-icon-tag text-cyan">📊 BUSINESS INTELLIGENCE</div>
+            <h3>SSRS-to-Power BI Modernization</h3>
+            <p>Decommissioning cumbersome legacy paginated reports, modernizing semantic DAX models, and crafting executive Power BI dashboards with real-time KPI telemetry.</p>
+            <ul class="micro-tags">
+              <li>Power BI</li>
+              <li>SSRS Migration</li>
+              <li>DAX Modeling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 3: THE CREATOR STUDIO — DIGITAL EXPERIENCES & AI CREATIVE
+         ======================================================================== -->
+    <section class="sec cre" id="creator">
+      <div class="container">
+        <span class="k rv">Digital Solutions Freelance Studio</span>
+        <h2 class="rv">Bespoke websites.<br><i>Magnetic brand storytelling.</i></h2>
+        <p class="lead rv">
+          In my freelance practice, I build bespoke, high-converting digital storefronts, AI-assisted video campaigns, and brand identities that make businesses impossible to ignore.
+        </p>
+
+        <!-- Interactive Color Harmony Swatches -->
+        <div class="palette-bar rv">
+          <span class="palette-label">Interactive Studio Lighting:</span>
+          <div class="swatches" id="colorSwatches">
+            <button class="swatch-btn active" data-theme="default" style="background: linear-gradient(135deg, #00f5ff, #ff2a85);" title="Dual-Core Signature"></button>
+            <button class="swatch-btn" data-theme="electric-cyan" style="background: linear-gradient(135deg, #00f5ff, #0066ff);" title="Electric Cyan"></button>
+            <button class="swatch-btn" data-theme="rose-magenta" style="background: linear-gradient(135deg, #ff2a85, #ffb3c7);" title="Rose Magenta"></button>
+            <button class="swatch-btn" data-theme="aurora-gold" style="background: linear-gradient(135deg, #ffd700, #ff5e36);" title="Golden Prestige"></button>
+          </div>
+        </div>
+
+        <!-- 4 Creative Service Pillars -->
+        <div class="grid3">
+          <div class="glass rv" style="--bar: linear-gradient(90deg, #ff2a85, #ffb3c7);">
+            <div class="card-icon-tag text-pink">💻 WEB DESIGN &amp; DEV</div>
+            <h3>Bespoke Business Websites</h3>
+            <p>From international export portals to luxury brand landing pages. Built with semantic HTML5, modern CSS, Angular, fluid responsive layouts, and zero bloat.</p>
+            <ul class="micro-tags">
+              <li>Responsive UI/UX</li>
+              <li>Netlify CDN</li>
+              <li>Angular / JS</li>
+            </ul>
+          </div>
+
+          <div class="glass rv" style="--bar: linear-gradient(90deg, #ff2a85, #7b5cff); --d: 0.1s">
+            <div class="card-icon-tag text-pink">🎬 AI CREATIVE &amp; ADS</div>
+            <h3>AI Commercials &amp; Visuals</h3>
+            <p>Generating photorealistic product visuals, promotional videos, and high-impact social advertising campaigns using modern AI workflows (Antigravity, Midjourney, Google Flow).</p>
+            <ul class="micro-tags">
+              <li>Product Video</li>
+              <li>AI 3D Renders</li>
+              <li>Campaign Copy</li>
+            </ul>
+          </div>
+
+          <div class="glass rv" style="--bar: linear-gradient(90deg, #ff2a85, #ffc857); --d: 0.2s">
+            <div class="card-icon-tag text-pink">🎨 BRAND IDENTITY</div>
+            <h3>Identity, Logos &amp; Pitch Decks</h3>
+            <p>End-to-end brand guidelines, vector logo marks, corporate brochures, product catalogs, and presentation decks that establish immediate market authority.</p>
+            <ul class="micro-tags">
+              <li>Brand Guides</li>
+              <li>B2B Catalogs</li>
+              <li>Pitch Decks</li>
+            </ul>
+          </div>
+
+          <div class="glass rv" style="--bar: linear-gradient(90deg, #ff2a85, #38bdf8); --d: 0.3s">
+            <div class="card-icon-tag text-pink">🤖 WORKFLOW AUTOMATION</div>
+            <h3>AI Assistants &amp; Automation</h3>
+            <p>Automating repetitive administrative and reporting workflows, integrating custom chatbot assistants, and building document extraction pipelines.</p>
+            <ul class="micro-tags">
+              <li>Repetitive Task Elimination</li>
+              <li>Chatbots</li>
+              <li>Julius AI</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 4: FEATURED CASE STUDIES (OPULENCE, AASTHA, TEKSYSTEMS)
+         ======================================================================== -->
+    <section class="sec" id="work">
+      <div class="container">
+        <span class="k rv">Selected Client Work &amp; Enterprise Projects</span>
+        <h2 class="rv">Engineered for impact.<br><i>Shipped to production.</i></h2>
+
+        <!-- Featured Case Study 1: OPULENCE (Live Netlify Production) -->
+        <div class="mag rv">
+          <div class="mag-info">
+            <span class="live-pill">● LIVE IN PRODUCTION</span>
+            <h3>OPULENCE</h3>
+            <p class="mag-sub">International Trading &amp; Global Commodity Export</p>
+            <ul class="mag-points">
+              <li>Architected a luxury, dark-themed responsive website tailored for global buyers and international commodity trade.</li>
+              <li>Implemented smooth interactive product showcases and visual storytelling for agricultural and industrial commodities.</li>
+              <li>Leveraged AI-assisted video workflows for cinematic hero product showcases.</li>
+              <li>Deployed on Netlify with 98+ Lighthouse scores and sub-second global delivery.</li>
+            </ul>
+            <div class="quote">
+              "A digital storefront that commands the same prestige and trust as our international export transactions."
+            </div>
+            <div class="mag-actions">
+              <button class="btn btn-duo-glow" data-project-trigger="opulence">
+                <span>Inspect Architecture</span> <span>🔍</span>
+              </button>
+              <a class="btn btn-outline-glass" href="https://opulence-trading.netlify.app" target="_blank" rel="noopener">
+                <span>Visit Live Website</span> <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="browser">
+            <header>
+              <i></i><i></i><i></i>
+              <span class="browser-url">opulence-trading.com</span>
+            </header>
+            <div class="browser-content">
+              <img src="assets/images/opulence.svg" alt="OPULENCE International Trading website showcase" class="browser-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Case Study 2: Aastha Enterprises -->
+        <div class="mag rv" style="margin-top: 80px;">
+          <div class="browser order-mobile-2">
+            <header>
+              <i></i><i></i><i></i>
+              <span class="browser-url">aastha-enterprises.in</span>
+            </header>
+            <div class="browser-content">
+              <img src="assets/images/aastha.svg" alt="Aastha Enterprises commercial beverage platform showcase" class="browser-img">
+            </div>
+          </div>
+
+          <div class="mag-info">
+            <span class="live-pill staging">● CLIENT STAGING &amp; CATALOG DEPLOYMENT</span>
+            <h3>Aastha Enterprises</h3>
+            <p class="mag-sub">Commercial Beverage Premixes &amp; Smart Vending Machines</p>
+            <ul class="mag-points">
+              <li>Developing a product-first digital experience for corporate beverage solutions, premixes, and automated vending machine leasing.</li>
+              <li>Produced photorealistic AI commercial photography for tea, coffee, and soup blends, eliminating expensive physical studio photography costs.</li>
+              <li>Engineered interactive machine dimension visualizers and corporate leasing inquiry funnels.</li>
+            </ul>
+            <div class="quote">
+              "The AI-generated product photography captured the exact richness of our premixes without weeks of studio rental."
+            </div>
+            <div class="mag-actions">
+              <button class="btn btn-duo-glow" data-project-trigger="aastha">
+                <span>View Case Study</span> <span>🔍</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Case Study 3: TEKsystems Enterprise Modernization -->
+        <div class="mag rv" style="margin-top: 80px;">
+          <div class="mag-info">
+            <span class="live-pill enterprise">● ENTERPRISE INITIATIVE @ TEKSYSTEMS</span>
+            <h3>Cloud Fabric Modernization</h3>
+            <p class="mag-sub">Microsoft Fabric Lakehouse &amp; Agentic AI Migration</p>
+            <ul class="mag-points">
+              <li>Engineered Medallion Lakehouse pipelines modernizing legacy on-premises ETL databases into scalable Microsoft Fabric OneLake storage.</li>
+              <li>Participated in an agentic AI initiative using autonomous models for schema mapping, cutting manual mapping turnaround by 60%.</li>
+              <li>Upgraded legacy SSRS paginated reports into interactive Power BI dashboards with rigorous row-level data reconciliation.</li>
+            </ul>
+            <div class="quote">
+              "Bridging enterprise data engineering rigor with modern agentic AI acceleration."
+            </div>
+            <div class="mag-actions">
+              <button class="btn btn-duo-glow" data-project-trigger="teksystems">
+                <span>View Technical Deep-Dive</span> <span>📊</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="browser">
+            <header>
+              <i></i><i></i><i></i>
+              <span class="browser-url">onelake.fabric.microsoft.com</span>
+            </header>
+            <div class="browser-content">
+              <img src="assets/images/teksystems-fabric.svg" alt="Microsoft Fabric & Agentic AI Architecture" class="browser-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 5: ABOUT TANVI — ENGINEER BY TRAINING, CREATOR BY INSTINCT
+         ======================================================================== -->
+    <section class="sec" id="about">
+      <div class="container">
+        <div class="ab">
+          <div class="pf rv">
+            <img src="assets/images/tanvi-portrait.webp" alt="Tanvi Kakarala — Data Engineer and Digital Creator">
+          </div>
+
+          <div>
+            <span class="k rv">About Tanvi Kakarala</span>
+            <h2 class="rv">Engineer by training,<br><i>creator by instinct.</i></h2>
+            <p class="lead rv">
+              I’m Tanvi Kakarala, a data engineer based in Hyderabad, India. I combine enterprise data rigor with creative digital speed to solve complex business problems. Whether architecting a Microsoft Fabric lakehouse or designing an international export portal, I build with obsessive attention to detail — and I check every deliverable before it ships.
+            </p>
+
+            <ul class="tl rv">
+              <li>
+                <b>Enterprise Data Engineer — TEKsystems</b>
+                <span>November 2024 to Present · Hyderabad</span>
+                <p>Microsoft Fabric, PySpark ETL, SSRS-to-Power BI migration, and Agentic AI data validation workflows.</p>
+              </li>
+              <li>
+                <b>Independent Digital Solutions Freelancer</b>
+                <span>2026 to Present</span>
+                <p>Modern responsive web engineering (OPULENCE live site, Aastha Enterprises), brand identity, and AI advertising.</p>
+              </li>
+              <li>
+                <b>B.Tech in Computer Science and Engineering (AI &amp; ML)</b>
+                <span>CMR Engineering College · 93% Aggregate</span>
+                <p>Consecutive College Topper across all 4 years · 4× Academic Gold Medalist.</p>
+              </li>
+              <li>
+                <b>Intermediate (MPC)</b>
+                <span>Vignan Junior College · 98% Aggregate</span>
+                <p>State-level academic excellence distinction.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 6: TEACHING, SWECHA & PUBLIC TECH LEADERSHIP
+         ======================================================================== -->
+    <section class="sec" id="teaching">
+      <div class="container">
+        <span class="k rv">Social Impact &amp; Open Source</span>
+        <h2 class="rv">Teaching free software<br>across Hyderabad.</h2>
+        <p class="lead rv">
+          As an elected GLUG core team member and active volunteer at <strong>Swecha</strong> (Free Software Movement), I spearheaded digital literacy campaigns, led hands-on technical bootcamps, and helped curate open voice/text datasets for Telugu AI language models.
+        </p>
+
+        <!-- Infinite Animated Campus Marquee -->
+        <div class="mq" aria-hidden="true">
+          <div>
+            <span>IARE Hyderabad</span>
+            <span>MLRIT</span>
+            <span>CBIT</span>
+            <span>MRIT</span>
+            <span>CMR All Campuses</span>
+            <span>Anurag University</span>
+            <span>Govt Schools Telangana</span>
+            <span>IARE Hyderabad</span>
+            <span>MLRIT</span>
+            <span>CBIT</span>
+            <span>MRIT</span>
+            <span>CMR All Campuses</span>
+            <span>Anurag University</span>
+            <span>Govt Schools Telangana</span>
+          </div>
+        </div>
+
+        <ul class="tags rv">
+          <li>Linux Administration</li>
+          <li>Web Development</li>
+          <li>App Development</li>
+          <li>Code Hub</li>
+          <li>Web Scraping</li>
+          <li>Telugu AI Datasets</li>
+        </ul>
+
+        <div class="grid3">
+          <div class="ph-card rv">
+            <div class="ph-inner">
+              <img src="assets/images/swecha-impact.svg" alt="College Campus Workshops" class="ph-img">
+              <div class="ph-caption">
+                <b>College Campus Sessions</b>
+                <span>Spearheaded class-to-class campaigns and conducted bootcamps across 6+ premier engineering colleges.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ph-card rv" style="--d: 0.1s">
+            <div class="ph-inner">
+              <img src="assets/images/swecha-impact.svg" alt="Government School Visits" class="ph-img">
+              <div class="ph-caption">
+                <b>Government School Digital Access</b>
+                <span>Equipped public school computer labs with Swecha open software and mentored underprivileged students.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ph-card rv" style="--d: 0.2s">
+            <div class="ph-inner">
+              <img src="assets/images/swecha-impact.svg" alt="Telugu AI LLM Dataset Initiative" class="ph-img">
+              <div class="ph-caption">
+                <b>Telugu AI Dataset Contribution</b>
+                <span>Gathered spoken dialect and vernacular text data for open-source Telugu Large Language Models.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 7: CONSISTENCY — FOUR YEARS. FOUR GOLD MEDALS.
+         ======================================================================== -->
+    <section class="sec" id="medals">
+      <div class="container">
+        <span class="k rv" style="color: #FFC857;">Academic Mastery &amp; Discipline</span>
+        <h2 class="rv">Four years.<br><i>Four gold medals.</i></h2>
+        <p class="lead rv">
+          College Topper in <strong>every single year</strong> of B.Tech Computer Science &amp; Engineering (AI &amp; ML). The greatest milestone was escorting my parents onto the grand convocation stage for the presidential felicitation.
+        </p>
+
+        <!-- 4 Dropping Gold Medals -->
+        <div class="mrow" id="mrow">
+          <div class="medal" style="--i: 0;">
+            <div class="medal-chain"></div>
+            <div class="medal-coin">
+              <span class="medal-num">1</span>
+              <span class="medal-ribbon">Year 1</span>
+            </div>
+            <div class="medal-label">Gold Medalist · Rank 1</div>
+          </div>
+
+          <div class="medal" style="--i: 1;">
+            <div class="medal-chain"></div>
+            <div class="medal-coin">
+              <span class="medal-num">2</span>
+              <span class="medal-ribbon">Year 2</span>
+            </div>
+            <div class="medal-label">Gold Medalist · Rank 1</div>
+          </div>
+
+          <div class="medal" style="--i: 2;">
+            <div class="medal-chain"></div>
+            <div class="medal-coin">
+              <span class="medal-num">3</span>
+              <span class="medal-ribbon">Year 3</span>
+            </div>
+            <div class="medal-label">Gold Medalist · Rank 1</div>
+          </div>
+
+          <div class="medal" style="--i: 3;">
+            <div class="medal-chain"></div>
+            <div class="medal-coin">
+              <span class="medal-num">4</span>
+              <span class="medal-ribbon">Year 4</span>
+            </div>
+            <div class="medal-label">Gold Medalist · Rank 1</div>
+          </div>
+        </div>
+
+        <!-- Academic Distinction Details Card -->
+        <div class="ph-card rv" style="max-width: 680px; margin: 56px auto 0;">
+          <div class="ph-inner" style="padding: 1.5rem; text-align: center;">
+            <img src="assets/images/gold-medals.svg" alt="Convocation Felicitation with Parents" style="max-width: 220px; margin: 0 auto 1rem; display: block;">
+            <h3 style="font-family: 'Fraunces', serif; font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">Felicitation on Stage with Parents</h3>
+            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 1rem;">
+              Honored for achieving 93% aggregate throughout B.Tech CSE (AI &amp; ML) at CMR Engineering College, following 98% in Intermediate MPC at Vignan Junior College.
+            </p>
+            <div class="academic-stats-row">
+              <div class="stat-pill"><strong>93%</strong> Aggregate B.Tech</div>
+              <div class="stat-pill"><strong>98%</strong> Aggregate Inter</div>
+              <div class="stat-pill"><strong>#1</strong> Dept Rank 1</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 8: THE 6-STAGE DELIVERY PROCESS & AI MANIFESTO
+         ======================================================================== -->
+    <section class="sec" id="process">
+      <div class="container">
+        <span class="k rv">Execution Methodology</span>
+        <h2 class="rv">From brief to<br><i>launch and beyond.</i></h2>
+
+        <div class="steps rv">
+          <div>
+            <b>01 / Brief</b>
+            <span>Define core goals, architectural scope, and delivery milestones.</span>
+          </div>
+          <div>
+            <b>02 / Design</b>
+            <span>Wireframes, visual prototypes, and data schema blueprints you can react to.</span>
+          </div>
+          <div>
+            <b>03 / Build</b>
+            <span>Responsive frontend coding, animations, and robust ETL/ELT pipelines.</span>
+          </div>
+          <div>
+            <b>04 / Review</b>
+            <span>Iterative client feedback and multi-device automated quality checks.</span>
+          </div>
+          <div>
+            <b>05 / Launch</b>
+            <span>Production deployment on Netlify / Cloud with telemetry testing.</span>
+          </div>
+          <div>
+            <b>06 / Support</b>
+            <span>Post-launch performance monitoring, enhancements, and maintenance.</span>
+          </div>
+        </div>
+
+        <div class="prom rv">
+          <div class="prom-icon">🧠</div>
+          <div class="prom-text">
+            <b>AI-Assisted, Human-Reviewed.</b>
+            <p>
+              I use cutting-edge AI tools (Google Antigravity, LLMs, Julius AI) to accelerate research, rapid prototyping, and creative asset generation by 5×. However, every line of code, SQL query, and design deliverable is personally reviewed, tested, and validated by me before shipping.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         SECTION 9: INTERACTIVE BRIEF BUILDER & WHATSAPP GENERATOR
+         ======================================================================== -->
+    <section class="sec" id="contact">
+      <div class="container">
+        <span class="k rv" style="color: #FFD1DE;">Let's Collaborate</span>
+        <h2 class="rv">Let's build something<br><i>exceptional together.</i></h2>
+        <p class="lead rv">
+          Select what you need, pick your timeline, and generate a customized WhatsApp brief in seconds — or contact me directly.
+        </p>
+
+        <!-- Interactive Brief Builder Widget -->
+        <div class="bf rv" id="bf">
+          <h3>1. What do you need?</h3>
+          <div class="opts" id="needOpts" role="group" aria-label="Service Need">
+            <button type="button" class="opt-btn active" data-val="Business Website" aria-pressed="true">Business Website</button>
+            <button type="button" class="opt-btn" data-val="AI Ads & Visuals" aria-pressed="false">AI Ads &amp; Visuals</button>
+            <button type="button" class="opt-btn" data-val="Brand & Logo Design" aria-pressed="false">Brand &amp; Logo</button>
+            <button type="button" class="opt-btn" data-val="Microsoft Fabric & Data" aria-pressed="false">Microsoft Fabric &amp; Data</button>
+            <button type="button" class="opt-btn" data-val="Power BI Dashboards" aria-pressed="false">Power BI Dashboards</button>
+            <button type="button" class="opt-btn" data-val="AI Workflow Automation" aria-pressed="false">AI Automation</button>
+            <button type="button" class="opt-btn" data-val="Full Digital Solution" aria-pressed="false">Full Solution</button>
+          </div>
+
+          <h3>2. What is your timeline?</h3>
+          <div class="opts" id="timeOpts" role="group" aria-label="Project Timeline">
+            <button type="button" class="opt-btn active" data-val="This week" aria-pressed="true">This week (Rush)</button>
+            <button type="button" class="opt-btn" data-val="This month" aria-pressed="false">This month</button>
+            <button type="button" class="opt-btn" data-val="Flexible" aria-pressed="false">Flexible</button>
+          </div>
+
+          <h3>3. Your Name &amp; Business</h3>
+          <input id="clientNameInput" type="text" placeholder="e.g. Rahul Sharma / Global Trading Co." autocomplete="name" aria-label="Your Name or Business">
+
+          <div class="brief-actions">
+            <a class="btn btn-wa-glow" id="waBriefBtn" href="https://wa.me/917569844574?text=Hi%20Tanvi%2C%20I%20need%20a%20Business%20Website%20with%20timeline%3A%20This%20week." target="_blank" rel="noopener">
+              <span>Send Brief on WhatsApp</span> <span>💬</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Direct Ways to Connect -->
+        <div class="ways rv">
+          <a class="btn o" href="tel:+917569844574">
+            <span>Call +91 75698 44574</span> <span>📞</span>
+          </a>
+          <a class="btn o" href="mailto:tanvikakarala@gmail.com">
+            <span>tanvikakarala@gmail.com</span> <span>✉️</span>
+          </a>
+          <a class="btn o" href="https://linkedin.com" target="_blank" rel="noopener">
+            <span>LinkedIn / Tanvi Kakarala</span> <span>💼</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         FOOTER
+         ======================================================================== -->
+    <footer class="ft">
+      <div class="container ft-content">
+        <p>© 2026 Tanvi Kakarala · Hyderabad, India · Data Engineer &amp; Digital Solutions Architect</p>
+        <div class="ft-links">
+          <a href="#hero">Back to Top ↑</a>
+          <a href="#desks">The Desks</a>
+          <a href="#engineer">Data &amp; Fabric</a>
+          <a href="#creator">Creative Studio</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DIALOG (Case Study Inspector)
+       ========================================================================== -->
+  <div class="modal-overlay" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Close Case Study">✕</button>
+      <div id="modalDynamicContent">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/gsap.min.js"></script>
+  <script src="js/hero-entrance.js?v=8.0"></script>
+  <script src="js/brain-interactive.js?v=8.0"></script>
+  <script src="js/main.js?v=8.0"></script>
+</body>
+</html>

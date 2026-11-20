@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5ff"/>
+      <stop offset="100%" stop-color="#0066ff"/>
+    </linearGradient>
+    <linearGradient id="grad-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#800040"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#080a18"/>
+  <circle cx="32" cy="32" r="28" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" fill="none"/>
+  <!-- Left Side Duality -->
+  <path d="M 32 12 A 20 20 0 0 0 32 52 Z" fill="url(#grad-blue)" opacity="0.85" filter="url(#glow)"/>
+  <!-- Right Side Duality -->
+  <path d="M 32 12 A 20 20 0 0 1 32 52 Z" fill="url(#grad-pink)" opacity="0.85" filter="url(#glow)"/>
+  <!-- Monogram TK -->
+  <text x="32" y="38" text-anchor="middle" font-family="'Segoe UI', system-ui, sans-serif" font-weight="900" font-size="20" fill="#ffffff" letter-spacing="-1">TK</text>
+</svg>
