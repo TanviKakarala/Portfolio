@@ -1076,22 +1076,12 @@ html {
   flex: 1.85; /* 65% / 35% hover-expand split */
 }
 
-/* Inactive Side Dimming: Smoothly dim compressed room visuals so focus locks onto active desk and cross-flow */
-#desks:has(.room.e:hover) .room.c .room-top,
-#desks:has(.room.e:hover) .room.c .room-bottom,
-#desks:has(.room.c:hover) .room.e .room-top,
-#desks:has(.room.c:hover) .room.e .room-bottom {
-  opacity: 0.24;
-  filter: blur(1.5px);
-  transition: opacity 0.5s ease, filter 0.5s ease;
-}
-
-#desks:has(.room.e:hover) .room.c .desk-3d-frame,
-#desks:has(.room.c:hover) .room.e .desk-3d-frame {
-  opacity: 0.05;
-  filter: blur(14px) brightness(0.45);
-  transform: scale(0.88);
-  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+/* Inactive Side Dimming: Smoothly dim compressed room on hover so focus locks onto active desk & HUD pointers */
+#desks:has(.room.e:hover) .room.c,
+#desks:has(.room.c:hover) .room.e {
+  opacity: 0.42;
+  filter: brightness(0.82) saturate(0.85);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
 .room.e {
@@ -1352,17 +1342,23 @@ html {
   filter: blur(80px);
 }
 
-/* Bottom Controls Container */
+/* Bottom Controls Container: Cleanly Anchored at Bottom Corners */
 .room-bottom {
   display: flex;
-  flex-direction: column;
-  z-index: 5;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  z-index: 6;
   position: relative;
-  gap: 8px;
+  width: 100%;
+}
+
+.room.e .room-bottom {
+  justify-content: flex-start; /* Explore Engineering anchored at bottom-left */
 }
 
 .room.c .room-bottom {
-  align-items: flex-end;
+  justify-content: flex-end; /* Explore Design anchored at bottom-right */
 }
 
 /* Cohesive Frosted Glass Skill Pills */
@@ -1610,272 +1606,321 @@ html {
 
 
 /* ==========================================================================
-   CROSS-PANEL STEP-BY-STEP SERVICES WORKFLOW (HORIZONTAL ANIMATED REVEAL)
-   - Left Expand -> Reveals Engineer's 4-step pipeline horizontally on Right (.room.c)
-   - Right Expand -> Reveals Creator's 4-step roadmap horizontally on Left (.room.e)
-   - Staggered sequence: [one by one] reveal with glowing micro-cards & arrows
+   HUD-STYLE TECHNICAL POINTERS (INSIDE ACTIVE PANEL BOUNDARIES)
+   - Left Panel (The Engineer): 5 pointer callouts anchored along top-right, mid-right,
+     bottom-right edges pointing inward (leftward) toward 3D workstation.
+   - Right Panel (The Creator): 5 mirrored pointer callouts along top-left, mid-left,
+     bottom-left edges pointing inward (rightward) toward 3D studio visual.
+   - Animation Sequence on expand:
+     1. Anchor dot illuminates.
+     2. 1px angled SVG connector line draws inward via stroke-dashoffset.
+     3. Stagger-reveal heading line-by-line using clip-path wipes:
+        (01 // CATEGORY followed 120ms later by the service title).
+     4. Target pip at inward tip illuminates.
+     5. Reverse cleanly when collapsed (0s delay, smooth 0.2s collapse).
    ========================================================================== */
-.cross-services-flow {
+
+.hud-pointers-rail {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(94%, 520px);
+  top: clamp(68px, 9vh, 96px);
+  bottom: clamp(64px, 8.5vh, 92px);
+  width: clamp(260px, 24vw, 340px);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(10px, 1.4vh, 16px);
-  z-index: 10;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 8;
   opacity: 0;
   visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
 }
 
-.flow-pill-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  background: rgba(10, 16, 28, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  opacity: 0;
+.engineer-hud {
+  right: clamp(14px, 1.8vw, 28px);
+  align-items: flex-end;
+  text-align: right;
 }
 
-.flow-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  animation: pulseGlow 1.8s infinite ease-in-out;
+.creator-hud {
+  left: clamp(14px, 1.8vw, 28px);
+  align-items: flex-start;
+  text-align: left;
 }
 
-.cyan-dot {
-  background: #00F5FF;
-  box-shadow: 0 0 10px #00F5FF;
+/* Expansion Reveal Triggers */
+.room.e:hover .engineer-hud,
+.room.e:focus-within .engineer-hud {
+  opacity: 1;
+  visibility: visible;
 }
 
-.pink-dot {
-  background: #FF2A85;
-  box-shadow: 0 0 10px #FF2A85;
+.room.c:hover .creator-hud,
+.room.c:focus-within .creator-hud {
+  opacity: 1;
+  visibility: visible;
 }
 
-.flow-pill-text {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.flow-steps-horizontal {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: clamp(4px, 0.8vw, 8px);
-}
-
-.flow-step-card {
-  flex: 1 1 0;
-  min-width: 0;
-  padding: clamp(10px, 1.3vh, 14px) clamp(6px, 0.7vw, 10px);
-  border-radius: 10px;
-  text-align: center;
+/* HUD Callout Container */
+.hud-callout {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  opacity: 0;
-  transform: translateY(18px) scale(0.9);
+  position: relative;
+  width: 100%;
 }
 
-.engineer-services-flow .flow-step-card {
-  background: rgba(8, 20, 36, 0.9);
-  border: 1px solid rgba(0, 245, 255, 0.38);
+.engineer-hud .hud-callout {
+  align-items: flex-end;
 }
 
-.creator-services-flow .flow-step-card {
-  background: rgba(36, 12, 28, 0.9);
-  border: 1px solid rgba(255, 42, 133, 0.4);
+.creator-hud .hud-callout {
+  align-items: flex-start;
 }
 
-.flow-step-card .step-num {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  line-height: 1;
-}
-
-.engineer-services-flow .step-num {
-  color: #00F5FF;
-}
-
-.creator-services-flow .step-num {
-  color: #FF2A85;
-}
-
-.flow-step-card .step-icon {
-  width: 22px;
-  height: 22px;
-  margin: 5px 0 6px;
+/* Label Group */
+.hud-label-group {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 2;
 }
 
-.flow-step-card .step-icon svg {
-  width: 100%;
-  height: 100%;
+.engineer-hud .hud-label-group {
+  align-items: flex-end;
+  padding-right: 8px;
 }
 
-.engineer-services-flow .step-icon svg {
-  color: #cceeff;
-  filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.6));
+.creator-hud .hud-label-group {
+  align-items: flex-start;
+  padding-left: 8px;
 }
 
-.creator-services-flow .step-icon svg {
-  color: #ffd8eb;
-  filter: drop-shadow(0 0 6px rgba(255, 42, 133, 0.6));
-}
-
-.flow-step-card .step-title {
+/* 01 // CATEGORY (Line 1 Wipe) */
+.hud-cat {
+  display: block;
   font-family: var(--font-mono);
-  font-size: clamp(10.5px, 0.82vw, 12px);
+  font-size: clamp(9.5px, 0.72vw, 11px);
   font-weight: 700;
-  color: #ffffff;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
   line-height: 1.2;
-}
-
-.flow-step-card .step-sub {
-  font-family: var(--font-sans);
-  font-size: 9px;
-  opacity: 0.82;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-  line-height: 1.25;
-  margin-top: 2px;
-  color: #b0c8e0;
-}
-
-.creator-services-flow .step-sub {
-  color: #f2c0d8;
-}
-
-.flow-arrow {
-  flex-shrink: 0;
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  clip-path: inset(0 100% 0 0);
   opacity: 0;
-  transform: translateX(-6px);
+  transition: clip-path 0.2s ease 0s, opacity 0.18s ease 0s;
 }
 
-.flow-arrow svg {
+.engineer-hud .hud-cat {
+  color: #00F5FF;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.6);
+}
+
+.creator-hud .hud-cat {
+  color: #FF66A6;
+  text-shadow: 0 0 10px rgba(255, 42, 133, 0.6);
+}
+
+/* SERVICE TITLE (Line 2 Wipe - 120ms later) */
+.hud-title {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 0.95vw, 16px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+  line-height: 1.25;
+  clip-path: inset(0 100% 0 0);
+  opacity: 0;
+  transition: clip-path 0.2s ease 0s, opacity 0.18s ease 0s;
+  color: #FFFFFF;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+}
+
+.creator-hud .hud-title {
+  color: #FFF2F7;
+}
+
+/* Pointer Line SVG Wrapper */
+.hud-pointer-wrap {
   width: 100%;
+  max-width: 240px;
+  height: 24px;
+  display: flex;
+  position: relative;
+  margin-top: 1px;
+}
+
+.engineer-hud .hud-pointer-wrap {
+  justify-content: flex-end;
+}
+
+.creator-hud .hud-pointer-wrap {
+  justify-content: flex-start;
+}
+
+.hud-svg {
+  width: 100%;
+  max-width: 220px;
   height: 100%;
+  overflow: visible;
 }
 
-.engineer-services-flow .flow-arrow svg {
-  color: rgba(0, 245, 255, 0.8);
+/* Anchor Dot */
+.hud-anchor-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
 }
 
-.creator-services-flow .flow-arrow svg {
-  color: rgba(255, 42, 133, 0.8);
+.engineer-hud .hud-anchor-dot {
+  fill: #00F5FF;
+  filter: drop-shadow(0 0 6px #00F5FF);
 }
 
-/* Animations for Step-by-Step [one by one] reveal */
-@keyframes flowStepIn {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.creator-hud .hud-anchor-dot {
+  fill: #FF2A85;
+  filter: drop-shadow(0 0 6px #FF2A85);
 }
 
-@keyframes flowArrowIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-6px);
-  }
-  100% {
-    opacity: 0.85;
-    transform: translateX(0);
-  }
+/* 1px Angled Connector Line */
+.hud-line-path {
+  stroke-width: 1px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 230;
+  stroke-dashoffset: 230;
+  transition: stroke-dashoffset 0.25s ease 0s;
 }
 
-@keyframes flowPillIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.engineer-hud .hud-line-path {
+  stroke: #00F5FF;
+  filter: drop-shadow(0 0 4px rgba(0, 245, 255, 0.7));
 }
 
-/* Cross Hover Triggers: Left Expand -> Reveal on Right (.room.c) */
-#desks:has(.room.e:hover) .room.c .engineer-services-flow {
+.creator-hud .hud-line-path {
+  stroke: #FF2A85;
+  filter: drop-shadow(0 0 4px rgba(255, 42, 133, 0.7));
+}
+
+/* Target Pip (Inward Tip Pointing at Workstation) */
+.hud-target-pip {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.18s ease 0s, transform 0.18s ease 0s;
+}
+
+.engineer-hud .hud-target-pip {
+  fill: #FFFFFF;
+  stroke: #00F5FF;
+  stroke-width: 1.5px;
+  filter: drop-shadow(0 0 8px #00F5FF);
+}
+
+.creator-hud .hud-target-pip {
+  fill: #FFFFFF;
+  stroke: #FF2A85;
+  stroke-width: 1.5px;
+  filter: drop-shadow(0 0 8px #FF2A85);
+}
+
+/* ==========================================================================
+   ANIMATION SEQUENCE ON EXPANSION:
+   1. Anchor dot illuminates
+   2. 1px line draws inward via stroke-dashoffset
+   3. 01 // CATEGORY wipes in via clip-path
+   4. Service title wipes in 120ms later via clip-path
+   5. Target pip illuminates
+   6. Staggered sequence for items 1 through 5
+   7. Reverses cleanly when collapsed (0s delay fallback above)
+   ========================================================================== */
+
+/* Left Panel (The Engineer) Expansion */
+.room.e:hover .hud-anchor-dot,
+.room.e:focus-within .hud-anchor-dot {
   opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  transform: scale(1);
+  transition: opacity 0.2s ease calc(0.06s + (var(--hud-i) - 1) * 0.12s),
+              transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.06s + (var(--hud-i) - 1) * 0.12s);
 }
 
-#desks:has(.room.e:hover) .room.c .engineer-services-flow .flow-pill-tag {
-  animation: flowPillIn 0.35s ease 0.05s forwards;
+.room.e:hover .hud-line-path,
+.room.e:focus-within .hud-line-path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.38s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + (var(--hud-i) - 1) * 0.12s);
 }
 
-#desks:has(.room.e:hover) .room.c .engineer-services-flow .flow-step-card {
-  animation: flowStepIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--step-i) * 0.12s) both;
-}
-
-#desks:has(.room.e:hover) .room.c .engineer-services-flow .flow-arrow {
-  animation: flowArrowIn 0.35s ease calc(0.16s + var(--arrow-i) * 0.12s) both;
-}
-
-/* Cross Hover Triggers: Right Expand -> Reveal on Left (.room.e) */
-#desks:has(.room.c:hover) .room.e .creator-services-flow {
+.room.e:hover .hud-cat,
+.room.e:focus-within .hud-cat {
+  clip-path: inset(0 0 0 0);
   opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  transition: clip-path 0.36s cubic-bezier(0.16, 1, 0.3, 1) calc(0.22s + (var(--hud-i) - 1) * 0.12s),
+              opacity 0.25s ease calc(0.22s + (var(--hud-i) - 1) * 0.12s);
 }
 
-#desks:has(.room.c:hover) .room.e .creator-services-flow .flow-pill-tag {
-  animation: flowPillIn 0.35s ease 0.05s forwards;
+.room.e:hover .hud-title,
+.room.e:focus-within .hud-title {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  /* Exactly 120ms after .hud-cat (0.22s + 0.12s = 0.34s) */
+  transition: clip-path 0.36s cubic-bezier(0.16, 1, 0.3, 1) calc(0.34s + (var(--hud-i) - 1) * 0.12s),
+              opacity 0.25s ease calc(0.34s + (var(--hud-i) - 1) * 0.12s);
 }
 
-#desks:has(.room.c:hover) .room.e .creator-services-flow .flow-step-card {
-  animation: flowStepIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + var(--step-i) * 0.12s) both;
+.room.e:hover .hud-target-pip,
+.room.e:focus-within .hud-target-pip {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.22s ease calc(0.44s + (var(--hud-i) - 1) * 0.12s),
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.44s + (var(--hud-i) - 1) * 0.12s);
 }
 
-#desks:has(.room.c:hover) .room.e .creator-services-flow .flow-arrow {
-  animation: flowArrowIn 0.35s ease calc(0.16s + var(--arrow-i) * 0.12s) both;
+/* Right Panel (The Creator) Expansion */
+.room.c:hover .hud-anchor-dot,
+.room.c:focus-within .hud-anchor-dot {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.2s ease calc(0.06s + (var(--hud-i) - 1) * 0.12s),
+              transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.06s + (var(--hud-i) - 1) * 0.12s);
 }
 
-/* Mobile Fallback: Hide cross services flow on mobile viewports */
+.room.c:hover .hud-line-path,
+.room.c:focus-within .hud-line-path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.38s cubic-bezier(0.16, 1, 0.3, 1) calc(0.1s + (var(--hud-i) - 1) * 0.12s);
+}
+
+.room.c:hover .hud-cat,
+.room.c:focus-within .hud-cat {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  transition: clip-path 0.36s cubic-bezier(0.16, 1, 0.3, 1) calc(0.22s + (var(--hud-i) - 1) * 0.12s),
+              opacity 0.25s ease calc(0.22s + (var(--hud-i) - 1) * 0.12s);
+}
+
+.room.c:hover .hud-title,
+.room.c:focus-within .hud-title {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+  /* Exactly 120ms after .hud-cat (0.22s + 0.12s = 0.34s) */
+  transition: clip-path 0.36s cubic-bezier(0.16, 1, 0.3, 1) calc(0.34s + (var(--hud-i) - 1) * 0.12s),
+              opacity 0.25s ease calc(0.34s + (var(--hud-i) - 1) * 0.12s);
+}
+
+.room.c:hover .hud-target-pip,
+.room.c:focus-within .hud-target-pip {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.22s ease calc(0.44s + (var(--hud-i) - 1) * 0.12s),
+              transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.44s + (var(--hud-i) - 1) * 0.12s);
+}
+
+/* Mobile Responsive Fallback */
 @media (max-width: 900px) {
-  .cross-services-flow {
+  .hud-pointers-rail {
     display: none !important;
   }
 }
