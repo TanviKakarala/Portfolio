@@ -16,13 +16,13 @@
 
   // 1. Navigation & Anchor Scroll (Top-Right Rect Navbar & Clickable Corner Labels)
   const navPillItems = document.querySelectorAll('.nav-pill-link, .nav-pill-btn, .dock-link, .dock-btn, .nav-rect-link, .nav-rect-btn, .hero-corner-label');
-  const sectionIds = ['hero', 'desks', 'engineer', 'creator', 'work', 'about', 'teaching', 'medals', 'process', 'contact'];
+  const sectionIds = ['hero', 'desks', 'creator', 'engineer', 'work', 'about', 'teaching', 'medals', 'process', 'contact'];
 
   const sectionToNavMap = {
     hero: 'hero',
     desks: 'desks',
-    engineer: 'desks',
     creator: 'desks',
+    engineer: 'desks',
     work: 'work',
     about: 'about',
     teaching: 'about',
@@ -400,6 +400,33 @@
     if (e.key === 'Escape' && modal?.classList.contains('active')) {
       closeModal();
     }
+  });
+
+  // Featured Case Study Tabs Logic (#work)
+  const workTabBtns = document.querySelectorAll('.work-tab-btn');
+  const workCases = document.querySelectorAll('.work-case');
+  workTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-work-target');
+      if (!targetId) return;
+
+      workTabBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+
+      workCases.forEach(wc => {
+        if (wc.id === targetId) {
+          wc.classList.add('active');
+          wc.style.display = 'grid';
+        } else {
+          wc.classList.remove('active');
+          wc.style.display = 'none';
+        }
+      });
+    });
   });
 
   // Cursor-Following Radial Glow on Left Grid (.room.e)
