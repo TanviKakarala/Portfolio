@@ -14,8 +14,8 @@
 (function () {
   'use strict';
 
-  // 1. Navigation & Anchor Scroll (Top-Right Pill Navbar & Clickable Service Badges)
-  const navPillItems = document.querySelectorAll('.nav-pill-link, .nav-pill-btn, .dock-link, .dock-btn, .nav-rect-link, .nav-rect-btn, .hero-service-badge');
+  // 1. Navigation & Anchor Scroll (Top-Right Rect Navbar & Clickable Corner Labels)
+  const navPillItems = document.querySelectorAll('.nav-pill-link, .nav-pill-btn, .dock-link, .dock-btn, .nav-rect-link, .nav-rect-btn, .hero-corner-label');
   const sectionIds = ['hero', 'desks', 'engineer', 'creator', 'work', 'about', 'teaching', 'medals', 'process', 'contact'];
 
   const sectionToNavMap = {

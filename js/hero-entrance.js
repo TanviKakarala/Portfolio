@@ -21,8 +21,7 @@
     const titleContainer = document.getElementById('massiveText');
     const chars = document.querySelectorAll('#heroMassiveTitle .char');
     const parallaxLayer = document.getElementById('heroParallaxLayer');
-    const heroTagline = document.getElementById('heroTagline');
-    const serviceBadges = document.querySelectorAll('.hero-service-badge');
+    const cornerLabels = document.querySelectorAll('.hero-corner-label');
     const topNavBar = document.getElementById('topNavBar');
     const heroScrollCue = document.getElementById('heroScrollCue');
 
@@ -60,17 +59,10 @@
         filter: 'blur(8px)'
       });
 
-      if (heroTagline) {
-        gsap.set(heroTagline, {
+      if (cornerLabels.length > 0) {
+        gsap.set(cornerLabels, {
           opacity: 0,
-          y: 18
-        });
-      }
-
-      if (serviceBadges.length > 0) {
-        gsap.set(serviceBadges, {
-          opacity: 0,
-          scale: 0.94
+          y: 8
         });
       }
 
@@ -105,29 +97,18 @@
         }
       });
 
-      // Step B: Tagline Fades In Beneath Name
-      if (heroTagline) {
-        gsap.to(heroTagline, {
-          opacity: 1,
+      // Step B: Minimal Movie-Poster Corner Labels Fade In at Bottom
+      if (cornerLabels.length > 0) {
+        gsap.to(cornerLabels, {
+          opacity: 0.85,
           y: 0,
-          duration: 0.75,
-          delay: 0.70,
-          ease: 'power2.out'
-        });
-      }
-
-      // Step C: Service Badges Fade In (AI & Automation on Left, UI/UX on Right)
-      if (serviceBadges.length > 0) {
-        gsap.to(serviceBadges, {
-          opacity: 1,
-          scale: 1,
           duration: 0.75,
           delay: 0.85,
           ease: 'power2.out'
         });
       }
 
-      // Step D: Top-Right Rectangular Navbar Glides Into Corner
+      // Step C: Top-Right Rectangular Navbar Glides Into Corner
       if (topNavBar) {
         gsap.to(topNavBar, {
           opacity: 1,
@@ -142,7 +123,7 @@
         });
       }
 
-      // Step E: Minimal Scroll Cue Fades In at Bottom Center
+      // Step D: Minimal Scroll Cue Fades In at Bottom Center
       if (heroScrollCue) {
         gsap.to(heroScrollCue, {
           opacity: 0.7,
@@ -158,12 +139,11 @@
         c.style.transform = 'none';
         c.style.filter = 'none';
       });
-      if (heroTagline) {
-        heroTagline.style.opacity = '1';
-        heroTagline.style.transform = 'none';
-      }
-      if (serviceBadges.length > 0) {
-        serviceBadges.forEach((b) => { b.style.opacity = '1'; });
+      if (cornerLabels.length > 0) {
+        cornerLabels.forEach((cl) => {
+          cl.style.opacity = '0.85';
+          cl.style.transform = 'none';
+        });
       }
       if (topNavBar) {
         topNavBar.style.opacity = '1';
@@ -238,8 +218,9 @@
         c.style.opacity = '1';
         c.style.filter = 'none';
       });
-      if (heroTagline) heroTagline.style.opacity = '1';
-      if (serviceBadges.length > 0) serviceBadges.forEach((b) => { b.style.opacity = '1'; });
+      if (cornerLabels.length > 0) {
+        cornerLabels.forEach((cl) => { cl.style.opacity = '0.85'; });
+      }
       if (topNavBar) {
         topNavBar.style.opacity = '1';
         topNavBar.style.pointerEvents = 'auto';
