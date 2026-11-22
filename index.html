@@ -103,100 +103,22 @@
         <a class="room e" href="#engineer" aria-label="Enter The Engineer Desk">
           <div class="room-grid-glow" aria-hidden="true"></div>
           <div class="room-seam-glow" aria-hidden="true"></div>
-          <div class="rv"><span class="k">01 / Logic &amp; Cloud Data</span></div>
+
+          <div class="room-top">
+            <span class="k">01 / Logic &amp; Cloud Data</span>
+            <h2>The<br>Engineer</h2>
+            <p class="room-pitch">Building scalable data pipelines, dashboards, and AI automation.</p>
+          </div>
           
-          <!-- The Engineer's Desk: Minimalist Dark-Mode Glassmorphic Desk Setup -->
-          <div class="desk-visual-stage engineer-stage" aria-hidden="true">
-            <div class="desk-setup-wrap">
-              <!-- Main Ultrawide Monitor -->
-              <div class="desk-item ultrawide-monitor">
-                <div class="monitor-glass-frame">
-                  <div class="monitor-bezel-bar">
-                    <div class="monitor-header-left">
-                      <span class="monitor-status-dot"></span>
-                      <span class="monitor-title">FABRIC LAKEHOUSE // TELEMETRY PIPELINE</span>
-                    </div>
-                    <span class="monitor-metric">99.9% UPTIME</span>
-                  </div>
-                  <div class="monitor-screen-canvas">
-                    <div class="pipeline-stream-diagram">
-                      <div class="stream-node node-source">
-                        <span class="node-badge">INGEST</span>
-                        <span class="node-name">PySpark Stream</span>
-                        <span class="node-sub">Kafka · Delta Lake</span>
-                      </div>
-                      <div class="stream-connector">
-                        <svg width="36" height="14" viewBox="0 0 36 14" fill="none">
-                          <path d="M0 7H32M32 7L26 2M32 7L26 12" stroke="#00F5FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          <circle cx="18" cy="7" r="2.5" fill="#00F5FF" class="pulse-beam"/>
-                        </svg>
-                      </div>
-                      <div class="stream-node node-core">
-                        <span class="node-badge">LAKEHOUSE</span>
-                        <span class="node-name">Microsoft Fabric</span>
-                        <span class="node-sub">Medallion / Gold</span>
-                      </div>
-                      <div class="stream-connector">
-                        <svg width="36" height="14" viewBox="0 0 36 14" fill="none">
-                          <path d="M0 7H32M32 7L26 2M32 7L26 12" stroke="#00F5FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          <circle cx="18" cy="7" r="2.5" fill="#00F5FF" class="pulse-beam"/>
-                        </svg>
-                      </div>
-                      <div class="stream-node node-sink">
-                        <span class="node-badge">ANALYTICS</span>
-                        <span class="node-name">Power BI &amp; AI</span>
-                        <span class="node-sub">Real-Time BI</span>
-                      </div>
-                    </div>
-                    <div class="monitor-telemetry-wave">
-                      <svg viewBox="0 0 320 20" fill="none" class="telemetry-svg">
-                        <path d="M0 10 Q40 2 80 10 T160 10 T240 10 T320 10" stroke="rgba(0, 245, 255, 0.45)" stroke-width="1.5" fill="none"/>
-                        <path d="M0 10 Q40 18 80 10 T160 10 T240 10 T320 10" stroke="rgba(0, 245, 255, 0.2)" stroke-width="1" fill="none"/>
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div class="monitor-stand"></div>
-                <div class="monitor-base"></div>
-              </div>
-
-              <!-- Side Code Terminal -->
-              <div class="desk-item side-code-terminal">
-                <div class="terminal-bar">
-                  <div class="terminal-dots">
-                    <span class="t-dot dot-r"></span>
-                    <span class="t-dot dot-y"></span>
-                    <span class="t-dot dot-g"></span>
-                  </div>
-                  <span class="terminal-filename">stream.py</span>
-                </div>
-                <pre class="terminal-body"><code><span class="c-kw">def</span> <span class="c-fn">fabric_stream</span>(delta):
-    <span class="c-kw">return</span> (delta.filter(active)
-                 .sink(<span class="c-str">"gold"</span>))</code></pre>
-              </div>
-
-              <!-- Agentic AI Module / Node -->
-              <div class="desk-item ai-module-node">
-                <div class="ai-node-header">
-                  <span class="ai-pulse-ring"></span>
-                  <span class="ai-node-title">AGENTIC AI CORE</span>
-                </div>
-                <div class="ai-node-stats">
-                  <div class="ai-stat-row">
-                    <span class="ai-label">Pipeline:</span>
-                    <span class="ai-val val-cyan">Autonomous ETL</span>
-                  </div>
-                  <div class="ai-stat-row">
-                    <span class="ai-label">Latency:</span>
-                    <span class="ai-val">28ms • 99.9%</span>
-                  </div>
-                </div>
-              </div>
+          <!-- The Engineer's 3D Workstation Render -->
+          <div class="desk-3d-stage engineer-3d-stage" aria-hidden="true">
+            <div class="desk-3d-glow"></div>
+            <div class="desk-3d-frame">
+              <img src="assets/images/desk-engineer-3d.webp" alt="The Engineer Workstation with Ultrawide Monitor and Robotic Arm" class="desk-3d-img" loading="eager" width="1024" height="765">
             </div>
           </div>
 
-          <div class="rv">
-            <h2>The<br>Engineer</h2>
+          <div class="room-bottom">
             <ul class="tags">
               <li>Python</li>
               <li>SQL</li>
@@ -206,91 +128,28 @@
               <li>Agentic AI</li>
             </ul>
             <div class="desk-cta-btn btn-engineer">
-              <span class="cta-text">Enter the desk</span>
+              <span class="cta-text">Explore Engineering</span>
               <span class="cta-arrow-circle" aria-hidden="true">→</span>
             </div>
           </div>
         </a>
 
         <a class="room c" href="#creator" aria-label="Enter The Creator Desk">
-          <div class="rv"><span class="k">02 / Creativity &amp; Growth</span></div>
+          <div class="room-top">
+            <span class="k">02 / Creativity &amp; Growth</span>
+            <h2>The<br>Creator</h2>
+            <p class="room-pitch">Crafting high-converting websites, brand identities, and digital experiences.</p>
+          </div>
           
-          <!-- The Creator's Studio Desk: Minimalist Luxury Glassmorphic Studio Setup -->
-          <div class="desk-visual-stage creator-stage" aria-hidden="true">
-            <div class="desk-setup-wrap">
-              <!-- Main Studio Display: Frameless Website Hero Preview -->
-              <div class="desk-item studio-display">
-                <div class="studio-glass-frame">
-                  <div class="studio-bar">
-                    <div class="studio-dots">
-                      <span class="s-dot dot-r"></span>
-                      <span class="s-dot dot-y"></span>
-                      <span class="s-dot dot-g"></span>
-                    </div>
-                    <span class="studio-url">opulencelive.com • Digital Flagship</span>
-                    <span class="studio-live-badge">LIVE SITE</span>
-                  </div>
-                  <div class="studio-screen-canvas">
-                    <div class="studio-hero-mock">
-                      <div class="studio-brand-pill">OPULENCE LIVE</div>
-                      <div class="studio-hero-title">High-Converting Digital Experiences</div>
-                      <div class="studio-hero-row">
-                        <div class="studio-pill-metric">
-                          <span class="metric-num">+240%</span>
-                          <span class="metric-lbl">Growth</span>
-                        </div>
-                        <div class="studio-pill-metric">
-                          <span class="metric-num">&lt; 0.8s</span>
-                          <span class="metric-lbl">Speed</span>
-                        </div>
-                        <div class="studio-pill-cta">Case Study →</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="studio-stand"></div>
-                <div class="studio-base"></div>
-              </div>
-
-              <!-- Floating UI/UX Canvas (Figma Frame & Swatches) -->
-              <div class="desk-item figma-canvas-card">
-                <div class="figma-bar">
-                  <span class="figma-icon">❖</span>
-                  <span class="figma-title">Design System v2.4</span>
-                </div>
-                <div class="figma-content">
-                  <div class="figma-wireframe-lines">
-                    <span class="wf-line wf-full"></span>
-                    <span class="wf-line wf-half"></span>
-                  </div>
-                  <div class="figma-swatches">
-                    <span class="swatch sw-pink" title="Electric Rose"></span>
-                    <span class="swatch sw-cyan" title="Cyan Logic"></span>
-                    <span class="swatch sw-blush" title="Blush White"></span>
-                    <span class="swatch sw-dark" title="Cosmic Plum"></span>
-                  </div>
-                  <div class="figma-type-spec">Aa Syne Display • 800</div>
-                </div>
-              </div>
-
-              <!-- Media / Video Reel Card -->
-              <div class="desk-item media-video-card">
-                <div class="media-video-thumb">
-                  <div class="media-play-icon">▶</div>
-                  <div class="media-badge">AI COMMERCIALS</div>
-                </div>
-                <div class="media-timeline-bar">
-                  <span class="timeline-scrubber"></span>
-                </div>
-                <div class="media-meta">
-                  <span>4K Cinematic · Creative Automation</span>
-                </div>
-              </div>
+          <!-- The Creator's 3D Studio Workstation Render -->
+          <div class="desk-3d-stage creator-3d-stage" aria-hidden="true">
+            <div class="desk-3d-glow"></div>
+            <div class="desk-3d-frame">
+              <img src="assets/images/desk-creator-3d.webp" alt="The Creator Studio Workstation with Arch Ambient Lamp and Luxury Displays" class="desk-3d-img" loading="eager" width="1024" height="764">
             </div>
           </div>
 
-          <div class="rv">
-            <h2>The<br>Creator</h2>
+          <div class="room-bottom">
             <ul class="tags">
               <li>Websites</li>
               <li>Branding</li>
@@ -300,7 +159,7 @@
               <li>Opulence Live</li>
             </ul>
             <div class="desk-cta-btn btn-creator">
-              <span class="cta-text">Enter the desk</span>
+              <span class="cta-text">Explore Design</span>
               <span class="cta-arrow-circle" aria-hidden="true">→</span>
             </div>
           </div>
