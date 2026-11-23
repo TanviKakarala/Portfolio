@@ -2240,7 +2240,6 @@ html {
   border-color: rgba(255, 42, 133, 0.45);
   color: #ffffff;
 }
-}
 
 /* ==========================================================================
    SECTION 3: THE ENGINEER LAB — HIGH-THROUGHPUT PIPELINES (SECOND)
@@ -2411,18 +2410,18 @@ html {
   pointer-events: none;
 }
 
-/* Individual Conveyor Service Card — Proportioned cleanly below the robotic hand */
+/* Individual Conveyor Service Card — Resting flush on conveyor belt, cleanly below robotic hand */
 .conveyor-card.eng-card {
   position: absolute;
-  bottom: clamp(140px, 16.5vh, 180px); /* Rests base right on metallic conveyor belt */
-  width: clamp(225px, 17vw, 265px);
-  min-height: clamp(250px, 30vh, 290px);
+  bottom: clamp(70px, 16.5vh, 180px); /* Exactly touches the surface of the conveyor belt */
+  width: clamp(230px, 17.5vw, 270px);
+  min-height: clamp(215px, 27vh, 265px);
   background: rgba(5, 14, 26, 0.94);
   border: 1.5px solid rgba(0, 229, 255, 0.28);
   border-radius: 14px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 8px 8px 12px;
+  padding: 8px 8px 10px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.8),
@@ -2469,7 +2468,7 @@ html {
 .conveyor-card .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(135px, 16vh, 155px);
+  height: clamp(118px, 15vh, 145px);
   border-radius: 8px;
   overflow: hidden;
   background: #020710;
