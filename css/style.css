@@ -1931,10 +1931,51 @@ html {
 #creator {
   background: radial-gradient(70vmax 45vmax at 100% 0%, rgba(245, 56, 106, 0.35), transparent),
               linear-gradient(180deg, #1b0713, #2E0F20 50%, #4B1F36);
+  --creator-active-bar: linear-gradient(90deg, #ff2a85, #ffb3c7);
+  --creator-active-glow: rgba(255, 42, 133, 0.5);
+  --creator-active-border: rgba(255, 42, 133, 0.65);
+  --creator-active-color: #ff2a85;
 }
 
-#creator .k {
+.creator-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: clamp(14px, 2vh, 24px);
+  will-change: transform, opacity;
+}
+
+#creator .k,
+.creator-k {
+  display: block;
+  font: 700 11px var(--font-mono);
+  letter-spacing: .2em;
+  text-transform: uppercase;
   color: var(--rose);
+  margin-bottom: 4px;
+}
+
+.creator-h2 {
+  font: 700 clamp(36px, 4.8vw, 68px)/1.02 var(--font-serif);
+  letter-spacing: -.03em;
+  color: #ffffff;
+  margin: 4px 0 0;
+}
+
+.creator-h2 i {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #FFE4EE; /* crisp blush-pink */
+  text-shadow: 0 0 24px rgba(255, 42, 133, 0.4);
+}
+
+.creator-lead {
+  max-width: 46ch;
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: #e2d2dc;
+  margin: 0 0 12px;
 }
 
 .palette-bar {
@@ -1973,19 +2014,39 @@ html {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* 4-Card Service Pillars in #creator */
+/* 4-Card Service Pillars in #creator — Fly-Up & Snap Grid */
 .creator-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(10px, 1.2vw, 18px);
+  gap: clamp(12px, 1.4vw, 20px);
+  perspective: 1000px;
 }
 
 .creator-cards-grid .glass {
-  padding: clamp(14px, 1.8vh, 20px) clamp(12px, 1.3vw, 18px);
+  padding: clamp(18px, 2.2vh, 26px) clamp(16px, 1.4vw, 22px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: clamp(200px, 28vh, 260px);
+  min-height: clamp(190px, 25vh, 240px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  will-change: transform, opacity;
+}
+
+/* Interactive Card Hover & Studio Lighting Sync */
+.creator-cards-grid .glass:hover {
+  transform: translateY(-6px) !important;
+  border-color: var(--card-border, var(--creator-active-border, rgba(255, 42, 133, 0.65)));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6),
+              0 0 24px var(--card-glow, var(--creator-active-glow, rgba(255, 42, 133, 0.45)));
 }
 
 .cre .glass::before {
@@ -1995,23 +2056,59 @@ html {
   top: 0;
   right: 0;
   height: 3px;
-  background: var(--bar, var(--pk));
+  background: var(--bar, var(--creator-active-bar, linear-gradient(90deg, #ff2a85, #ffb3c7)));
+  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background 0.4s ease;
+  z-index: 2;
+}
+
+.creator-cards-grid .glass:hover::before {
+  height: 4px;
+  box-shadow: 0 0 16px var(--card-glow, var(--creator-active-glow, rgba(255, 42, 133, 0.85)));
 }
 
 .creator-cards-grid .glass h3 {
-  font-size: clamp(14px, 1.15vw, 17px);
-  margin: 4px 0 6px;
-  line-height: 1.2;
+  font: 700 clamp(16px, 1.2vw, 19px)/1.2 var(--font-serif);
+  margin: 6px 0 6px;
+  color: #ffffff;
 }
 
 .creator-cards-grid .glass p {
-  font-size: clamp(11px, 0.9vw, 12.5px);
-  line-height: 1.45;
+  font-size: clamp(11.5px, 0.88vw, 13px);
+  line-height: 1.48;
+  color: #d6c6d2;
   margin-bottom: auto;
 }
 
 .creator-cards-grid .micro-tags {
-  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.creator-cards-grid .micro-tags li {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #FFE4EE;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.creator-cards-grid .glass:hover .micro-tags li {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
 }
 
 /* ==========================================================================

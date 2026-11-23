@@ -193,15 +193,35 @@
     }
   });
 
-  // 4. Interactive Studio Color Swatches (#creator)
+  // 4. Interactive Studio Color Swatches (#creator) with Dynamic Card Hover Glow Sync
   const swatchButtons = document.querySelectorAll('#colorSwatches .swatch-btn');
   const creatorSection = document.getElementById('creator');
 
   const themePalettes = {
-    'default': { bar: 'linear-gradient(90deg, #ff2a85, #ffb3c7)' },
-    'electric-cyan': { bar: 'linear-gradient(90deg, #00f5ff, #0088ff)' },
-    'rose-magenta': { bar: 'linear-gradient(90deg, #ff2a85, #ff758c)' },
-    'aurora-gold': { bar: 'linear-gradient(90deg, #ffd700, #ff5e36)' }
+    'default': {
+      bar: 'linear-gradient(90deg, #ff2a85, #ffb3c7)',
+      glow: 'rgba(255, 42, 133, 0.5)',
+      border: 'rgba(255, 42, 133, 0.65)',
+      color: '#ff2a85'
+    },
+    'electric-cyan': {
+      bar: 'linear-gradient(90deg, #00f5ff, #0088ff)',
+      glow: 'rgba(0, 245, 255, 0.5)',
+      border: 'rgba(0, 245, 255, 0.65)',
+      color: '#00f5ff'
+    },
+    'rose-magenta': {
+      bar: 'linear-gradient(90deg, #ff2a85, #ff758c)',
+      glow: 'rgba(255, 42, 133, 0.5)',
+      border: 'rgba(255, 42, 133, 0.65)',
+      color: '#ff2a85'
+    },
+    'aurora-gold': {
+      bar: 'linear-gradient(90deg, #ffd700, #ff5e36)',
+      glow: 'rgba(255, 215, 0, 0.5)',
+      border: 'rgba(255, 215, 0, 0.65)',
+      color: '#ffd700'
+    }
   };
 
   swatchButtons.forEach(btn => {
@@ -211,11 +231,113 @@
       const themeKey = btn.dataset.theme;
       const palette = themePalettes[themeKey] || themePalettes.default;
       
+      if (creatorSection) {
+        creatorSection.style.setProperty('--creator-active-bar', palette.bar);
+        creatorSection.style.setProperty('--creator-active-glow', palette.glow);
+        creatorSection.style.setProperty('--creator-active-border', palette.border);
+        creatorSection.style.setProperty('--creator-active-color', palette.color);
+        creatorSection.style.setProperty('--bar', palette.bar);
+      }
+      
       document.querySelectorAll('.cre .glass').forEach(card => {
         card.style.setProperty('--bar', palette.bar);
+        card.style.setProperty('--card-glow', palette.glow);
+        card.style.setProperty('--card-border', palette.border);
       });
     });
   });
+
+  // 4b. Freelance Studio: "Fly-Up & Snap" Entrance Animation (GSAP)
+  function initCreatorFlyUpAnimation() {
+    const creatorSec = document.getElementById('creator');
+    if (!creatorSec || typeof gsap === 'undefined') return;
+
+    const headerRow = creatorSec.querySelector('.creator-header-row');
+    const cards = creatorSec.querySelectorAll('.creator-card');
+    if (!cards.length) return;
+
+    // Initial setup: heading hidden slightly down, cards below the fold with alternating tilts
+    gsap.set(headerRow, {
+      opacity: 0,
+      y: 28
+    });
+
+    cards.forEach((card, i) => {
+      gsap.set(card, {
+        opacity: 0,
+        y: 160,
+        scale: 0.94,
+        rotation: i % 2 === 0 ? -2 : 2,
+        transformOrigin: '50% 100%'
+      });
+    });
+
+    let hasAnimated = false;
+
+    function playFlyUp() {
+      if (hasAnimated) return;
+      hasAnimated = true;
+
+      const tl = gsap.timeline();
+
+      // Step 1 (Heading): Fade and slide headline & intro cleanly into place at top of viewport (0.5s ease-out)
+      tl.to(headerRow, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: 'power2.out'
+      });
+
+      // Step 2 (Cards Fly Up & Dock): Starting 0.15s after heading settles
+      // Animate 4 cards flying upward from y: 160, scale: 0.94, tilt -> y: 0, scale: 1, rotate: 0deg
+      // back.out(1.25) spring easing with 0.09s stagger delay from left to right
+      tl.to(cards, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotation: 0,
+        duration: 0.75,
+        ease: 'back.out(1.25)',
+        stagger: 0.09,
+        onComplete: () => {
+          // Clear transform inline style so CSS hover (translateY(-6px)) works smoothly
+          cards.forEach(c => gsap.set(c, { clearProps: 'transform' }));
+        }
+      }, '+=0.15');
+    }
+
+    // Trigger on IntersectionObserver when scrolled into or opened
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            playFlyUp();
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+      observer.observe(creatorSec);
+    } else {
+      playFlyUp();
+    }
+
+    // ScrollTrigger integration if loaded
+    if (typeof ScrollTrigger !== 'undefined') {
+      try {
+        ScrollTrigger.create({
+          trigger: creatorSec,
+          start: 'top 75%',
+          once: true,
+          onEnter: playFlyUp
+        });
+      } catch (e) {
+        // Fallback already running
+      }
+    }
+  }
+
+  initCreatorFlyUpAnimation();
 
   // 5. Interactive WhatsApp Brief Generator (#bf)
   const needBtns = document.querySelectorAll('#needOpts .opt-btn');
