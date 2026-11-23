@@ -884,11 +884,35 @@
           opacity = 0;
         }
 
-        // Scale
-        const scale = ax <= slotOffset ? (0.90 + 0.10 * Math.max(0, 1 - ax / slotOffset)) : 0.85;
+        // Base scale by horizontal distance from center
+        let baseScale = ax <= slotOffset ? (0.90 + 0.10 * Math.max(0, 1 - ax / slotOffset)) : 0.85;
 
-        // Claw hold inspection state with neon cyan glow (card stays grounded on belt)
-        const isPicked = (ax < 35) && (tau >= 1.05 && tau < 1.48);
+        // Active center card zoom expansion:
+        // Only expands [zooms a bit or increases size] when the hand is expanded and while releasing towards the top
+        let expandZoom = 0;
+        let isPicked = false;
+
+        if (ax < 35) {
+          if (tau >= 1.05 && tau < 1.35) {
+            // Hand is expanded over card holding it: gentle zoom in
+            const p = (tau - 1.05) / 0.30;
+            expandZoom = 0.03 * p;
+            isPicked = true;
+          } else if (tau >= 1.35 && tau <= 1.62) {
+            // Hand is expanded and releasing towards top: expand further [zoom a bit / increase size]
+            const p = (tau - 1.35) / 0.27;
+            const easeZoom = 0.5 - 0.5 * Math.cos(p * Math.PI);
+            expandZoom = 0.03 + 0.05 * easeZoom; // Reaches peak 1.08x scale
+            isPicked = true;
+          } else if (tau > 1.62 && tau < 1.72) {
+            // Releasing cleanly as conveyor roll starts
+            const p = (tau - 1.62) / 0.10;
+            expandZoom = 0.08 * (1 - p);
+            isPicked = false;
+          }
+        }
+
+        const scale = baseScale + expandZoom;
 
         if (isPicked) {
           card.classList.add('is-picked');
