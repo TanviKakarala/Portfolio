@@ -763,11 +763,20 @@
     const nextBtn = document.getElementById('conveyorNextBtn');
     if (!cards.length) return;
 
-    let loopWrapCount = 0;
+    let cycleIndex = 0;
     let isHovered = false;
+    let isSeeking = false;
     let lastTime = 0;
-    const LOOP_DURATION = 3.917;
-    const HALF_CYCLE = 1.958; // Video contains exactly 2 claw grasp cycles per 3.917s loop
+
+    // First Movement cycle duration: 0.0s to 1.958s
+    const FIRST_MOVEMENT_DURATION = 1.958;
+    // Roll transition window: starts at 1.65s, wraps through loop to 0.45s
+    const ROLL_START = 1.65;
+    const ROLL_END = 0.45;
+    const TOTAL_ROLL_SPAN = (FIRST_MOVEMENT_DURATION - ROLL_START) + ROLL_END; // 0.758s video time
+
+    // Set video playback rate to smooth, studio tempo (~3.15s per card in real time)
+    video.playbackRate = 0.62;
 
     // Hover pause on conveyor stage
     track.addEventListener('mouseenter', () => {
@@ -777,7 +786,7 @@
 
     track.addEventListener('mouseleave', () => {
       isHovered = false;
-      video.play().catch(() => {});
+      if (!isSeeking) video.play().catch(() => {});
     });
 
     // Update active dot indicator
@@ -793,23 +802,14 @@
       });
     }
 
-    // Manual navigation: seek to specific card in peak grasp inspection state
+    // Manual navigation: seek to specific card in peak upside lift state
     function seekToCard(targetIdx) {
-      const idx = (targetIdx + cards.length) % cards.length;
-      updateDots(idx);
-      // Even index -> First pick cycle (1.15s), Odd index -> Second pick cycle (3.10s)
-      loopWrapCount = 0;
-      if (idx === 0) {
-        video.currentTime = 1.15;
-      } else if (idx === 1) {
-        video.currentTime = 3.10;
-      } else {
-        // Card 2 is first pick in second video loop
-        loopWrapCount = 1;
-        video.currentTime = 1.15;
-      }
-      lastTime = video.currentTime;
-      renderPositionsAtTime(video.currentTime, loopWrapCount);
+      isSeeking = true;
+      cycleIndex = (targetIdx + cards.length) % cards.length;
+      updateDots(cycleIndex);
+      video.currentTime = 1.45; // Peak upside lift with the robotic hand
+      renderPositionsAtTime(1.45, cycleIndex);
+      setTimeout(() => { isSeeking = false; }, 400);
     }
 
     // Dot navigation
@@ -821,120 +821,150 @@
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        const activeCard = getActiveCardIndex(video.currentTime, loopWrapCount);
-        seekToCard(activeCard - 1);
+        seekToCard(cycleIndex - 1);
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        const activeCard = getActiveCardIndex(video.currentTime, loopWrapCount);
-        seekToCard(activeCard + 1);
+        seekToCard(cycleIndex + 1);
       });
     }
 
-    function getActiveCardIndex(curTime, wrapCount) {
-      const isSecondHalf = (curTime % LOOP_DURATION) >= HALF_CYCLE;
-      return (wrapCount * 2 + (isSecondHalf ? 1 : 0)) % cards.length;
-    }
-
     // Render positions for all 3 cards simultaneously without overlapping
-    // Synchronized to both pick cycles so every claw descent picks a card (0 empty picks)
-    function renderPositionsAtTime(curTime, wrapCount) {
+    // Replicates the First Movement for each card: glide -> hand expands -> holds -> moves upside -> resets
+    function renderPositionsAtTime(t, activeIdx) {
       const trackWidth = track.offsetWidth || 1200;
       const slotOffset = Math.min(380, Math.max(260, trackWidth * 0.30));
+      const exitOffset = slotOffset * 2.0;
 
-      const rawT = (curTime % LOOP_DURATION + LOOP_DURATION) % LOOP_DURATION;
-      const isSecondHalf = rawT >= HALF_CYCLE;
-      const tau = isSecondHalf ? (rawT - HALF_CYCLE) : rawT; // 0.0s to 1.958s per pick cycle
-
-      // Active card arriving/picked in this half-cycle
-      const activeIdx = (wrapCount * 2 + (isSecondHalf ? 1 : 0)) % cards.length;
+      const centerIdx = activeIdx % cards.length;
       const leftIdx   = (activeIdx + 1) % cards.length; // Next card on the left
-      const rightIdx  = (activeIdx + 2) % cards.length; // Previous card on the right
+      const rightIdx  = (activeIdx + 2) % cards.length; // Previous card departing on the right
 
-      updateDots(activeIdx);
+      updateDots(centerIdx);
+
+      // Determine conveyor roll progress (rollP: 0 to 1)
+      let isRolling = false;
+      let rollP = 0;
+
+      if (t >= ROLL_START) {
+        isRolling = true;
+        rollP = (t - ROLL_START) / TOTAL_ROLL_SPAN;
+      } else if (t < ROLL_END) {
+        isRolling = true;
+        rollP = (FIRST_MOVEMENT_DURATION - ROLL_START + t) / TOTAL_ROLL_SPAN;
+      }
+
+      rollP = Math.min(1.0, Math.max(0.0, rollP));
+      const easeP = 0.5 - 0.5 * Math.cos(rollP * Math.PI); // Harmonic glide curve
 
       let centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
       let leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
       let rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
 
-      if (tau < 0.70) {
-        // Phase 1 (0.00s - 0.70s): Smooth conveyor roll into stations
-        const p = tau / 0.70;
-        const easeP = 0.5 - 0.5 * Math.cos(p * Math.PI); // Harmonic glide
-
-        // Incoming card glides from left into center under claw
-        centerPos = {
-          x: -slotOffset + slotOffset * easeP,
-          y: 0,
-          scale: 0.90 + 0.10 * easeP,
-          opacity: 0.75 + 0.25 * easeP,
-          isPicked: false,
-          zIndex: 8
-        };
-
-        // Outgoing previous center card glides right into right station
-        rightPos = {
-          x: slotOffset * easeP,
-          y: 0,
-          scale: 1.0 - 0.10 * easeP,
-          opacity: 1.0 - 0.25 * easeP,
-          isPicked: false,
-          zIndex: 6
-        };
-
-        // Waiting next card enters on left
-        leftPos = {
-          x: -slotOffset,
-          y: 0,
-          scale: 0.90,
-          opacity: Math.min(0.75, 0.75 * easeP),
-          isPicked: false,
-          zIndex: 4
-        };
-      } else if (tau < 0.95) {
-        // Phase 2 (0.70s - 0.95s): Card settled at center; claw descends from top & opens wide
-        centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
-        leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-        rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-      } else if (tau < 1.40) {
-        // Phase 3 (0.95s - 1.40s): Claw grasps & lifts center card (Peak Inspection & Cyan Glow)
-        const p = (tau - 0.95) / 0.45;
-        const liftP = Math.sin(p * Math.PI);
-        centerPos = {
-          x: 0,
-          y: -10 * liftP,
-          scale: 1.0 + 0.08 * liftP,
-          opacity: 1.0,
-          isPicked: true,
-          zIndex: 10
-        };
-        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-      } else if (tau < 1.65) {
-        // Phase 4 (1.40s - 1.65s): Claw releases center card flush back onto belt treads
-        const p = (tau - 1.40) / 0.25;
-        centerPos = {
-          x: 0,
-          y: -10 * (1 - p),
-          scale: 1.08 - 0.08 * p,
-          opacity: 1.0,
-          isPicked: false,
-          zIndex: 8
-        };
-        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      if (isRolling) {
+        // Roll phase: cards advance in strict constant separation (slotOffset) — 0% overlap
+        if (t < ROLL_END) {
+          // After loop wrap: activeIdx is the incoming card gliding into center
+          centerPos = {
+            x: -slotOffset + slotOffset * easeP,
+            y: 0,
+            scale: 0.90 + 0.10 * easeP,
+            opacity: 0.75 + 0.25 * easeP,
+            isPicked: false,
+            zIndex: 8
+          };
+          rightPos = {
+            x: slotOffset * easeP,
+            y: 0,
+            scale: 1.0 - 0.10 * easeP,
+            opacity: 1.0 - 0.25 * easeP,
+            isPicked: false,
+            zIndex: 6
+          };
+          leftPos = {
+            x: -slotOffset,
+            y: 0,
+            scale: 0.90,
+            opacity: Math.min(0.75, 0.75 * easeP),
+            isPicked: false,
+            zIndex: 4
+          };
+        } else {
+          // Before loop wrap: activeIdx was picked, now rolling right to make room for next card
+          centerPos = {
+            x: slotOffset * easeP,
+            y: 0,
+            scale: 1.0 - 0.10 * easeP,
+            opacity: 1.0 - 0.25 * easeP,
+            isPicked: false,
+            zIndex: 6
+          };
+          leftPos = {
+            x: -slotOffset + slotOffset * easeP,
+            y: 0,
+            scale: 0.90 + 0.10 * easeP,
+            opacity: 0.75 + 0.25 * easeP,
+            isPicked: false,
+            zIndex: 8
+          };
+          rightPos = {
+            x: slotOffset + (exitOffset - slotOffset) * easeP,
+            y: 0,
+            scale: 0.90,
+            opacity: Math.max(0, 0.75 * (1 - easeP)),
+            isPicked: false,
+            zIndex: 2
+          };
+        }
       } else {
-        // Phase 5 (1.65s - 1.958s): Steady on conveyor treads as claw ascends to ceiling
-        centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
-        leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-        rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        // Stationary presentation phase (0.45s to 1.65s): card resting on belt, picked & lifted upside
+        if (t < 1.05) {
+          // Phase 2 (0.45s - 1.05s): Card rests on moving belt treads; robotic hand descends & expands wide overhead
+          centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
+        } else if (t < 1.25) {
+          // Phase 3 (1.05s - 1.25s): Hand fingers close & hold the card (cyan glow clamp)
+          centerPos = {
+            x: 0,
+            y: -4,
+            scale: 1.03,
+            opacity: 1.0,
+            isPicked: true,
+            zIndex: 10
+          };
+        } else if (t < 1.60) {
+          // Phase 4 (1.25s - 1.60s): Hand moves upside towards ceiling, and the card LIFTS UPSIDE WITH THE HAND!
+          const p = (t - 1.25) / 0.35;
+          const liftP = Math.sin(p * Math.PI); // Smooth peak lift
+          centerPos = {
+            x: 0,
+            y: -4 - 32 * liftP, // Lifts up to -36px high off the belt with the hand
+            scale: 1.03 + 0.07 * liftP, // Expands up to 1.10 with depth glow
+            opacity: 1.0,
+            isPicked: true,
+            zIndex: 10
+          };
+        } else {
+          // Phase 5 (1.60s - 1.65s): Hand lowers card back down flush onto the moving conveyor treads
+          const p = (t - 1.60) / 0.05;
+          centerPos = {
+            x: 0,
+            y: -4 * (1 - p),
+            scale: 1.03 - 0.03 * p,
+            opacity: 1.0,
+            isPicked: false,
+            zIndex: 8
+          };
+        }
+
+        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
       }
 
       // Apply GPU transforms & states to all 3 cards
       const states = {
-        [activeIdx]: centerPos,
+        [centerIdx]: centerPos,
         [leftIdx]: leftPos,
         [rightIdx]: rightPos
       };
@@ -956,20 +986,23 @@
       });
     }
 
-    // 60fps Animation Loop
+    // 60fps Animation Loop: Loops the First Movement cleanly for each card in turn
     let animFrameId = null;
 
     function renderConveyorLoop() {
-      if (!isHovered && video && !video.paused) {
-        const curTime = video.currentTime;
+      if (!isHovered && !isSeeking && video && !video.paused) {
+        let curTime = video.currentTime;
 
-        // Detect video loop wrap (from 3.91s back to 0.0s)
-        if (curTime < lastTime - 1.0) {
-          loopWrapCount++;
+        // Detect video loop wrap or loop threshold at 1.958s:
+        if (curTime >= FIRST_MOVEMENT_DURATION || curTime < lastTime - 1.0) {
+          video.currentTime = 0.001;
+          curTime = 0.001;
+          cycleIndex = (cycleIndex + 1) % cards.length;
+          updateDots(cycleIndex);
         }
         lastTime = curTime;
 
-        renderPositionsAtTime(curTime, loopWrapCount);
+        renderPositionsAtTime(curTime, cycleIndex);
       }
 
       animFrameId = requestAnimationFrame(renderConveyorLoop);
@@ -984,6 +1017,7 @@
       const secObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            video.playbackRate = 0.62;
             if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorLoop);
             if (!isHovered && video.paused) video.play().catch(() => {});
           } else {

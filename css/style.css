@@ -2387,46 +2387,44 @@ html {
 
 /* Conveyor Stage Area (Framed between top claw and bottom belt) */
 .conveyor-stage {
-  position: relative;
-  flex: 1;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
   perspective: 1200px;
   pointer-events: none;
-  min-height: clamp(450px, 58vh, 530px);
+  z-index: 4;
 }
 
 .conveyor-cards-track {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 15.3vh; /* Exact horizontal surface of the moving conveyor belt treads */
+  height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   pointer-events: none;
 }
 
-/* Individual Conveyor Service Card — Resting flush on conveyor belt, cleanly below robotic hand */
+/* Individual Conveyor Service Card — Tall elongated monolith resting flush on conveyor treads */
 .conveyor-card.eng-card {
   position: absolute;
-  bottom: clamp(45px, 7.5vh, 75px); /* Firmly touches and rests directly on conveyor belt treads */
-  width: clamp(235px, 18vw, 275px);
-  min-height: clamp(280px, 34vh, 325px); /* Elongated portrait card eliminating empty bottom gap */
-  background: rgba(5, 14, 26, 0.94);
+  bottom: 0; /* Firmly seated directly on top of the moving conveyor belt treads */
+  width: clamp(240px, 18.5vw, 280px);
+  min-height: clamp(310px, 37vh, 355px); /* Elongated, tall portrait card eliminating all bottom gap */
+  background: rgba(5, 14, 26, 0.95);
   border: 1.5px solid rgba(0, 229, 255, 0.28);
   border-radius: 14px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 10px 10px 12px;
+  padding: 10px 10px 14px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.8),
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85),
               inset 0 1px 0 rgba(255, 255, 255, 0.15),
-              inset 0 0 14px rgba(0, 229, 255, 0.08);
+              inset 0 0 16px rgba(0, 229, 255, 0.08);
   will-change: transform, opacity, box-shadow, border-color;
   transform-style: preserve-3d;
   pointer-events: auto;
@@ -2468,7 +2466,7 @@ html {
 .conveyor-card .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(140px, 17.5vh, 168px);
+  height: clamp(155px, 19.5vh, 185px);
   border-radius: 8px;
   overflow: hidden;
   background: #020710;
