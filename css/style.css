@@ -2414,26 +2414,26 @@ html {
 /* Individual Conveyor Service Card */
 .conveyor-card.eng-card {
   position: absolute;
-  bottom: clamp(10%, 14vh, 18%); /* Rests base right on metallic conveyor belt */
-  width: clamp(310px, 24vw, 365px);
-  min-height: clamp(440px, 55vh, 495px);
-  background: rgba(5, 14, 26, 0.9);
+  bottom: clamp(6%, 9vh, 12%); /* Rests base right on metallic conveyor belt */
+  width: clamp(240px, 19vw, 290px);
+  min-height: clamp(360px, 46vh, 415px);
+  background: rgba(5, 14, 26, 0.92);
   border: 1.5px solid rgba(0, 229, 255, 0.28);
-  border-radius: 18px;
+  border-radius: 16px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 12px 12px 16px;
+  padding: 10px 10px 14px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8),
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8),
               inset 0 1px 0 rgba(255, 255, 255, 0.15),
-              inset 0 0 20px rgba(0, 229, 255, 0.08);
+              inset 0 0 16px rgba(0, 229, 255, 0.08);
   will-change: transform, opacity, box-shadow, border-color;
   transform-style: preserve-3d;
   pointer-events: auto;
   cursor: pointer;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-  transform: translate3d(-140%, 0, 0) scale(1);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+  transform-origin: center bottom;
   opacity: 0;
 }
 
@@ -2445,7 +2445,7 @@ html {
   left: 0;
   right: 0;
   height: 3px;
-  border-radius: 18px 18px 0 0;
+  border-radius: 16px 16px 0 0;
   background: linear-gradient(90deg, #0077ff, #00E5FF);
   transition: height 0.3s ease, box-shadow 0.3s ease;
   z-index: 2;
@@ -2454,9 +2454,10 @@ html {
 /* Active Pick & Expand State (Lifted below claw with glowing cyan depth) */
 .conveyor-card.is-picked {
   border-color: #00E5FF;
-  box-shadow: 0 0 35px rgba(0, 229, 255, 0.55),
-              0 28px 60px rgba(0, 0, 0, 0.9),
-              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.6),
+              0 28px 60px rgba(0, 0, 0, 0.92),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  z-index: 10 !important;
 }
 
 .conveyor-card.is-picked::before {
@@ -2468,8 +2469,8 @@ html {
 .conveyor-card .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(270px, 35vh, 310px);
-  border-radius: 12px;
+  height: clamp(190px, 24vh, 230px);
+  border-radius: 10px;
   overflow: hidden;
   background: #020710;
   border: 1px solid rgba(0, 229, 255, 0.18);
@@ -2481,7 +2482,7 @@ html {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  border-radius: 10px;
+  border-radius: 8px;
   display: block;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2493,11 +2494,11 @@ html {
 /* Badges and Typography */
 .photo-corner-badge.eng-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 3px 9px;
+  top: 8px;
+  right: 8px;
+  padding: 2.5px 8px;
   border-radius: 99px;
-  font: 700 9px var(--font-mono);
+  font: 700 8.5px var(--font-mono);
   letter-spacing: 0.08em;
   background: rgba(3, 11, 20, 0.88);
   backdrop-filter: blur(8px);
@@ -2509,16 +2510,16 @@ html {
 }
 
 .conveyor-card .card-caption-block {
-  padding: clamp(10px, 1.4vh, 14px) 8px 4px;
+  padding: clamp(8px, 1.2vh, 12px) 6px 2px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
 }
 
 .eng-micro-label {
-  font: 700 9px var(--font-mono);
+  font: 700 8.5px var(--font-mono);
   letter-spacing: 0.16em;
   color: #00E5FF;
   text-transform: uppercase;
@@ -2526,16 +2527,16 @@ html {
 }
 
 .eng-service-title {
-  font: 700 clamp(15.5px, 1.2vw, 18.5px)/1.2 var(--font-serif);
+  font: 700 clamp(14px, 1.08vw, 16.5px)/1.22 var(--font-serif);
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .eng-tag {
-  padding: 3px 8px;
+  padding: 2.5px 7px;
   border-radius: 99px;
-  font: 500 10px var(--font-mono);
+  font: 500 9px var(--font-mono);
   background: rgba(0, 229, 255, 0.08);
   border: 1px solid rgba(0, 229, 255, 0.25);
   color: #d4efff;

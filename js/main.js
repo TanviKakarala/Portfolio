@@ -762,7 +762,7 @@
     const nextBtn = document.getElementById('conveyorNextBtn');
     if (!cards.length) return;
 
-    let activeCardIdx = 0;
+    let cycleIndex = 0;
     let isHovered = false;
     let lastTime = 0;
     const LOOP_DURATION = 3.92;
@@ -771,8 +771,6 @@
     track.addEventListener('mouseenter', () => {
       isHovered = true;
       video.pause();
-      cards[activeCardIdx].classList.add('is-picked');
-      cards[activeCardIdx].style.transform = 'translate3d(0, -32px, 0) scale(1.15)';
     });
 
     track.addEventListener('mouseleave', () => {
@@ -781,9 +779,9 @@
     });
 
     // Update active dot indicator
-    function updateDots(idx) {
+    function updateDots(activeIdx) {
       dots.forEach((dot, i) => {
-        if (i === idx) {
+        if (i === activeIdx) {
           dot.classList.add('active');
           dot.setAttribute('aria-selected', 'true');
         } else {
@@ -793,23 +791,12 @@
       });
     }
 
-    // Seek to specific card inspection state
-    function seekToCard(idx) {
-      activeCardIdx = (idx + cards.length) % cards.length;
-      updateDots(activeCardIdx);
-      video.currentTime = 1.8; // Peak hold timestamp below claw
-      cards.forEach((card, i) => {
-        if (i === activeCardIdx) {
-          card.classList.add('active', 'is-picked');
-          card.style.transform = 'translate3d(0, -32px, 0) scale(1.15)';
-          card.style.opacity = '1';
-        } else {
-          card.classList.remove('active', 'is-picked');
-          const dir = i < activeCardIdx ? -140 : 140;
-          card.style.transform = `translate3d(${dir}%, 0, 0) scale(1.0)`;
-          card.style.opacity = '0';
-        }
-      });
+    // Manual navigation: seek to specific card in center inspection state
+    function seekToCard(targetIdx) {
+      cycleIndex = (targetIdx + cards.length) % cards.length;
+      updateDots(cycleIndex);
+      video.currentTime = 1.8; // Peak hold frame under the robotic claw
+      renderPositionsAtTime(1.8, cycleIndex);
     }
 
     // Dot navigation
@@ -821,103 +808,170 @@
 
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        seekToCard(activeCardIdx - 1);
+        seekToCard(cycleIndex - 1);
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        seekToCard(activeCardIdx + 1);
+        seekToCard(cycleIndex + 1);
       });
     }
 
-    // 60fps RequestAnimationFrame loop synchronized to video.currentTime
+    // Render positions for all 3 cards simultaneously without overlapping
+    function renderPositionsAtTime(t, cycle) {
+      // Dynamic slot offset ensuring comfortable 90px+ gap between cards
+      const trackWidth = track.offsetWidth || 1200;
+      const slotOffset = Math.min(380, Math.max(270, trackWidth * 0.31));
+      const exitOffset = slotOffset * 2.0;
+
+      // Card role assignment for current cycle
+      // Center card: cycle % 3 (expands under claw)
+      // Left card: (cycle + 1) % 3 (on conveyor belt approaching center)
+      // Right card: (cycle - 1 + 3) % 3 (on conveyor belt departing center)
+      const centerIdx = cycle % 3;
+      const leftIdx   = (cycle + 1) % 3;
+      const rightIdx  = (cycle + 2) % 3;
+
+      let centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 10 };
+      let leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      let rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+
+      if (t < 1.0) {
+        // Phase 1 (0.0s - 1.0s): Steady at conveyor stations
+        // Center card sits under claw, Left & Right rest on belt
+        centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
+        leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      } else if (t < 1.5) {
+        // Phase 2 (1.0s - 1.5s): Claw descends & grasps center card
+        const p = (t - 1.0) / 0.5;
+        centerPos = {
+          x: 0,
+          y: -30 * p,
+          scale: 1.0 + 0.12 * p,
+          opacity: 1.0,
+          isPicked: true,
+          zIndex: 10
+        };
+        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      } else if (t < 2.2) {
+        // Phase 3 (1.5s - 2.2s): Peak Hold / Inspection under claw
+        centerPos = {
+          x: 0,
+          y: -30,
+          scale: 1.12,
+          opacity: 1.0,
+          isPicked: true,
+          zIndex: 10
+        };
+        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      } else if (t < 2.6) {
+        // Phase 4 (2.2s - 2.6s): Claw releases center card back to conveyor belt
+        const p = (t - 2.2) / 0.4;
+        centerPos = {
+          x: 0,
+          y: -30 * (1 - p),
+          scale: 1.12 - 0.12 * p,
+          opacity: 1.0,
+          isPicked: false,
+          zIndex: 8
+        };
+        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+      } else {
+        // Phase 5 (2.6s - 3.92s): Conveyor belt rolls all 3 cards forward!
+        const p = (t - 2.6) / (LOOP_DURATION - 2.6);
+        const easeP = 0.5 - 0.5 * Math.cos(p * Math.PI); // Smooth harmonic roll
+
+        // Center card rolls along belt to the right station
+        centerPos = {
+          x: slotOffset * easeP,
+          y: 0,
+          scale: 1.0 - 0.10 * easeP,
+          opacity: 1.0 - 0.25 * easeP,
+          isPicked: false,
+          zIndex: 6
+        };
+
+        // Left card rolls along belt into center station (ready to be picked in next cycle)
+        leftPos = {
+          x: -slotOffset + slotOffset * easeP,
+          y: 0,
+          scale: 0.90 + 0.10 * easeP,
+          opacity: 0.75 + 0.25 * easeP,
+          isPicked: false,
+          zIndex: 8
+        };
+
+        // Right card rolls along belt off-screen right
+        rightPos = {
+          x: slotOffset + (exitOffset - slotOffset) * easeP,
+          y: 0,
+          scale: 0.90,
+          opacity: Math.max(0, 0.75 * (1 - easeP)),
+          isPicked: false,
+          zIndex: 2
+        };
+      }
+
+      // Apply GPU transforms & states to all 3 cards
+      const states = {
+        [centerIdx]: centerPos,
+        [leftIdx]: leftPos,
+        [rightIdx]: rightPos
+      };
+
+      cards.forEach((card, idx) => {
+        const state = states[idx];
+        if (!state) return;
+
+        if (state.isPicked) {
+          card.classList.add('is-picked');
+        } else {
+          card.classList.remove('is-picked');
+        }
+
+        card.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.scale})`;
+        card.style.opacity = state.opacity.toFixed(3);
+        card.style.zIndex = state.zIndex.toString();
+        card.style.pointerEvents = state.opacity > 0.2 ? 'auto' : 'none';
+      });
+    }
+
+    // 60fps Animation Loop
     let animFrameId = null;
 
-    function renderConveyorSync() {
+    function renderConveyorLoop() {
       if (!isHovered && video && !video.paused) {
         const curTime = video.currentTime;
 
-        // Detect video loop wrap
+        // Detect video loop wrap (e.g. from 3.91s back to 0.0s)
         if (curTime < lastTime - 1.0) {
-          activeCardIdx = (activeCardIdx + 1) % cards.length;
-          updateDots(activeCardIdx);
+          cycleIndex = (cycleIndex + 1) % cards.length;
+          updateDots(cycleIndex);
         }
         lastTime = curTime;
 
         const t = curTime % LOOP_DURATION;
-
-        let x = 0;
-        let y = 0;
-        let scale = 1.0;
-        let isPicked = false;
-        let opacity = 1.0;
-
-        if (t < 1.0) {
-          // Entry: glides along moving belt from left (-130%) to center (0%)
-          const p = t / 1.0;
-          const easeP = Math.sin((p * Math.PI) / 2);
-          x = -130 * (1 - easeP);
-          y = 0;
-          scale = 1.0;
-          opacity = Math.min(1.0, 0.4 + easeP * 0.6);
-        } else if (t < 1.5) {
-          // Claw descends and grasps: lifts into negative space (-32px), scales to 1.15
-          const p = (t - 1.0) / 0.5;
-          x = 0;
-          y = -32 * p;
-          scale = 1.0 + 0.15 * p;
-          isPicked = true;
-          opacity = 1.0;
-        } else if (t < 2.2) {
-          // Peak hold under claw: card is highlighted, elevated, readable
-          x = 0;
-          y = -32;
-          scale = 1.15;
-          isPicked = true;
-          opacity = 1.0;
-        } else if (t < 2.6) {
-          // Claw releases: descends back to conveyor belt
-          const p = (t - 2.2) / 0.4;
-          x = 0;
-          y = -32 * (1 - p);
-          scale = 1.15 - 0.15 * p;
-          isPicked = false;
-          opacity = 1.0;
-        } else {
-          // Exit: rolls along moving belt from center (0%) to right (+130%)
-          const p = (t - 2.6) / (LOOP_DURATION - 2.6);
-          const easeP = p * p;
-          x = 130 * easeP;
-          y = 0;
-          scale = 1.0;
-          opacity = Math.max(0, 1.0 - easeP * 0.7);
-        }
-
-        cards.forEach((card, i) => {
-          if (i === activeCardIdx) {
-            card.classList.add('active');
-            if (isPicked) card.classList.add('is-picked');
-            else card.classList.remove('is-picked');
-            card.style.transform = `translate3d(${x}%, ${y}px, 0) scale(${scale})`;
-            card.style.opacity = opacity.toString();
-          } else {
-            card.classList.remove('active', 'is-picked');
-            const offsetDir = i < activeCardIdx ? -140 : 140;
-            card.style.transform = `translate3d(${offsetDir}%, 0, 0) scale(1.0)`;
-            card.style.opacity = '0';
-          }
-        });
+        renderPositionsAtTime(t, cycleIndex);
       }
 
-      animFrameId = requestAnimationFrame(renderConveyorSync);
+      animFrameId = requestAnimationFrame(renderConveyorLoop);
     }
 
+    // Initial render
+    renderPositionsAtTime(0, 0);
+    updateDots(0);
+
+    // Optimize with IntersectionObserver: only run RAF when visible
     if ('IntersectionObserver' in window) {
       const secObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorSync);
+            if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorLoop);
             if (!isHovered && video.paused) video.play().catch(() => {});
           } else {
             if (animFrameId) {
@@ -930,7 +984,7 @@
       }, { threshold: 0.15 });
       secObserver.observe(engineerSec);
     } else {
-      animFrameId = requestAnimationFrame(renderConveyorSync);
+      animFrameId = requestAnimationFrame(renderConveyorLoop);
     }
   }
 
