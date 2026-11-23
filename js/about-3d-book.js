@@ -77,6 +77,22 @@
             } else {
               setActivePage(3);
             }
+
+            // Ensure left base is strictly invisible whenever book is closed (p <= 0.03)
+            const leftBaseEl = section.querySelector('.book-left-base');
+            if (leftBaseEl) {
+              if (p <= 0.03) {
+                leftBaseEl.style.opacity = '0';
+                leftBaseEl.style.pointerEvents = 'none';
+              } else if (p < 0.20) {
+                const fade = Math.min(1, Math.max(0, (p - 0.03) / 0.15));
+                leftBaseEl.style.opacity = fade.toFixed(3);
+                leftBaseEl.style.pointerEvents = fade > 0.5 ? 'auto' : 'none';
+              } else {
+                leftBaseEl.style.opacity = '1';
+                leftBaseEl.style.pointerEvents = 'auto';
+              }
+            }
           }
         }
       });
@@ -91,16 +107,6 @@
         ease: 'power1.inOut',
         duration: 0.20
       }, 0);
-
-      // Smoothly reveal base left portrait page as cover swings open
-      const leftBase = document.querySelector('.book-left-base');
-      if (leftBase) {
-        tl.fromTo(leftBase,
-          { opacity: 0, pointerEvents: 'none' },
-          { opacity: 1, pointerEvents: 'auto', ease: 'power1.inOut', duration: 0.20 },
-          0
-        );
-      }
 
       tl.to(cover, {
         rotateY: -180,
@@ -182,6 +188,14 @@
       const st = tl.scrollTrigger;
       const targetProgress = pageIdx === 0 ? 0.00 : pageIdx === 1 ? 0.27 : pageIdx === 2 ? 0.62 : 0.95;
       const scrollY = st.start + (st.end - st.start) * targetProgress;
+
+      if (pageIdx === 0) {
+        const leftBaseEl = document.querySelector('.book-left-base');
+        if (leftBaseEl) {
+          leftBaseEl.style.opacity = '0';
+          leftBaseEl.style.pointerEvents = 'none';
+        }
+      }
 
       window.scrollTo({
         top: scrollY,
