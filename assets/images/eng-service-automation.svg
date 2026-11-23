@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040b17"/>
+      <stop offset="50%" stop-color="#08152c"/>
+      <stop offset="100%" stop-color="#030812"/>
+    </linearGradient>
+
+    <!-- Metallic Titanium Pedestal -->
+    <linearGradient id="metal-base" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a5169"/>
+      <stop offset="35%" stop-color="#1b2a3a"/>
+      <stop offset="70%" stop-color="#101c28"/>
+      <stop offset="100%" stop-color="#070d14"/>
+    </linearGradient>
+
+    <linearGradient id="metal-rim" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6488a8"/>
+      <stop offset="25%" stop-color="#9ac2e6"/>
+      <stop offset="50%" stop-color="#2a4258"/>
+      <stop offset="85%" stop-color="#9ac2e6"/>
+      <stop offset="100%" stop-color="#466480"/>
+    </linearGradient>
+
+    <!-- Cyan Glow -->
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="100%" stop-color="#0077ff"/>
+    </linearGradient>
+
+    <filter id="neon-glow-cyan" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="heavy-cyan-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+    </filter>
+  </defs>
+
+  <!-- Deep Navy Blueprint Background -->
+  <rect width="600" height="480" fill="url(#bg-grad-1)"/>
+
+  <!-- Perspective Isometric Grid Lines -->
+  <g stroke="rgba(0, 229, 255, 0.05)" stroke-width="1">
+    <line x1="0" y1="120" x2="600" y2="120"/>
+    <line x1="0" y1="240" x2="600" y2="240"/>
+    <line x1="0" y1="360" x2="600" y2="360"/>
+    <line x1="150" y1="0" x2="150" y2="480"/>
+    <line x1="300" y1="0" x2="300" y2="480"/>
+    <line x1="450" y1="0" x2="450" y2="480"/>
+    <!-- Diagonal isometric guides -->
+    <line x1="0" y1="300" x2="600" y2="440" stroke-dasharray="4 6"/>
+    <line x1="0" y1="440" x2="600" y2="300" stroke-dasharray="4 6"/>
+  </g>
+
+  <!-- Ambient Under-Pedestal Lighting -->
+  <ellipse cx="300" cy="385" rx="200" ry="45" fill="#00E5FF" opacity="0.22" filter="url(#heavy-cyan-glow)"/>
+  <ellipse cx="300" cy="385" rx="140" ry="32" fill="#0077ff" opacity="0.3" filter="url(#heavy-cyan-glow)"/>
+
+  <!-- ==================== 3D METALLIC STAGE / PEDESTAL ==================== -->
+  <!-- Base Tier Cylindrical Shadow Extrusion -->
+  <path d="M 120,385 C 120,412 480,412 480,385 L 480,405 C 480,432 120,432 120,405 Z" fill="#060c14" stroke="#00E5FF" stroke-width="0.8" opacity="0.8"/>
+  
+  <!-- Base Tier Rim Extrusion -->
+  <path d="M 130,375 C 130,402 470,402 470,375 L 470,392 C 470,418 130,418 130,392 Z" fill="url(#metal-base)" stroke="#1a3148" stroke-width="1.2"/>
+  
+  <!-- Lower Cyan Neon Halo Ring -->
+  <ellipse cx="300" cy="375" rx="170" ry="35" fill="none" stroke="url(#cyan-glow)" stroke-width="3" filter="url(#neon-glow-cyan)"/>
+  <ellipse cx="300" cy="375" rx="168" ry="34" fill="#0d1b2a"/>
+
+  <!-- Middle Beveled Tier Extrusion -->
+  <path d="M 155,360 C 155,384 445,384 445,360 L 445,372 C 445,394 155,394 155,372 Z" fill="url(#metal-base)" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+  
+  <!-- Upper Platform Surface -->
+  <ellipse cx="300" cy="360" rx="145" ry="30" fill="#091422" stroke="url(#metal-rim)" stroke-width="2"/>
+  <ellipse cx="300" cy="360" rx="132" ry="26" fill="none" stroke="rgba(0, 229, 255, 0.45)" stroke-width="1" stroke-dasharray="6 6"/>
+  <ellipse cx="300" cy="360" rx="90" ry="18" fill="rgba(0, 229, 255, 0.08)"/>
+
+  <!-- ==================== AUTOMATION ENGINE & WORKFLOW NODES ==================== -->
+  
+  <!-- Center Core Industrial Robotic Actuator Node -->
+  <g transform="translate(300, 280)">
+    <!-- Base mounting turret -->
+    <ellipse cx="0" cy="50" rx="38" ry="12" fill="#112233" stroke="#00E5FF" stroke-width="1.5"/>
+    <ellipse cx="0" cy="48" rx="26" ry="8" fill="#00E5FF" opacity="0.35" filter="url(#neon-glow-cyan)"/>
+
+    <!-- Actuator Arm Body -->
+    <rect x="-18" y="-10" width="36" height="55" rx="6" fill="url(#metal-base)" stroke="#00E5FF" stroke-width="1.4"/>
+    <line x1="-12" y1="5" x2="12" y2="5" stroke="#00E5FF" stroke-width="1.5"/>
+    <circle cx="0" cy="20" r="8" fill="#081420" stroke="#00E5FF" stroke-width="1.5"/>
+    <circle cx="0" cy="20" r="4" fill="#00E5FF" filter="url(#neon-glow-cyan)"/>
+
+    <!-- Dual Mechanical Gripper / Head Module -->
+    <path d="M -24,-10 L -32,-35 L -16,-30 L -12,-10 Z" fill="url(#metal-rim)" stroke="#00E5FF" stroke-width="1.2"/>
+    <path d="M 24,-10 L 32,-35 L 16,-30 L 12,-10 Z" fill="url(#metal-rim)" stroke="#00E5FF" stroke-width="1.2"/>
+    
+    <!-- Central Cyan Power Core Sphere -->
+    <circle cx="0" cy="-20" r="18" fill="url(#cyan-glow)" filter="url(#neon-glow-cyan)"/>
+    <circle cx="0" cy="-20" r="12" fill="#ffffff" opacity="0.85"/>
+  </g>
+
+  <!-- Glowing Interconnected Workflow Pipeline Buses -->
+  <g fill="none" stroke="#00E5FF" stroke-width="2" filter="url(#neon-glow-cyan)">
+    <!-- Path to Left Node -->
+    <path d="M 270, 260 C 220, 260 200, 240 180, 230"/>
+    <!-- Path to Right Node -->
+    <path d="M 330, 260 C 380, 260 400, 240 420, 230"/>
+    <!-- Path to Top Node -->
+    <path d="M 300, 240 L 300, 150"/>
+  </g>
+
+  <!-- Workflow Pulse Dots -->
+  <circle cx="225" cy="250" r="3.5" fill="#ffffff" filter="url(#neon-glow-cyan)"/>
+  <circle cx="375" cy="250" r="3.5" fill="#ffffff" filter="url(#neon-glow-cyan)"/>
+  <circle cx="300" cy="195" r="3.5" fill="#ffffff" filter="url(#neon-glow-cyan)"/>
+
+  <!-- Left Workflow Node (Input / Trigger) -->
+  <g transform="translate(180, 230)">
+    <circle cx="0" cy="0" r="26" fill="#09182a" stroke="#00E5FF" stroke-width="2" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.8))"/>
+    <circle cx="0" cy="0" r="18" fill="rgba(0,229,255,0.12)"/>
+    <!-- Gear / Trigger Icon -->
+    <path d="M -7,-7 L 7,7 M -7,7 L 7,-7" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="4" fill="#ffffff"/>
+    <!-- Floating Tag -->
+    <rect x="-42" y="32" width="84" height="18" rx="9" fill="#040e1b" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+    <text x="0" y="44" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#00E5FF" text-anchor="middle">TRIGGER</text>
+  </g>
+
+  <!-- Right Workflow Node (Integration / API) -->
+  <g transform="translate(420, 230)">
+    <circle cx="0" cy="0" r="26" fill="#09182a" stroke="#00E5FF" stroke-width="2" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.8))"/>
+    <circle cx="0" cy="0" r="18" fill="rgba(0,229,255,0.12)"/>
+    <!-- Lightning / Connector Icon -->
+    <polygon points="-4,-10 6,-3 0,0 4,10 -6,3 0,0" fill="#00E5FF"/>
+    <!-- Floating Tag -->
+    <rect x="-42" y="32" width="84" height="18" rx="9" fill="#040e1b" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+    <text x="0" y="44" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#00E5FF" text-anchor="middle">DISPATCH</text>
+  </g>
+
+  <!-- Top Floating Holographic Automation Code UI Card -->
+  <g transform="translate(190, 60)">
+    <!-- Glass Window Panel -->
+    <rect width="220" height="90" rx="8" fill="rgba(7, 20, 36, 0.88)" stroke="#00E5FF" stroke-width="1.2" filter="drop-shadow(0 14px 28px rgba(0,0,0,0.7))"/>
+    <!-- Header bar -->
+    <rect width="220" height="20" rx="8" fill="rgba(0, 229, 255, 0.15)"/>
+    <circle cx="14" cy="10" r="3" fill="#ef4444"/>
+    <circle cx="24" cy="10" r="3" fill="#f59e0b"/>
+    <circle cx="34" cy="10" r="3" fill="#10b981"/>
+    <text x="48" y="13" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#9ac2e6">workflow_engine.py</text>
+    <rect x="160" y="4" width="50" height="12" rx="6" fill="#00E5FF"/>
+    <text x="185" y="13" font-family="'JetBrains Mono', monospace" font-size="7" font-weight="700" fill="#040e1b" text-anchor="middle">ACTIVE</text>
+
+    <!-- Code Telemetry lines -->
+    <text x="14" y="36" font-family="'JetBrains Mono', monospace" font-size="8.5" fill="#00E5FF">async def <tspan fill="#ffffff">auto_execute</tspan>(payload):</text>
+    <text x="24" y="50" font-family="'JetBrains Mono', monospace" font-size="8" fill="#88a8c8">pipeline = AgenticPipeline()</text>
+    <text x="24" y="64" font-family="'JetBrains Mono', monospace" font-size="8" fill="#88a8c8">await pipeline.sync_crm(crm='Enterprise')</text>
+    <text x="24" y="78" font-family="'JetBrains Mono', monospace" font-size="8" fill="#00E5FF">return <tspan fill="#38ef7d">{"status": 200, "latency": "14ms"}</tspan></text>
+  </g>
+
+  <!-- Cyber particles & sparkle nodes -->
+  <circle cx="110" cy="180" r="1.5" fill="#00E5FF" opacity="0.6"/>
+  <circle cx="490" cy="160" r="1.5" fill="#00E5FF" opacity="0.6"/>
+  <circle cx="150" cy="320" r="1.2" fill="#ffffff" opacity="0.5"/>
+  <circle cx="460" cy="310" r="1.5" fill="#00E5FF" opacity="0.7"/>
+</svg>

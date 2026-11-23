@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040b17"/>
+      <stop offset="50%" stop-color="#08152c"/>
+      <stop offset="100%" stop-color="#030812"/>
+    </linearGradient>
+
+    <linearGradient id="metal-base-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a5169"/>
+      <stop offset="35%" stop-color="#1b2a3a"/>
+      <stop offset="70%" stop-color="#101c28"/>
+      <stop offset="100%" stop-color="#070d14"/>
+    </linearGradient>
+
+    <linearGradient id="metal-rim-2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6488a8"/>
+      <stop offset="25%" stop-color="#9ac2e6"/>
+      <stop offset="50%" stop-color="#2a4258"/>
+      <stop offset="85%" stop-color="#9ac2e6"/>
+      <stop offset="100%" stop-color="#466480"/>
+    </linearGradient>
+
+    <linearGradient id="cyan-bar-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00E5FF"/>
+      <stop offset="60%" stop-color="#0077ff"/>
+      <stop offset="100%" stop-color="#0a182c"/>
+    </linearGradient>
+
+    <linearGradient id="blue-bar-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="70%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#060e1d"/>
+    </linearGradient>
+
+    <filter id="neon-glow-cyan-2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="heavy-cyan-glow-2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="480" fill="url(#bg-grad-2)"/>
+
+  <!-- Perspective Isometric Grid Lines -->
+  <g stroke="rgba(0, 229, 255, 0.05)" stroke-width="1">
+    <line x1="0" y1="120" x2="600" y2="120"/>
+    <line x1="0" y1="240" x2="600" y2="240"/>
+    <line x1="0" y1="360" x2="600" y2="360"/>
+    <line x1="150" y1="0" x2="150" y2="480"/>
+    <line x1="300" y1="0" x2="300" y2="480"/>
+    <line x1="450" y1="0" x2="450" y2="480"/>
+  </g>
+
+  <!-- Under-Pedestal Glow -->
+  <ellipse cx="300" cy="385" rx="200" ry="45" fill="#00E5FF" opacity="0.22" filter="url(#heavy-cyan-glow-2)"/>
+
+  <!-- ==================== 3D METALLIC PEDESTAL ==================== -->
+  <path d="M 120,385 C 120,412 480,412 480,385 L 480,405 C 480,432 120,432 120,405 Z" fill="#060c14" stroke="#00E5FF" stroke-width="0.8" opacity="0.8"/>
+  <path d="M 130,375 C 130,402 470,402 470,375 L 470,392 C 470,418 130,418 130,392 Z" fill="url(#metal-base-2)" stroke="#1a3148" stroke-width="1.2"/>
+  
+  <ellipse cx="300" cy="375" rx="170" ry="35" fill="none" stroke="#00E5FF" stroke-width="3" filter="url(#neon-glow-cyan-2)"/>
+  <ellipse cx="300" cy="375" rx="168" ry="34" fill="#0d1b2a"/>
+
+  <path d="M 155,360 C 155,384 445,384 445,360 L 445,372 C 445,394 155,394 155,372 Z" fill="url(#metal-base-2)" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+  
+  <ellipse cx="300" cy="360" rx="145" ry="30" fill="#091422" stroke="url(#metal-rim-2)" stroke-width="2"/>
+  <ellipse cx="300" cy="360" rx="132" ry="26" fill="none" stroke="rgba(0, 229, 255, 0.45)" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- ==================== HOLOGRAPHIC BI DASHBOARD & DATA CUBES ==================== -->
+  
+  <!-- 3D Holographic Main Dashboard Display (Angled) -->
+  <g transform="translate(140, 70)">
+    <!-- Main Floating Screen -->
+    <rect width="320" height="190" rx="12" fill="rgba(8, 22, 40, 0.86)" stroke="#00E5FF" stroke-width="1.4" filter="drop-shadow(0 16px 36px rgba(0,0,0,0.8))"/>
+    
+    <!-- Screen Header Bar -->
+    <rect width="320" height="24" rx="12" fill="rgba(0, 229, 255, 0.14)"/>
+    <rect y="18" width="320" height="6" fill="rgba(0, 229, 255, 0.14)"/>
+    <text x="16" y="16" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="700" fill="#ffffff" letter-spacing="1">EXECUTIVE BI TELEMETRY</text>
+    <rect x="235" y="5" width="70" height="14" rx="7" fill="rgba(0, 229, 255, 0.3)" stroke="#00E5FF" stroke-width="0.8"/>
+    <text x="270" y="15" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#00E5FF" text-anchor="middle">LIVE STREAM</text>
+
+    <!-- 3D Bar Chart Visual -->
+    <g transform="translate(20, 45)">
+      <!-- Baseline axis -->
+      <line x1="0" y1="95" x2="160" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="0" y1="20" x2="0" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <line x1="0" y1="60" x2="160" y2="60" stroke="rgba(255,255,255,0.06)" stroke-dasharray="2 3"/>
+      <line x1="0" y1="25" x2="160" y2="25" stroke="rgba(255,255,255,0.06)" stroke-dasharray="2 3"/>
+
+      <!-- Bars -->
+      <rect x="12" y="55" width="18" height="40" rx="2" fill="url(#blue-bar-grad)" stroke="#38bdf8" stroke-width="0.8"/>
+      <rect x="42" y="38" width="18" height="57" rx="2" fill="url(#blue-bar-grad)" stroke="#38bdf8" stroke-width="0.8"/>
+      <rect x="72" y="24" width="18" height="71" rx="2" fill="url(#cyan-bar-grad)" stroke="#00E5FF" stroke-width="1"/>
+      <rect x="102" y="42" width="18" height="53" rx="2" fill="url(#blue-bar-grad)" stroke="#38bdf8" stroke-width="0.8"/>
+      <rect x="132" y="10" width="18" height="85" rx="2" fill="url(#cyan-bar-grad)" stroke="#00E5FF" stroke-width="1.2" filter="drop-shadow(0 0 8px rgba(0,229,255,0.6))"/>
+
+      <!-- Ascending Trend Spline Curve -->
+      <path d="M 21,50 Q 51,35 81,20 T 141,6" fill="none" stroke="#00E5FF" stroke-width="2.5" filter="url(#neon-glow-cyan-2)"/>
+      <circle cx="21" cy="50" r="3" fill="#ffffff"/>
+      <circle cx="81" cy="20" r="3" fill="#ffffff"/>
+      <circle cx="141" cy="6" r="4.5" fill="#ffffff" filter="url(#neon-glow-cyan-2)"/>
+
+      <!-- Trend Tag -->
+      <rect x="100" y="-12" width="56" height="14" rx="4" fill="#00E5FF"/>
+      <text x="128" y="-2" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#040e1b" text-anchor="middle">+48.2% ROI</text>
+    </g>
+
+    <!-- Right Side KPI Gauge & Metrics -->
+    <g transform="translate(200, 45)">
+      <!-- Donut KPI Ring -->
+      <circle cx="50" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+      <circle cx="50" cy="40" r="32" fill="none" stroke="#00E5FF" stroke-width="8" stroke-dasharray="160 200" stroke-linecap="round" filter="url(#neon-glow-cyan-2)"/>
+      <text x="50" y="38" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="800" fill="#ffffff" text-anchor="middle">99.4%</text>
+      <text x="50" y="49" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#9ac2e6" text-anchor="middle">ACCURACY</text>
+
+      <!-- KPI Value Pill -->
+      <rect x="10" y="85" width="80" height="20" rx="5" fill="rgba(0, 229, 255, 0.12)" stroke="rgba(0, 229, 255, 0.3)" stroke-width="0.8"/>
+      <text x="50" y="98" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#00E5FF" text-anchor="middle">2.8B ROWS/DAY</text>
+    </g>
+
+    <!-- Bottom Telemetry Chips -->
+    <g transform="translate(20, 155)">
+      <rect width="135" height="22" rx="4" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+      <circle cx="12" cy="11" r="3" fill="#10b981"/>
+      <text x="22" y="14" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#9ac2e6">Fabric Direct Lake: <tspan fill="#38ef7d">SYNCED</tspan></text>
+
+      <rect x="145" y="0" width="135" height="22" rx="4" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.1)" stroke-width="0.8"/>
+      <circle cx="157" cy="11" r="3" fill="#00E5FF"/>
+      <text x="167" y="14" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#9ac2e6">Query Speed: <tspan fill="#00E5FF">0.24s avg</tspan></text>
+    </g>
+  </g>
+
+  <!-- 3D Structured Floating Data Cubes (Foreground / Pedestal Deck) -->
+  <!-- Cube 1 (Left) -->
+  <g transform="translate(195, 305)">
+    <polygon points="0,-16 26,-2 0,12 -26,-2" fill="#183654" stroke="#00E5FF" stroke-width="1.2"/>
+    <polygon points="-26,-2 0,12 0,42 -26,28" fill="#0c1d2e" stroke="#00E5FF" stroke-width="1.2"/>
+    <polygon points="0,12 26,-2 26,28 0,42" fill="#1e4468" stroke="#00E5FF" stroke-width="1.2"/>
+    <circle cx="0" cy="12" r="3" fill="#00E5FF" filter="url(#neon-glow-cyan-2)"/>
+  </g>
+
+  <!-- Cube 2 (Center Right, Elevated) -->
+  <g transform="translate(390, 290)">
+    <polygon points="0,-20 32,-4 0,14 -32,-4" fill="#204c75" stroke="#00E5FF" stroke-width="1.4" filter="drop-shadow(0 6px 12px rgba(0,0,0,0.7))"/>
+    <polygon points="-32,-4 0,14 0,48 -32,30" fill="#0d2338" stroke="#00E5FF" stroke-width="1.4"/>
+    <polygon points="0,14 32,-4 32,30 0,48" fill="#2d6499" stroke="#00E5FF" stroke-width="1.4"/>
+    <circle cx="0" cy="14" r="4" fill="#ffffff" filter="url(#neon-glow-cyan-2)"/>
+    <text x="0" y="32" font-family="'JetBrains Mono', monospace" font-size="6.5" font-weight="700" fill="#00E5FF" text-anchor="middle">GOLD</text>
+  </g>
+</svg>

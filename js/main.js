@@ -229,12 +229,12 @@
     const cards = creatorSec.querySelectorAll('.hanging-card');
     if (!cards.length) return;
 
-    // Natural slanted resting angles (-3.8deg, +3.2deg, -2.6deg)
-    const restingAngles = [-3.8, 3.2, -2.6];
+    // Natural slanted resting angles (-3.5deg, +3.5deg, -2.8deg) matching reference photo
+    const restingAngles = [-3.5, 3.5, -2.8];
 
-    // Authentic Wavy Clothesline: pronounced resting wave sag vs elastic impact dip wave
-    const ropeNormalPath = 'M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38';
-    const ropeDipPath    = 'M 0,38 Q 115,66 230,56 Q 415,96 600,64 Q 785,96 970,56 Q 1085,66 1200,38';
+    // Authentic Organic Catenary Sag Curve vs Elastic Impact Dip
+    const ropeNormalPath = 'M 0,28 C 100,30 150,35 200,36 C 360,40 460,50 600,50 C 740,50 840,40 1000,36 C 1050,35 1100,30 1200,28';
+    const ropeDipPath    = 'M 0,28 C 100,32 150,39 200,42 C 360,46 460,57 600,57 C 740,57 840,46 1000,42 C 1050,39 1100,32 1200,28';
 
     // Initial setup: air-flowing starting position from below the viewport
     gsap.set(headerRow, {
@@ -287,7 +287,7 @@
         ease: 'power2.out'
       });
 
-      // Step 2: Clothesline rope reveals with organic wave sag
+      // Step 2: Clothesline rope reveals with organic catenary sag
       if (threadWrap) {
         tl.to(threadWrap, {
           opacity: 1,
@@ -298,14 +298,12 @@
       }
 
       // Step 3: Cards fly up like paper caught in a rising updraft (reverse movement of falling down)
-      // Staggered arrival: 0.18s between cards
       const baseStart = 0.55;
 
       cards.forEach((card, idx) => {
         const cardStartTime = baseStart + (idx * 0.18);
         const targetAngle = restingAngles[idx] || 0;
 
-        // Custom aerodynamic draft coordinates per card for authentic reverse-falling flight
         const draftConfig = [
           { midX: 30, midRot: 15, midRotY: -14, crestX: -10, crestRot: -6 },
           { midX: -28, midRot: -15, midRotY: 13, crestX: 10, crestRot: 6 },
@@ -350,7 +348,7 @@
           duration: 0.22,
           ease: 'power1.out'
         })
-        // Stage 4: Clothespin clips onto wavy rope & card elastically rebounds to resting angle
+        // Stage 4: Clothespin clips onto rope & card elastically rebounds to resting angle
         .to(card, {
           y: 0,
           x: 0,
@@ -361,15 +359,13 @@
           duration: 0.7,
           ease: 'elastic.out(1.15, 0.45)',
           onComplete: () => {
-            // Start continuous organic wind blowing movement
             startWindBreezeMovement(card, idx, targetAngle);
           }
         });
 
         tl.add(cardFlightTl, cardStartTime);
 
-        // Rope physical reaction on clothespin impact:
-        // When card reaches top (~0.88s into its flight), clothesline dips and bounces
+        // Rope physical reaction on clothespin impact: dips and bounces
         const impactTime = cardStartTime + 0.88;
         if (ropePaths.length) {
           tl.to(ropePaths, {
@@ -389,8 +385,8 @@
       // Subtle living wave breathing motion on the clothesline rope
       if (ropePaths.length) {
         gsap.to(ropePaths, {
-          y: 2.0,
-          duration: 3.6,
+          y: 1.5,
+          duration: 4.0,
           yoyo: true,
           repeat: -1,
           ease: 'sine.inOut',
@@ -399,75 +395,72 @@
       }
     }
 
-    // Continuous, amplified wind blowing movement (pendulum sway + sail lift + 3D flutter)
+    // Continuous, amplified wind blowing & airy hover physics (multi-point bidirectional pendulum, draft lift & billow)
     function startWindBreezeMovement(card, idx, restingAngle) {
-      const windConfigs = [
-        {
-          swayAngle: 8.5,       // sideways pendulum swing ±8.5 deg
-          rotX: 13,            // wind lifts bottom edge outward/upward +13deg
-          rotY: 10,            // flutter twist ±10deg
-          liftY: -11,          // vertical air lift -11px
-          durSway: 3.8,        // natural pendulum timing
-          durLift: 2.9,        // out-of-phase vertical lift
-          delay: 0.1
-        },
-        {
-          swayAngle: 9.2,      // center card sways deeper ±9.2 deg
-          rotX: 15,            // wind lifts bottom edge +15deg
-          rotY: -11,           // flutter twist ±11deg
-          liftY: -13,          // vertical air lift -13px
-          durSway: 4.4,
-          durLift: 3.3,
-          delay: 0.4
-        },
-        {
-          swayAngle: 8.8,      // right card sways ±8.8 deg
-          rotX: 12,            // wind lifts bottom edge +12deg
-          rotY: 12,            // flutter twist ±12deg
-          liftY: -10,          // vertical air lift -10px
-          durSway: 3.6,
-          durLift: 2.7,
-          delay: 0.25
-        }
-      ];
-      const cfg = windConfigs[idx] || { swayAngle: 8.5, rotX: 12, rotY: 10, liftY: -10, durSway: 4.0, durLift: 3.0, delay: 0 };
-
-      // 1. Amplified sideways pendulum sway with 3D wind sail angle and flutter
-      const windSwayTween = gsap.to(card, {
-        rotation: restingAngle + (idx % 2 === 0 ? cfg.swayAngle : -cfg.swayAngle),
-        rotateX: cfg.rotX,
-        rotateY: cfg.rotY,
-        duration: cfg.durSway,
-        ease: 'sine.inOut',
-        yoyo: true,
+      const windTimeline = gsap.timeline({
         repeat: -1,
-        delay: cfg.delay
+        defaults: { ease: 'sine.inOut' }
       });
 
-      // 2. Visible vertical wind draft lift
-      const windLiftTween = gsap.to(card, {
-        y: cfg.liftY,
-        duration: cfg.durLift,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-        delay: cfg.delay + 0.3
+      const swayAmp = [7.5, 8.5, 7.8][idx] || 8.0;
+      const liftAmp = [-14, -18, -15][idx] || -16;
+      const rotXAmp = [18, 22, 19][idx] || 20;
+      const rotYAmp = [8, -9, 8][idx] || 8;
+      const dur = [5.8, 6.8, 6.2][idx] || 6.0;
+
+      // Phase 1: Wind gust catches face — card swings to one side, lifts upward and tilts out toward viewer
+      windTimeline.to(card, {
+        rotation: restingAngle + swayAmp,
+        rotateX: rotXAmp,
+        rotateY: rotYAmp,
+        y: liftAmp,
+        x: (idx % 2 === 0 ? 8 : -8),
+        duration: dur * 0.28
+      })
+      // Phase 2: Decelerates and swings back through center while floating on air cushion
+      .to(card, {
+        rotation: restingAngle,
+        rotateX: rotXAmp * 0.45,
+        rotateY: -rotYAmp * 0.3,
+        y: liftAmp * 0.6,
+        x: 0,
+        duration: dur * 0.24
+      })
+      // Phase 3: Swings through to opposite side, catching secondary wind draft
+      .to(card, {
+        rotation: restingAngle - swayAmp * 0.85,
+        rotateX: rotXAmp * 0.8,
+        rotateY: -rotYAmp,
+        y: liftAmp * 0.85,
+        x: (idx % 2 === 0 ? -7 : 7),
+        duration: dur * 0.28
+      })
+      // Phase 4: Gently settles back toward rest position to complete seamless loop
+      .to(card, {
+        rotation: restingAngle,
+        rotateX: 4,
+        rotateY: 0,
+        y: 0,
+        x: 0,
+        duration: dur * 0.20
       });
 
-      card._windSwayTween = windSwayTween;
-      card._windLiftTween = windLiftTween;
+      // Stagger start of wind loop per card
+      windTimeline.seek(idx * 1.8);
+
+      card._windTimeline = windTimeline;
       card._restingAngle = restingAngle;
 
-      // Hover interaction: smoothly straighten to 0deg, scale up, lift card slightly
+      // Hover interaction: smoothly straighten to 0deg, scale up, lift card for clear inspection
       card.addEventListener('mouseenter', () => {
-        if (card._windSwayTween) card._windSwayTween.pause();
-        if (card._windLiftTween) card._windLiftTween.pause();
+        if (card._windTimeline) card._windTimeline.pause();
         gsap.to(card, {
           rotation: 0,
           rotateX: 0,
           rotateY: 0,
           scale: 1.04,
           y: -12,
+          x: 0,
           duration: 0.35,
           ease: 'power2.out',
           overwrite: 'auto'
@@ -481,12 +474,12 @@
           rotateY: 0,
           scale: 1,
           y: 0,
+          x: 0,
           duration: 0.5,
           ease: 'power2.out',
           overwrite: 'auto',
           onComplete: () => {
-            if (card._windSwayTween) card._windSwayTween.play();
-            if (card._windLiftTween) card._windLiftTween.play();
+            if (card._windTimeline) card._windTimeline.play();
           }
         });
       });
@@ -753,5 +746,194 @@
       }
     });
   }
+
+  // ============================================================================
+  // 6. Enterprise Engineering Services: Conveyor Belt Robotic Arm Synchronization
+  // ============================================================================
+  function initEngineerConveyorSync() {
+    const engineerSec = document.getElementById('engineer');
+    const video = document.getElementById('engineerBgVideo');
+    const track = document.getElementById('conveyorCardsTrack');
+    if (!engineerSec || !video || !track) return;
+
+    const cards = Array.from(engineerSec.querySelectorAll('.conveyor-card'));
+    const dots = Array.from(engineerSec.querySelectorAll('.conveyor-dot'));
+    const prevBtn = document.getElementById('conveyorPrevBtn');
+    const nextBtn = document.getElementById('conveyorNextBtn');
+    if (!cards.length) return;
+
+    let activeCardIdx = 0;
+    let isHovered = false;
+    let lastTime = 0;
+    const LOOP_DURATION = 3.92;
+
+    // Hover pause on conveyor stage
+    track.addEventListener('mouseenter', () => {
+      isHovered = true;
+      video.pause();
+      cards[activeCardIdx].classList.add('is-picked');
+      cards[activeCardIdx].style.transform = 'translate3d(0, -32px, 0) scale(1.15)';
+    });
+
+    track.addEventListener('mouseleave', () => {
+      isHovered = false;
+      video.play().catch(() => {});
+    });
+
+    // Update active dot indicator
+    function updateDots(idx) {
+      dots.forEach((dot, i) => {
+        if (i === idx) {
+          dot.classList.add('active');
+          dot.setAttribute('aria-selected', 'true');
+        } else {
+          dot.classList.remove('active');
+          dot.setAttribute('aria-selected', 'false');
+        }
+      });
+    }
+
+    // Seek to specific card inspection state
+    function seekToCard(idx) {
+      activeCardIdx = (idx + cards.length) % cards.length;
+      updateDots(activeCardIdx);
+      video.currentTime = 1.8; // Peak hold timestamp below claw
+      cards.forEach((card, i) => {
+        if (i === activeCardIdx) {
+          card.classList.add('active', 'is-picked');
+          card.style.transform = 'translate3d(0, -32px, 0) scale(1.15)';
+          card.style.opacity = '1';
+        } else {
+          card.classList.remove('active', 'is-picked');
+          const dir = i < activeCardIdx ? -140 : 140;
+          card.style.transform = `translate3d(${dir}%, 0, 0) scale(1.0)`;
+          card.style.opacity = '0';
+        }
+      });
+    }
+
+    // Dot navigation
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        seekToCard(idx);
+      });
+    });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        seekToCard(activeCardIdx - 1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        seekToCard(activeCardIdx + 1);
+      });
+    }
+
+    // 60fps RequestAnimationFrame loop synchronized to video.currentTime
+    let animFrameId = null;
+
+    function renderConveyorSync() {
+      if (!isHovered && video && !video.paused) {
+        const curTime = video.currentTime;
+
+        // Detect video loop wrap
+        if (curTime < lastTime - 1.0) {
+          activeCardIdx = (activeCardIdx + 1) % cards.length;
+          updateDots(activeCardIdx);
+        }
+        lastTime = curTime;
+
+        const t = curTime % LOOP_DURATION;
+
+        let x = 0;
+        let y = 0;
+        let scale = 1.0;
+        let isPicked = false;
+        let opacity = 1.0;
+
+        if (t < 1.0) {
+          // Entry: glides along moving belt from left (-130%) to center (0%)
+          const p = t / 1.0;
+          const easeP = Math.sin((p * Math.PI) / 2);
+          x = -130 * (1 - easeP);
+          y = 0;
+          scale = 1.0;
+          opacity = Math.min(1.0, 0.4 + easeP * 0.6);
+        } else if (t < 1.5) {
+          // Claw descends and grasps: lifts into negative space (-32px), scales to 1.15
+          const p = (t - 1.0) / 0.5;
+          x = 0;
+          y = -32 * p;
+          scale = 1.0 + 0.15 * p;
+          isPicked = true;
+          opacity = 1.0;
+        } else if (t < 2.2) {
+          // Peak hold under claw: card is highlighted, elevated, readable
+          x = 0;
+          y = -32;
+          scale = 1.15;
+          isPicked = true;
+          opacity = 1.0;
+        } else if (t < 2.6) {
+          // Claw releases: descends back to conveyor belt
+          const p = (t - 2.2) / 0.4;
+          x = 0;
+          y = -32 * (1 - p);
+          scale = 1.15 - 0.15 * p;
+          isPicked = false;
+          opacity = 1.0;
+        } else {
+          // Exit: rolls along moving belt from center (0%) to right (+130%)
+          const p = (t - 2.6) / (LOOP_DURATION - 2.6);
+          const easeP = p * p;
+          x = 130 * easeP;
+          y = 0;
+          scale = 1.0;
+          opacity = Math.max(0, 1.0 - easeP * 0.7);
+        }
+
+        cards.forEach((card, i) => {
+          if (i === activeCardIdx) {
+            card.classList.add('active');
+            if (isPicked) card.classList.add('is-picked');
+            else card.classList.remove('is-picked');
+            card.style.transform = `translate3d(${x}%, ${y}px, 0) scale(${scale})`;
+            card.style.opacity = opacity.toString();
+          } else {
+            card.classList.remove('active', 'is-picked');
+            const offsetDir = i < activeCardIdx ? -140 : 140;
+            card.style.transform = `translate3d(${offsetDir}%, 0, 0) scale(1.0)`;
+            card.style.opacity = '0';
+          }
+        });
+      }
+
+      animFrameId = requestAnimationFrame(renderConveyorSync);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const secObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorSync);
+            if (!isHovered && video.paused) video.play().catch(() => {});
+          } else {
+            if (animFrameId) {
+              cancelAnimationFrame(animFrameId);
+              animFrameId = null;
+            }
+            if (!video.paused) video.pause();
+          }
+        });
+      }, { threshold: 0.15 });
+      secObserver.observe(engineerSec);
+    } else {
+      animFrameId = requestAnimationFrame(renderConveyorSync);
+    }
+  }
+
+  initEngineerConveyorSync();
 
 })();

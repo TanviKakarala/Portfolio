@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040b17"/>
+      <stop offset="50%" stop-color="#08152c"/>
+      <stop offset="100%" stop-color="#030812"/>
+    </linearGradient>
+
+    <linearGradient id="metal-base-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a5169"/>
+      <stop offset="35%" stop-color="#1b2a3a"/>
+      <stop offset="70%" stop-color="#101c28"/>
+      <stop offset="100%" stop-color="#070d14"/>
+    </linearGradient>
+
+    <linearGradient id="metal-rim-3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6488a8"/>
+      <stop offset="25%" stop-color="#9ac2e6"/>
+      <stop offset="50%" stop-color="#2a4258"/>
+      <stop offset="85%" stop-color="#9ac2e6"/>
+      <stop offset="100%" stop-color="#466480"/>
+    </linearGradient>
+
+    <filter id="neon-glow-cyan-3" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="heavy-cyan-glow-3" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="480" fill="url(#bg-grad-3)"/>
+
+  <!-- Perspective Isometric Grid Lines -->
+  <g stroke="rgba(0, 229, 255, 0.05)" stroke-width="1">
+    <line x1="0" y1="120" x2="600" y2="120"/>
+    <line x1="0" y1="240" x2="600" y2="240"/>
+    <line x1="0" y1="360" x2="600" y2="360"/>
+    <line x1="150" y1="0" x2="150" y2="480"/>
+    <line x1="300" y1="0" x2="300" y2="480"/>
+    <line x1="450" y1="0" x2="450" y2="480"/>
+  </g>
+
+  <!-- Under-Pedestal Glow -->
+  <ellipse cx="300" cy="385" rx="200" ry="45" fill="#00E5FF" opacity="0.22" filter="url(#heavy-cyan-glow-3)"/>
+
+  <!-- ==================== 3D METALLIC PEDESTAL ==================== -->
+  <path d="M 120,385 C 120,412 480,412 480,385 L 480,405 C 480,432 120,432 120,405 Z" fill="#060c14" stroke="#00E5FF" stroke-width="0.8" opacity="0.8"/>
+  <path d="M 130,375 C 130,402 470,402 470,375 L 470,392 C 470,418 130,418 130,392 Z" fill="url(#metal-base-3)" stroke="#1a3148" stroke-width="1.2"/>
+  
+  <ellipse cx="300" cy="375" rx="170" ry="35" fill="none" stroke="#00E5FF" stroke-width="3" filter="url(#neon-glow-cyan-3)"/>
+  <ellipse cx="300" cy="375" rx="168" ry="34" fill="#0d1b2a"/>
+
+  <path d="M 155,360 C 155,384 445,384 445,360 L 445,372 C 445,394 155,394 155,372 Z" fill="url(#metal-base-3)" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+  
+  <ellipse cx="300" cy="360" rx="145" ry="30" fill="#091422" stroke="url(#metal-rim-3)" stroke-width="2"/>
+  <ellipse cx="300" cy="360" rx="132" ry="26" fill="none" stroke="rgba(0, 229, 255, 0.45)" stroke-width="1" stroke-dasharray="6 6"/>
+
+  <!-- ==================== CENTRAL CLOUD TECH HUB & SECURITY SHIELD ==================== -->
+  
+  <!-- Central Server & Cloud Hub Structure -->
+  <g transform="translate(300, 250)">
+    <!-- Server Stack Body -->
+    <rect x="-42" y="-10" width="84" height="75" rx="8" fill="url(#metal-base-3)" stroke="#00E5FF" stroke-width="1.6" filter="drop-shadow(0 14px 28px rgba(0,0,0,0.8))"/>
+    
+    <!-- Server Rack Slots -->
+    <g stroke="rgba(0,229,255,0.4)" stroke-width="1">
+      <rect x="-34" y="2" width="68" height="15" rx="3" fill="#0a1728"/>
+      <circle cx="-24" cy="9" r="2.5" fill="#10b981"/>
+      <circle cx="-16" cy="9" r="2.5" fill="#00E5FF"/>
+      <line x1="-6" y1="9" x2="26" y2="9" stroke="#3a5a7c" stroke-dasharray="2 3"/>
+
+      <rect x="-34" y="21" width="68" height="15" rx="3" fill="#0a1728"/>
+      <circle cx="-24" cy="28" r="2.5" fill="#10b981"/>
+      <circle cx="-16" cy="28" r="2.5" fill="#00E5FF"/>
+      <line x1="-6" y1="28" x2="26" y2="28" stroke="#3a5a7c" stroke-dasharray="2 3"/>
+
+      <rect x="-34" y="40" width="68" height="15" rx="3" fill="#0a1728"/>
+      <circle cx="-24" cy="47" r="2.5" fill="#10b981"/>
+      <circle cx="-16" cy="47" r="2.5" fill="#00E5FF"/>
+      <line x1="-6" y1="47" x2="26" y2="47" stroke="#3a5a7c" stroke-dasharray="2 3"/>
+    </g>
+
+    <!-- Cloud Hub Top Dome / Radar Emitting Core -->
+    <ellipse cx="0" cy="-10" rx="30" ry="10" fill="#112235" stroke="#00E5FF" stroke-width="1.2"/>
+    <ellipse cx="0" cy="-18" rx="20" ry="12" fill="rgba(0,229,255,0.25)" stroke="#00E5FF" stroke-width="1.5" filter="url(#neon-glow-cyan-3)"/>
+    <circle cx="0" cy="-18" r="6" fill="#ffffff" filter="url(#neon-glow-cyan-3)"/>
+  </g>
+
+  <!-- Glowing Interconnect Data Waves -->
+  <g fill="none" stroke="#00E5FF" stroke-width="1.8" filter="url(#neon-glow-cyan-3)">
+    <path d="M 258,280 C 210,280 190,260 170,230"/>
+    <path d="M 342,280 C 390,280 410,260 430,230"/>
+    <path d="M 300,225 L 300,140"/>
+  </g>
+
+  <!-- Top Floating Hexagonal Security Shield -->
+  <g transform="translate(300, 100)">
+    <!-- Hexagonal Outer Frame -->
+    <polygon points="0,-45 38,-22 38,22 0,45 -38,22 -38,-22" fill="rgba(8, 22, 40, 0.9)" stroke="#00E5FF" stroke-width="2" filter="url(#neon-glow-cyan-3)"/>
+    <polygon points="0,-36 30,-17 30,17 0,36 -30,17 -30,-17" fill="rgba(0, 229, 255, 0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    
+    <!-- Shield Padlock / Keyhole Icon -->
+    <rect x="-12" y="-3" width="24" height="20" rx="4" fill="#00E5FF"/>
+    <path d="M -8,-3 L -8,-12 C -8,-18 8,-18 8,-12 L 8,-3" fill="none" stroke="#00E5FF" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="0" cy="6" r="3" fill="#040e1b"/>
+    <line x1="0" y1="9" x2="0" y2="13" stroke="#040e1b" stroke-width="2"/>
+
+    <!-- Shield Status Pill -->
+    <rect x="-42" y="52" width="84" height="18" rx="9" fill="#05101f" stroke="#00E5FF" stroke-width="1"/>
+    <text x="0" y="64" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#00E5FF" text-anchor="middle">ZERO-TRUST SEC</text>
+  </g>
+
+  <!-- Left Floating Node: 24/7 Operations & Support Badge -->
+  <g transform="translate(160, 215)">
+    <rect width="90" height="48" rx="8" fill="rgba(6, 18, 32, 0.88)" stroke="rgba(0, 229, 255, 0.5)" stroke-width="1" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.7))"/>
+    <circle cx="20" cy="24" r="10" fill="rgba(0, 229, 255, 0.15)" stroke="#00E5FF" stroke-width="1.2"/>
+    <!-- Headset icon -->
+    <path d="M 14,24 A 6,6 0 0,1 26,24 L 26,27 A 2,2 0 0,1 24,29 L 22,29 M 14,27 A 2,2 0 0,0 16,29 L 18,29" fill="none" stroke="#00E5FF" stroke-width="1.5"/>
+    <text x="36" y="20" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#ffffff">24/7 SLA</text>
+    <text x="36" y="32" font-family="system-ui, sans-serif" font-size="7" fill="#9ac2e6">Incident Response</text>
+  </g>
+
+  <!-- Right Floating Node: Cloud & API Sync Badge -->
+  <g transform="translate(440, 215)">
+    <rect width="90" height="48" rx="8" fill="rgba(6, 18, 32, 0.88)" stroke="rgba(0, 229, 255, 0.5)" stroke-width="1" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.7))"/>
+    <circle cx="20" cy="24" r="10" fill="rgba(0, 229, 255, 0.15)" stroke="#00E5FF" stroke-width="1.2"/>
+    <!-- Sync arrows icon -->
+    <path d="M 16,21 A 5,5 0 0,1 24,21 L 25,19 M 24,27 A 5,5 0 0,1 16,27 L 15,29" fill="none" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+    <text x="36" y="20" font-family="'JetBrains Mono', monospace" font-size="8.5" font-weight="700" fill="#ffffff">API SYNC</text>
+    <text x="36" y="32" font-family="system-ui, sans-serif" font-size="7" fill="#9ac2e6">Multi-Cloud Mesh</text>
+  </g>
+
+  <!-- Bottom Floating Uptime Status Metric -->
+  <g transform="translate(240, 335)">
+    <rect width="120" height="24" rx="12" fill="#040d18" stroke="#00E5FF" stroke-width="1"/>
+    <circle cx="16" cy="12" r="3.5" fill="#38ef7d" filter="url(#neon-glow-cyan-3)"/>
+    <text x="26" y="15" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#ffffff">99.99% <tspan fill="#9ac2e6">UPTIME SLA</tspan></text>
+  </g>
+</svg>

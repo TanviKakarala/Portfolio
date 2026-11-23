@@ -2016,20 +2016,20 @@ html {
 }
 
 /* ==========================================================================
-   REALISTIC CLOTHESLINE ROPE & 3 HANGING CARDS (WAVY NATURAL SAG)
+   REALISTIC CLOTHESLINE ROPE & 3 HANGING CARDS (ORGANIC CATENARY SAG)
    ========================================================================== */
 .hanging-thread-wrap {
   width: 100%;
   position: relative;
   z-index: 5;
-  margin-top: 0px;
-  margin-bottom: -34px; /* Position wavy rope right through the wooden clothespin notch */
+  margin-top: 2px;
+  margin-bottom: -18px; /* Position rope right through the wooden clothespin notch */
   pointer-events: none;
 }
 
 .hanging-thread-svg {
   width: 100%;
-  height: 80px;
+  height: 52px;
   display: block;
   overflow: visible;
 }
@@ -2048,7 +2048,7 @@ html {
 .rope-core {
   fill: none;
   stroke: url(#hempRopeBase);
-  stroke-width: 4px;
+  stroke-width: 4.5px;
   stroke-linecap: round;
 }
 
@@ -2056,14 +2056,14 @@ html {
   fill: none;
   stroke: #5a3a18;
   stroke-width: 4px;
-  stroke-dasharray: 4.5, 7.5;
+  stroke-dasharray: 5, 8;
   stroke-linecap: butt;
   opacity: 0.85;
 }
 
 .rope-twist-light {
   fill: none;
-  stroke: #fff1d6;
+  stroke: #fff4dc;
   stroke-width: 1.8px;
   stroke-dasharray: 2, 8;
   stroke-dashoffset: 1.5;
@@ -2075,7 +2075,7 @@ html {
 .hanging-cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(16px, 2.5vw, 36px);
+  gap: clamp(18px, 2.8vw, 40px);
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
@@ -2086,19 +2086,19 @@ html {
 
 .hanging-card.polaroid-card {
   position: relative;
-  background: rgba(14, 6, 20, 0.82);
+  background: rgba(14, 6, 20, 0.86);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 18px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 12px 12px 16px;
+  padding: 22px 14px 16px;
   display: flex;
   flex-direction: column;
-  min-height: clamp(480px, 60vh, 535px);
+  min-height: clamp(500px, 62vh, 560px);
   max-width: 375px;
   width: 100%;
   margin: 0 auto;
-  transform-origin: 50% 0%; /* Anchored cleanly at the top clothespin */
+  transform-origin: 50% 0px; /* Anchored cleanly at the top clothespin */
   transform-style: preserve-3d;
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.75),
               inset 0 1px 0 rgba(255, 255, 255, 0.18),
@@ -2110,17 +2110,17 @@ html {
 }
 
 .hanging-card[data-card-idx="1"] {
-  margin-top: 8px; /* Follows natural lower sag of the middle rope wave */
+  margin-top: 14px; /* Follows natural lower sag of the middle rope wave */
 }
 
 /* Authentic Wooden Clothespin Pegs */
 .card-clothespin {
   position: absolute;
-  top: -34px;
+  top: -46px;
   left: 50%;
   transform: translateX(-50%);
-  width: 32px;
-  height: 72px;
+  width: 38px;
+  height: 86px;
   z-index: 10;
   pointer-events: none;
 }
@@ -2136,7 +2136,7 @@ html {
 .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(310px, 40vh, 355px);
+  height: clamp(310px, 40vh, 360px);
   border-radius: 12px;
   overflow: hidden;
   background: #08020a;
@@ -2162,25 +2162,9 @@ html {
   z-index: 2;
 }
 
-.photo-corner-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 3px 9px;
-  border-radius: 99px;
-  font: 700 9px var(--font-mono);
-  letter-spacing: 0.08em;
-  background: rgba(14, 5, 20, 0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #ffb3c7;
-  border: 1px solid rgba(255, 42, 133, 0.35);
-  z-index: 3;
-}
-
 /* Lower Half: Clean, Bold Service Title */
 .card-caption-block {
-  padding: clamp(12px, 1.6vh, 16px) 10px 4px;
+  padding: clamp(14px, 1.8vh, 18px) 10px 4px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -2189,7 +2173,7 @@ html {
 }
 
 .card-micro-label {
-  font: 700 9px var(--font-mono);
+  font: 700 9.5px var(--font-mono);
   letter-spacing: 0.16em;
   color: #ff75a0;
   text-transform: uppercase;
@@ -2197,7 +2181,7 @@ html {
 }
 
 .card-service-title {
-  font: 700 clamp(15.5px, 1.2vw, 18.5px)/1.2 var(--font-serif);
+  font: 700 clamp(16px, 1.25vw, 19px)/1.2 var(--font-serif);
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
@@ -2256,222 +2240,312 @@ html {
   border-color: rgba(255, 42, 133, 0.45);
   color: #ffffff;
 }
-  color: #ffffff;
 }
 
 /* ==========================================================================
    SECTION 3: THE ENGINEER LAB — HIGH-THROUGHPUT PIPELINES (SECOND)
    ========================================================================== */
+/* ==========================================================================
+   SECTION 3: ENTERPRISE ENGINEERING SERVICES — ROBOTIC CONVEYOR BELT
+   ========================================================================== */
 #engineer {
-  background: radial-gradient(70vmax 45vmax at 0% 0%, rgba(13, 91, 128, 0.35), transparent), var(--n1);
+  position: relative;
+  background: #030812;
+  overflow: hidden;
+  width: 100%;
+  height: 100svh;
+  min-height: 100svh;
 }
 
-/* 4-Stage Data Pipeline */
-.pipe {
+/* Full-bleed, locked, seamless loop video background */
+.engineer-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.engineer-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(3, 8, 18, 0.25) 0%, rgba(2, 6, 14, 0.75) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.engineer-container {
+  position: relative;
+  z-index: 3;
+  height: 100%;
   display: flex;
-  margin: 0 0 clamp(10px, 1.5vh, 16px);
-  gap: 0;
-  position: relative;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: clamp(10px, 1.5vh, 16px);
+  padding-bottom: clamp(6px, 1vh, 12px);
 }
 
-.pipe > div {
-  flex: 1;
-  position: relative;
-  padding: 10px 12px 6px;
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  font: 500 11px var(--font-mono);
+/* Compact Top Header Row */
+.engineer-header-row {
+  margin-bottom: clamp(6px, 1vh, 12px);
+}
+
+.engineer-k {
+  display: block;
+  font: 700 10.5px var(--font-mono);
+  letter-spacing: .2em;
   text-transform: uppercase;
-  letter-spacing: .08em;
-  color: #9fc4e0;
-}
-
-.pipe-num {
-  display: block;
-  font-size: 10px;
-  color: #5f86a8;
+  color: #00E5FF;
   margin-bottom: 2px;
+  text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
 }
 
-.pipe > div b {
-  display: block;
-  font-size: 12px;
-  color: #fff;
-  margin-bottom: 2px;
+.engineer-h2 {
+  font: 700 clamp(26px, 3.0vw, 44px)/1.02 var(--font-serif);
+  letter-spacing: -.03em;
+  color: #ffffff;
+  margin: 2px 0 0;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85), 0 0 24px rgba(0, 229, 255, 0.2);
 }
 
-.pipe > div small {
-  display: block;
-  font-size: 9.5px;
-  text-transform: none;
-  letter-spacing: normal;
-  color: #7b9ebd;
-  line-height: 1.3;
+.engineer-h2 i {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #80f0ff;
+  text-shadow: 0 0 22px rgba(0, 229, 255, 0.7);
 }
 
-.pipe > div::after {
+.engineer-lead {
+  max-width: 46ch;
+  font-size: clamp(11px, 0.8vw, 12.5px);
+  line-height: 1.4;
+  color: #c4dff5;
+  margin: 0 0 6px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Manual Conveyor Navigation Controls */
+.conveyor-nav-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 12px;
+  border-radius: 99px;
+  background: rgba(6, 18, 32, 0.75);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  width: max-content;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.conveyor-arrow-btn {
+  background: transparent;
+  border: none;
+  color: #00E5FF;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.conveyor-arrow-btn:hover {
+  color: #ffffff;
+  transform: scale(1.3);
+}
+
+.conveyor-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.conveyor-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.conveyor-dot:hover {
+  background: rgba(0, 229, 255, 0.6);
+  transform: scale(1.2);
+}
+
+.conveyor-dot.active {
+  background: #00E5FF;
+  box-shadow: 0 0 10px #00E5FF, 0 0 18px rgba(0, 229, 255, 0.5);
+  transform: scale(1.35);
+}
+
+/* Conveyor Stage Area (Framed between top claw and bottom belt) */
+.conveyor-stage {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  pointer-events: none;
+  min-height: clamp(450px, 58vh, 530px);
+}
+
+.conveyor-cards-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Individual Conveyor Service Card */
+.conveyor-card.eng-card {
+  position: absolute;
+  bottom: clamp(10%, 14vh, 18%); /* Rests base right on metallic conveyor belt */
+  width: clamp(310px, 24vw, 365px);
+  min-height: clamp(440px, 55vh, 495px);
+  background: rgba(5, 14, 26, 0.9);
+  border: 1.5px solid rgba(0, 229, 255, 0.28);
+  border-radius: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 12px 12px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15),
+              inset 0 0 20px rgba(0, 229, 255, 0.08);
+  will-change: transform, opacity, box-shadow, border-color;
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  transform: translate3d(-140%, 0, 0) scale(1);
+  opacity: 0;
+}
+
+/* Top Accent Bar */
+.conveyor-card::before {
   content: "";
   position: absolute;
+  top: 0;
   left: 0;
-  top: -2px;
-  height: 2px;
-  width: 0;
-  background: linear-gradient(90deg, var(--cy), #fff);
-  transition: width 1s ease;
-  transition-delay: var(--d, 0s);
+  right: 0;
+  height: 3px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, #0077ff, #00E5FF);
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
 }
 
-.pipe.in > div::after {
+/* Active Pick & Expand State (Lifted below claw with glowing cyan depth) */
+.conveyor-card.is-picked {
+  border-color: #00E5FF;
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.55),
+              0 28px 60px rgba(0, 0, 0, 0.9),
+              inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.conveyor-card.is-picked::before {
+  height: 4px;
+  box-shadow: 0 0 18px #00E5FF;
+}
+
+/* Card Visual Frame */
+.conveyor-card .card-photo-frame {
+  position: relative;
   width: 100%;
-}
-
-/* 2-Column Workstation in #engineer */
-.engineer-workstation-grid {
-  display: grid;
-  grid-template-columns: 1.12fr 0.88fr;
-  gap: clamp(12px, 1.6vw, 22px);
-  align-items: stretch;
-}
-
-.engineer-workstation-grid .terminal-card {
-  margin-top: 0;
-  background: rgba(3, 8, 16, 0.92);
-  border: 1px solid rgba(0, 245, 255, 0.3);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 245, 255, 0.12);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 14px;
-  background: rgba(8, 18, 32, 0.95);
-  border-bottom: 1px solid rgba(0, 245, 255, 0.18);
-}
-
-.terminal-dots {
-  display: flex;
-  gap: 5px;
-}
-
-.dot-red { width: 9px; height: 9px; border-radius: 50%; background: #ff5f56; }
-.dot-yellow { width: 9px; height: 9px; border-radius: 50%; background: #ffbd2e; }
-.dot-green { width: 9px; height: 9px; border-radius: 50%; background: #27c93f; }
-
-.terminal-title {
-  font: 500 10.5px var(--font-mono);
-  color: #bcd6ff;
-  letter-spacing: 0.04em;
-}
-
-.terminal-status {
-  font: 700 10px var(--font-mono);
-  color: #27c93f;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.pulse-green {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #27c93f;
-  box-shadow: 0 0 8px #27c93f;
-  animation: pulseDot 1.6s infinite alternate;
-}
-
-@keyframes pulseDot {
-  0% { transform: scale(0.8); opacity: 0.5; }
-  100% { transform: scale(1.2); opacity: 1; }
-}
-
-.engineer-workstation-grid .terminal-body {
-  padding: 12px 16px;
-  font: 500 11px/1.6 var(--font-mono);
-  flex: 1;
-  min-height: 110px;
-  max-height: 150px;
-  overflow-y: auto;
-  background: #02070e;
-}
-
-.log-line {
-  margin-bottom: 3px;
-}
-
-.engineer-workstation-grid .terminal-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  padding: 10px 14px;
-  background: rgba(8, 18, 32, 0.9);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.engineer-workstation-grid .sim-btn {
-  font: 600 10.5px var(--font-mono);
-  padding: 5px 11px;
-  border-radius: 6px;
-  background: rgba(0, 245, 255, 0.12);
-  border: 1px solid rgba(0, 245, 255, 0.35);
-  color: #e0f7ff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.engineer-workstation-grid .sim-btn:hover {
-  background: rgba(0, 245, 255, 0.25);
-  color: #fff;
-  border-color: var(--cy);
-}
-
-.engineer-workstation-grid .sim-btn.secondary {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #94a3b8;
-}
-
-.engineer-arch-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.engineer-arch-cards .glass {
-  padding: 10px 14px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: clamp(270px, 35vh, 310px);
   border-radius: 12px;
+  overflow: hidden;
+  background: #020710;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.8);
 }
 
-.engineer-arch-cards .glass h3 {
-  font-size: 13.5px;
-  margin: 2px 0 3px;
-  line-height: 1.2;
+.conveyor-card .card-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.engineer-arch-cards .glass p {
-  font-size: 11px;
-  line-height: 1.35;
+.conveyor-card:hover .card-photo-img {
+  transform: scale(1.03);
+}
+
+/* Badges and Typography */
+.photo-corner-badge.eng-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font: 700 9px var(--font-mono);
+  letter-spacing: 0.08em;
+  background: rgba(3, 11, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #00E5FF;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  z-index: 3;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+}
+
+.conveyor-card .card-caption-block {
+  padding: clamp(10px, 1.4vh, 14px) 8px 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.eng-micro-label {
+  font: 700 9px var(--font-mono);
+  letter-spacing: 0.16em;
+  color: #00E5FF;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+}
+
+.eng-service-title {
+  font: 700 clamp(15.5px, 1.2vw, 18.5px)/1.2 var(--font-serif);
+  color: #ffffff;
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.engineer-arch-cards .micro-tags {
-  margin-top: 5px;
-  gap: 4px;
+.eng-tag {
+  padding: 3px 8px;
+  border-radius: 99px;
+  font: 500 10px var(--font-mono);
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  color: #d4efff;
+  transition: all 0.3s ease;
 }
 
-.engineer-arch-cards .micro-tags li {
-  padding: 2px 7px;
-  font-size: 10px;
+.conveyor-card:hover .eng-tag {
+  background: rgba(0, 229, 255, 0.2);
+  border-color: rgba(0, 229, 255, 0.5);
+  color: #ffffff;
 }
 
 /* ==========================================================================

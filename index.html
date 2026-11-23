@@ -342,10 +342,10 @@
 
         <!-- Realistic Hanging Clothesline Rope with Natural Wavy Sag Between Cards -->
         <div class="hanging-thread-wrap" id="hangingThreadWrap" aria-hidden="true">
-          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 80" preserveAspectRatio="none">
             <defs>
               <filter id="ropeShadow" x="-10%" y="-30%" width="120%" height="200%">
-                <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="rgba(0,0,0,0.55)" />
+                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.6)" />
               </filter>
               <linearGradient id="hempRopeBase" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#edd5b3" />
@@ -357,42 +357,41 @@
 
             <!-- Wall Anchor Eyelets at Screen Edges -->
             <g class="rope-wall-anchor left-anchor">
-              <circle cx="8" cy="38" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="8" cy="38" r="2.5" fill="#edd5b3" />
+              <circle cx="8" cy="28" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="8" cy="28" r="2.5" fill="#edd5b3" />
             </g>
             <g class="rope-wall-anchor right-anchor">
-              <circle cx="1192" cy="38" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="1192" cy="38" r="2.5" fill="#edd5b3" />
+              <circle cx="1192" cy="28" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="1192" cy="28" r="2.5" fill="#edd5b3" />
             </g>
 
             <!-- 1. Shadow Underlayer -->
-            <path id="hangingRopeShadow" class="rope-shadow-line" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" filter="url(#ropeShadow)" />
+            <path id="hangingRopeShadow" class="rope-shadow-line" d="M 0,28 C 100,30 150,35 200,36 C 360,40 460,50 600,50 C 740,50 840,40 1000,36 C 1050,35 1100,30 1200,28" filter="url(#ropeShadow)" />
 
-            <!-- 2. Main Natural Hemp Rope Body (Pronounced Wavy Sag) -->
-            <path id="hangingRopeCore" class="rope-core" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
+            <!-- 2. Main Natural Hemp Rope Body (Organic Catenary Sag Curve) -->
+            <path id="hangingRopeCore" class="rope-core" d="M 0,28 C 100,30 150,35 200,36 C 360,40 460,50 600,50 C 740,50 840,40 1000,36 C 1050,35 1100,30 1200,28" />
 
             <!-- 3. Twisted Helical Fiber Strands (Deep Grooves) -->
-            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
+            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,28 C 100,30 150,35 200,36 C 360,40 460,50 600,50 C 740,50 840,40 1000,36 C 1050,35 1100,30 1200,28" />
 
             <!-- 4. Twisted Strand Highlights (Top Fiber Light Glint) -->
-            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
+            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,28 C 100,30 150,35 200,36 C 360,40 460,50 600,50 C 740,50 840,40 1000,36 C 1050,35 1100,30 1200,28" />
           </svg>
         </div>
 
         <!-- 3 Hanging Dark-Glass Long Portrait Rectangular Cards -->
         <div class="hanging-cards-container" id="hangingCardsGrid">
           <!-- Card 1: Web Development & Digital Solutions -->
-          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3.8deg;">
+          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3.5deg;">
             <!-- Authentic Wooden Clothespin Peg -->
             <div class="card-clothespin" aria-hidden="true">
-              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="38" height="86">
             </div>
 
             <!-- Upper Half: Tall Rectangular Preview Image -->
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
               <img src="assets/images/service-web-design.webp" alt="Creative Web Design and Digital Solutions" class="card-photo-img" loading="eager" width="764" height="1024">
-              <div class="photo-corner-badge">WEB DEV · LIVE STOREFRONTS</div>
             </div>
 
             <!-- Lower Half: Clean, Bold Service Title -->
@@ -407,15 +406,14 @@
           </div>
 
           <!-- Card 2: Creative Design & Branding -->
-          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 3.2deg;">
+          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 3.5deg;">
             <div class="card-clothespin" aria-hidden="true">
-              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="38" height="86">
             </div>
 
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
               <img src="assets/images/service-branding-design.webp" alt="Creative Design and Brand Identity" class="card-photo-img" loading="eager" width="764" height="1024">
-              <div class="photo-corner-badge">BRANDING · IDENTITY SYSTEMS</div>
             </div>
 
             <div class="card-caption-block">
@@ -429,15 +427,14 @@
           </div>
 
           <!-- Card 3: Creative & Advertising -->
-          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2.6deg;">
+          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2.8deg;">
             <div class="card-clothespin" aria-hidden="true">
-              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="38" height="86">
             </div>
 
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
               <img src="assets/images/service-creative-ads.webp" alt="Creative Commercial and Advertising" class="card-photo-img" loading="eager" width="764" height="1024">
-              <div class="photo-corner-badge">CREATIVE · AI COMMERCIALS</div>
             </div>
 
             <div class="card-caption-block">
@@ -454,109 +451,95 @@
     </section>
 
     <!-- ========================================================================
-         SECTION 3: THE ENGINEER LAB — HIGH-THROUGHPUT PIPELINES (SECOND)
+         SECTION 3: ENTERPRISE ENGINEERING SERVICES — ROBOTIC CONVEYOR BELT (SYNCHRONIZED)
          ======================================================================== -->
     <section class="sec eng" id="engineer">
-      <div class="container">
-        <div class="sec-header-row">
+      <!-- Conveyor Belt Robotic Arm Video Background Layer (Full-Bleed, Locked, Seamless Loop) -->
+      <video class="engineer-bg-video" id="engineerBgVideo" autoplay loop muted playsinline aria-hidden="true">
+        <source src="assets/engineer-conveyor-video.mp4" type="video/mp4">
+      </video>
+      <div class="engineer-bg-overlay" aria-hidden="true"></div>
+
+      <div class="container engineer-container">
+        <!-- Section Header Row (Top Viewport Tier) -->
+        <div class="sec-header-row engineer-header-row">
           <div class="sec-title-block">
-            <span class="k rv">Enterprise Data Engineering &amp; AI</span>
-            <h2 class="rv">High-throughput pipelines.<br><i>Zero data friction.</i></h2>
+            <span class="k engineer-k">ENTERPRISE ENGINEERING</span>
+            <h2 class="engineer-h2">Automated Systems.<br><i>Intelligent Scale.</i></h2>
           </div>
-          <div class="sec-meta-block rv">
-            <p class="lead">
-              At <strong>TEKsystems</strong>, I engineer resilient Microsoft Fabric Lakehouse architectures, automate PySpark data validation, and modernize legacy reporting to interactive Power BI. Grounded in rigor, powered by agentic AI capabilities.
+          <div class="sec-meta-block">
+            <p class="lead engineer-lead">
+              Engineering high-throughput automated workflows, enterprise data intelligence, and resilient cloud architectures that power modern operations.
             </p>
-          </div>
-        </div>
-
-        <!-- 4-Stage Data Pipeline with Animated Flow -->
-        <div class="pipe rv" id="pipelineFlow">
-          <div style="--d: 0.1s">
-            <span class="pipe-num">01</span>
-            <b>INGEST</b>
-            <small>SQL Server · SSMS · Multi-Source APIs · Raw Lakehouse</small>
-          </div>
-          <div style="--d: 0.3s">
-            <span class="pipe-num">02</span>
-            <b>TRANSFORM</b>
-            <small>PySpark ETL/ELT · Medallion Bronze-Silver · Schema Cleansing</small>
-          </div>
-          <div style="--d: 0.5s">
-            <span class="pipe-num">03</span>
-            <b>MODEL</b>
-            <small>Microsoft Fabric · Gold Star Schemas · Delta Tables</small>
-          </div>
-          <div style="--d: 0.7s">
-            <span class="pipe-num">04</span>
-            <b>VISUALIZE</b>
-            <small>Power BI Dashboards · SSRS Modernization · Executive KPIs</small>
-          </div>
-        </div>
-
-        <!-- 2-Column Workstation Grid: AI Simulator + Architecture Cards -->
-        <div class="engineer-workstation-grid">
-          <!-- Interactive Agentic AI Migration Simulator -->
-          <div class="terminal-card rv" id="aiSimulator">
-            <div class="terminal-header">
-              <div class="terminal-dots">
-                <span class="dot-red"></span>
-                <span class="dot-yellow"></span>
-                <span class="dot-green"></span>
+            <!-- Manual Conveyor Navigation Controls -->
+            <div class="conveyor-nav-controls" id="conveyorControls">
+              <button class="conveyor-arrow-btn prev" id="conveyorPrevBtn" aria-label="Previous Service">‹</button>
+              <div class="conveyor-dots" id="conveyorDots">
+                <button class="conveyor-dot active" data-idx="0" aria-label="Card 1: Automation &amp; Business Solutions"></button>
+                <button class="conveyor-dot" data-idx="1" aria-label="Card 2: Data Analytics &amp; Business Intelligence"></button>
+                <button class="conveyor-dot" data-idx="2" aria-label="Card 3: Additional Digital &amp; Business Support"></button>
               </div>
-              <div class="terminal-title">agentic_migration_daemon.py — Autonomous AI Validation Engine</div>
-              <div class="terminal-status"><span class="pulse-green"></span> ACTIVE AGENT</div>
-            </div>
-
-            <div class="terminal-body" id="terminalLogs">
-              <div class="log-line text-cyan">[INIT] Initializing Antigravity Agentic Migration Controller v2.4...</div>
-              <div class="log-line text-muted">[INFO] Connected to Source: Enterprise SQL Server &amp; SSMS (Legacy Datamart)</div>
-              <div class="log-line text-muted">[INFO] Target Lakehouse: Microsoft Fabric (OneLake Medallion Architecture)</div>
-              <div class="log-line text-yellow">[AGENT] Autonomous Agent: Ready to perform schema mapping &amp; validation tasks.</div>
-            </div>
-
-            <div class="terminal-actions">
-              <button class="sim-btn" id="btnRunValidation">⚡ Run Agentic Schema Validation</button>
-              <button class="sim-btn" id="btnSimulateFabric">🔄 Modernize SSRS to Fabric</button>
-              <button class="sim-btn" id="btnChecksumCheck">🛡️ Checksum Parity Verification</button>
-              <button class="sim-btn secondary" id="btnClearTerminal">Clear Logs</button>
+              <button class="conveyor-arrow-btn next" id="conveyorNextBtn" aria-label="Next Service">›</button>
             </div>
           </div>
+        </div>
 
-          <!-- 3 Deep Technical Architecture Glass Cards -->
-          <div class="engineer-arch-cards">
-            <div class="glass rv">
-              <div class="card-icon-tag text-cyan">☁️ ARCHITECTURE</div>
-              <h3>Microsoft Fabric &amp; Medallion Lakehouse</h3>
-              <p>Architecting multi-hop Bronze, Silver, and Gold lakehouse zones on OneLake, eliminating data silos and enabling lightning-fast analytical queries.</p>
-              <ul class="micro-tags">
-                <li>Delta Lake</li>
-                <li>OneLake</li>
-                <li>Direct Lake</li>
-              </ul>
+        <!-- Conveyor Stage (Between Top Robotic Claw and Bottom Conveyor Belt) -->
+        <div class="conveyor-stage" id="conveyorStage">
+          <!-- 3 Service Cards Rolling & Expanding on the Conveyor Track -->
+          <div class="conveyor-cards-track" id="conveyorCardsTrack">
+
+            <!-- Card 01 — Automation & Business Solutions -->
+            <div class="conveyor-card eng-card active" data-card-idx="0" id="engCard0">
+              <div class="card-photo-frame">
+                <div class="photo-inner-glare"></div>
+                <img src="assets/images/eng-service-automation.svg" alt="Automation &amp; Business Solutions 3D Visual" class="card-photo-img" loading="eager" width="600" height="480">
+                <div class="photo-corner-badge eng-badge">WORKFLOW · AI</div>
+              </div>
+              <div class="card-caption-block">
+                <span class="card-micro-label eng-micro-label">01 // WORKFLOW &amp; SYSTEMS</span>
+                <h3 class="card-service-title eng-service-title">Automation &amp; Business Solutions</h3>
+                <div class="card-sub-tags">
+                  <span class="sub-tag eng-tag">Process Automation</span>
+                  <span class="sub-tag eng-tag">AI Workflows &amp; CRM</span>
+                </div>
+              </div>
             </div>
 
-            <div class="glass rv" style="--d: 0.1s">
-              <div class="card-icon-tag text-cyan">⚡ DATA PROCESSING</div>
-              <h3>PySpark &amp; SQL Server Optimization</h3>
-              <p>Developing high-performance distributed PySpark transformations, index-tuned stored procedures, automated schema mapping, and regression-proof reconciliation.</p>
-              <ul class="micro-tags">
-                <li>PySpark</li>
-                <li>T-SQL</li>
-                <li>Data Validation</li>
-              </ul>
+            <!-- Card 02 — Data Analytics & Business Intelligence -->
+            <div class="conveyor-card eng-card" data-card-idx="1" id="engCard1">
+              <div class="card-photo-frame">
+                <div class="photo-inner-glare"></div>
+                <img src="assets/images/eng-service-analytics.svg" alt="Data Analytics &amp; Business Intelligence 3D Visual" class="card-photo-img" loading="eager" width="600" height="480">
+                <div class="photo-corner-badge eng-badge">LAKEHOUSE · BI</div>
+              </div>
+              <div class="card-caption-block">
+                <span class="card-micro-label eng-micro-label">02 // INSIGHTS &amp; GROWTH</span>
+                <h3 class="card-service-title eng-service-title">Data Analytics &amp; Business Intelligence</h3>
+                <div class="card-sub-tags">
+                  <span class="sub-tag eng-tag">Live BI Dashboards</span>
+                  <span class="sub-tag eng-tag">Predictive Reporting</span>
+                </div>
+              </div>
             </div>
 
-            <div class="glass rv" style="--d: 0.2s">
-              <div class="card-icon-tag text-cyan">📊 BUSINESS INTELLIGENCE</div>
-              <h3>SSRS-to-Power BI Modernization</h3>
-              <p>Decommissioning cumbersome legacy paginated reports, modernizing semantic DAX models, and crafting executive Power BI dashboards with real-time KPI telemetry.</p>
-              <ul class="micro-tags">
-                <li>Power BI</li>
-                <li>SSRS Migration</li>
-                <li>DAX Modeling</li>
-              </ul>
+            <!-- Card 03 — Additional Digital & Business Support -->
+            <div class="conveyor-card eng-card" data-card-idx="2" id="engCard2">
+              <div class="card-photo-frame">
+                <div class="photo-inner-glare"></div>
+                <img src="assets/images/eng-service-support.svg" alt="Additional Digital &amp; Business Support 3D Visual" class="card-photo-img" loading="eager" width="600" height="480">
+                <div class="photo-corner-badge eng-badge">CLOUD · 24/7 SLA</div>
+              </div>
+              <div class="card-caption-block">
+                <span class="card-micro-label eng-micro-label">03 // OPERATIONS &amp; SCALE</span>
+                <h3 class="card-service-title eng-service-title">Additional Digital &amp; Business Support</h3>
+                <div class="card-sub-tags">
+                  <span class="sub-tag eng-tag">Tech Maintenance</span>
+                  <span class="sub-tag eng-tag">Digital Operations</span>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
