@@ -1624,7 +1624,7 @@ html {
   position: absolute;
   top: clamp(68px, 9vh, 96px);
   bottom: clamp(64px, 8.5vh, 92px);
-  width: clamp(260px, 24vw, 340px);
+  width: clamp(280px, 26vw, 360px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1723,10 +1723,10 @@ html {
 /* SERVICE TITLE (Line 2 Wipe - 120ms later) */
 .hud-title {
   display: block;
-  font-family: var(--font-mono);
-  font-size: clamp(13px, 0.95vw, 16px);
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 0.96vw, 15.5px);
   font-weight: 700;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   white-space: nowrap;
   line-height: 1.25;
   clip-path: inset(0 100% 0 0);
