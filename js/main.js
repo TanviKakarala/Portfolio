@@ -802,13 +802,13 @@
       });
     }
 
-    // Manual navigation: seek to specific card in peak upside lift state
+    // Manual navigation: seek to specific card in held inspection state
     function seekToCard(targetIdx) {
       isSeeking = true;
       cycleIndex = (targetIdx + cards.length) % cards.length;
       updateDots(cycleIndex);
-      video.currentTime = 1.45; // Peak upside lift with the robotic hand
-      renderPositionsAtTime(1.45, cycleIndex);
+      video.currentTime = 1.35; // Held inspection state under the robotic hand
+      renderPositionsAtTime(1.35, cycleIndex);
       setTimeout(() => { isSeeking = false; }, 400);
     }
 
@@ -919,39 +919,26 @@
           };
         }
       } else {
-        // Stationary presentation phase (0.45s to 1.65s): card resting on belt, picked & lifted upside
+        // Stationary presentation phase (0.45s to 1.65s): card touching half of the belt, framed cleanly below robotic hand
         if (t < 1.05) {
-          // Phase 2 (0.45s - 1.05s): Card rests on moving belt treads; robotic hand descends & expands wide overhead
+          // Phase 2 (0.45s - 1.05s): Card rests touching belt half; robotic hand descends & expands wide overhead
           centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
-        } else if (t < 1.25) {
-          // Phase 3 (1.05s - 1.25s): Hand fingers close & hold the card (cyan glow clamp)
-          centerPos = {
-            x: 0,
-            y: -4,
-            scale: 1.03,
-            opacity: 1.0,
-            isPicked: true,
-            zIndex: 10
-          };
         } else if (t < 1.60) {
-          // Phase 4 (1.25s - 1.60s): Hand moves upside towards ceiling, and the card LIFTS UPSIDE WITH THE HAND!
-          const p = (t - 1.25) / 0.35;
-          const liftP = Math.sin(p * Math.PI); // Smooth peak lift
+          // Phase 3 & 4 (1.05s - 1.60s): Hand grasps & holds card top; neon cyan glow active; card stays grounded touching belt half
           centerPos = {
             x: 0,
-            y: -4 - 32 * liftP, // Lifts up to -36px high off the belt with the hand
-            scale: 1.03 + 0.07 * liftP, // Expands up to 1.10 with depth glow
+            y: 0,
+            scale: 1.0,
             opacity: 1.0,
             isPicked: true,
             zIndex: 10
           };
         } else {
-          // Phase 5 (1.60s - 1.65s): Hand lowers card back down flush onto the moving conveyor treads
-          const p = (t - 1.60) / 0.05;
+          // Phase 5 (1.60s - 1.65s): Hand releases; prepare for smooth conveyor roll to next card
           centerPos = {
             x: 0,
-            y: -4 * (1 - p),
-            scale: 1.03 - 0.03 * p,
+            y: 0,
+            scale: 1.0,
             opacity: 1.0,
             isPicked: false,
             zIndex: 8

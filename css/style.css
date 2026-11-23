@@ -2400,7 +2400,7 @@ html {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 15.3vh; /* Exact horizontal surface of the moving conveyor belt treads */
+  bottom: 11.2vh; /* Elongated downside to touch the middle (half) of the moving conveyor belt treads */
   height: 0;
   display: flex;
   align-items: flex-end;
@@ -2408,18 +2408,18 @@ html {
   pointer-events: none;
 }
 
-/* Individual Conveyor Service Card — Tall elongated monolith resting flush on conveyor treads */
+/* Individual Conveyor Service Card — Tall elongated monolith resting flush on half of the belt, framed cleanly below robotic hand */
 .conveyor-card.eng-card {
   position: absolute;
-  bottom: 0; /* Firmly seated directly on top of the moving conveyor belt treads */
+  bottom: 0; /* Firmly seated directly touching the middle (half) of the conveyor belt treads */
   width: clamp(240px, 18.5vw, 280px);
-  min-height: clamp(310px, 37vh, 355px); /* Elongated, tall portrait card eliminating all bottom gap */
+  min-height: clamp(285px, 34vh, 350px); /* Tall elongated proportion, cleanly below the robotic claw */
   background: rgba(5, 14, 26, 0.95);
   border: 1.5px solid rgba(0, 229, 255, 0.28);
   border-radius: 14px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 10px 10px 14px;
+  padding: 10px 10px 13px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85),
@@ -2466,7 +2466,7 @@ html {
 .conveyor-card .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(155px, 19.5vh, 185px);
+  height: clamp(140px, 17vh, 172px);
   border-radius: 8px;
   overflow: hidden;
   background: #020710;
