@@ -1947,16 +1947,16 @@ html {
   object-fit: cover;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.55;
-  filter: saturate(1.2) contrast(1.08);
+  opacity: 0.92; /* High visibility so watercolor blooms and colorful sprinkles pop vividly */
+  filter: saturate(1.4) contrast(1.12);
 }
 
 .creator-bg-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(75vmax 50vmax at 85% 15%, rgba(255, 42, 133, 0.22), transparent 70%),
-              radial-gradient(60vmax 40vmax at 15% 85%, rgba(0, 245, 255, 0.12), transparent 70%),
-              linear-gradient(180deg, rgba(22, 6, 17, 0.74) 0%, rgba(38, 12, 28, 0.8) 50%, rgba(68, 22, 46, 0.88) 100%);
+  /* Lighter, softer plum vignette that keeps the video blossoms & sprinkles vivid while providing elegant readability */
+  background: radial-gradient(85vmax 55vmax at 50% 50%, rgba(27, 7, 19, 0.15), rgba(27, 7, 19, 0.52) 85%),
+              linear-gradient(180deg, rgba(22, 6, 17, 0.45) 0%, rgba(38, 12, 28, 0.1) 35%, rgba(38, 12, 28, 0.18) 70%, rgba(22, 6, 17, 0.52) 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -2050,39 +2050,61 @@ html {
 }
 
 /* ==========================================================================
-   HORIZONTAL GLOWING ROPE / THREAD & 3 HANGING CARDS
+   REALISTIC CLOTHESLINE ROPE & 3 HANGING CARDS
    ========================================================================== */
 .hanging-thread-wrap {
   width: 100%;
   position: relative;
   z-index: 5;
-  margin-top: clamp(2px, 0.8vh, 12px);
-  margin-bottom: -15px; /* Rope threads cleanly through top clothespin clamps */
+  margin-top: clamp(0px, 0.5vh, 8px);
+  margin-bottom: -22px; /* Position rope right through the wooden clothespin notch */
   pointer-events: none;
 }
 
 .hanging-thread-svg {
   width: 100%;
-  height: 36px;
+  height: 48px;
   display: block;
   overflow: visible;
 }
 
-.thread-anchor-eyelet {
-  fill: #ffffff;
-  stroke: var(--creator-active-color, #ff2a85);
-  stroke-width: 2.5;
-  filter: drop-shadow(0 0 6px var(--creator-active-color, #ff2a85));
-  transition: stroke 0.4s ease, filter 0.4s ease;
+.rope-wall-anchor circle {
+  transition: stroke 0.4s ease;
 }
 
-.thread-line {
+.rope-ambient-glow {
   fill: none;
   stroke: var(--creator-active-color, #ff2a85);
-  stroke-width: 2.2;
+  stroke-width: 4.5px;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 8px var(--creator-active-color, rgba(255, 42, 133, 0.85)));
+  opacity: 0.55;
   transition: stroke 0.4s ease;
+}
+
+.rope-core {
+  fill: none;
+  stroke: url(#hempRopeBase);
+  stroke-width: 5.5px;
+  stroke-linecap: round;
+}
+
+.rope-twist-dark {
+  fill: none;
+  stroke: #3e2610;
+  stroke-width: 5.5px;
+  stroke-dasharray: 4.5, 3.5;
+  stroke-linecap: butt;
+  opacity: 0.72;
+}
+
+.rope-twist-light {
+  fill: none;
+  stroke: #fff1d6;
+  stroke-width: 2.2px;
+  stroke-dasharray: 2.2, 5.8;
+  stroke-dashoffset: 1.2;
+  stroke-linecap: round;
+  opacity: 0.85;
 }
 
 /* 3 Hanging Cards Container */
@@ -2108,7 +2130,7 @@ html {
   padding: 10px 10px 16px;
   display: flex;
   flex-direction: column;
-  transform-origin: top center;
+  transform-origin: 50% 0%; /* Anchored cleanly at the top clothespin */
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65),
               inset 0 1px 0 rgba(255, 255, 255, 0.2),
               inset 0 0 24px rgba(0, 0, 0, 0.4);
@@ -2118,22 +2140,22 @@ html {
   cursor: pointer;
 }
 
-/* Realistic 3D Metallic Clothespin / Spring Clamp */
+/* Realistic Wooden Clothespin Pegs */
 .card-clothespin {
   position: absolute;
-  top: -17px;
+  top: -24px;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
-  height: 36px;
+  width: 20px;
+  height: 48px;
   z-index: 10;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   pointer-events: none;
 }
 
-.pin-clamp-shadow {
+.pin-shadow {
   position: absolute;
   bottom: -4px;
   left: 50%;
@@ -2141,67 +2163,80 @@ html {
   width: 24px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.75);
-  filter: blur(3px);
+  background: rgba(0, 0, 0, 0.7);
+  filter: blur(2.5px);
 }
 
-.pin-clamp-body {
+.peg-body {
   position: relative;
-  width: 14px;
-  height: 33px;
+  width: 15px;
+  height: 44px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #f0f4f8 0%, #b4c2d4 35%, #56687e 70%, #1a222e 100%);
-  border-radius: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.65), inset 0 1px 1px #ffffff;
 }
 
-.clip-lever-top {
+.peg-lever-top {
   width: 100%;
-  height: 11px;
-  border-radius: 2px 2px 0 0;
-  background: linear-gradient(180deg, #ffffff 0%, #9baec4 100%);
+  height: 16px;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(90deg, #b88d5c 0%, #dfbf93 40%, #edd3ab 70%, #9e7242 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
 }
-
-.clip-jaw-bottom {
-  width: 100%;
-  height: 11px;
-  border-radius: 0 0 2px 2px;
-  background: linear-gradient(180deg, #74879e 0%, #202b38 100%);
-}
-
-.clip-spring-coil {
+.peg-lever-top::after {
+  content: "";
   position: absolute;
-  top: 48%;
+  top: 0;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  width: 1px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.peg-spring {
+  position: absolute;
+  top: 17px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 18px;
-  height: 10px;
-  border-radius: 5px;
-  background: radial-gradient(circle at 30% 30%, #fff2b2 0%, #e0a96d 40%, #7a4a1d 85%);
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e6edf5 0%, #a2b0c2 40%, #505c6d 70%, #222933 100%);
   border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  z-index: 3;
 }
-
-.pin-jewel-dot {
+.peg-spring::before {
+  content: "";
   position: absolute;
-  top: 48%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--creator-active-color, #ff2a85) 60%, #4a0820 100%);
+  background: var(--creator-active-color, #ff2a85);
   box-shadow: 0 0 8px var(--creator-active-color, #ff2a85);
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 
+.peg-jaw-bottom {
+  width: 100%;
+  height: 18px;
+  border-radius: 1px 1px 3px 3px;
+  background: linear-gradient(90deg, #9e7242 0%, #c8a57a 40%, #e0c297 70%, #875c2e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
 .pin-glow-halo {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 44px;

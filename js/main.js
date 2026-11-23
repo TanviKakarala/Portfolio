@@ -247,19 +247,23 @@
     });
   });
 
-  // 4b. Freelance Studio: "Hanging Thread & Pinned Photo Cards" (GSAP)
+  // 4b. Freelance Studio: "Hanging Clothesline Rope & Flowy Pinned Cards" (GSAP)
   function initCreatorHangingCardsAnimation() {
     const creatorSec = document.getElementById('creator');
     if (!creatorSec || typeof gsap === 'undefined') return;
 
     const headerRow = creatorSec.querySelector('.creator-header-row');
     const threadWrap = document.getElementById('hangingThreadWrap');
-    const threadPath = document.getElementById('hangingThreadPath');
+    const ropePaths = creatorSec.querySelectorAll('#hangingRopeCore, #ropeTwistDark, #ropeTwistLight, #ropeGlowLine');
     const cards = creatorSec.querySelectorAll('.hanging-card');
     if (!cards.length) return;
 
-    // Natural slanted resting angles (-3deg, +2.5deg, -2deg)
-    const restingAngles = [-3, 2.5, -2];
+    // Natural slanted resting angles (-3.5deg, +3.0deg, -2.5deg)
+    const restingAngles = [-3.5, 3.0, -2.5];
+
+    // Rope natural wave path vs impact dip wave path
+    const ropeNormalPath = 'M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20';
+    const ropeDipPath = 'M 0,20 Q 115,26 230,28 Q 415,36 600,30 Q 785,37 970,28 Q 1085,25 1200,20';
 
     // Initial setup: air-flowing starting position from below the viewport
     gsap.set(headerRow, {
@@ -270,27 +274,28 @@
     if (threadWrap) {
       gsap.set(threadWrap, {
         opacity: 0,
-        scaleX: 0.95,
+        scaleX: 0.96,
         transformOrigin: 'center center'
       });
     }
 
     // Initial card setup: curved air-flowing drift offsets
     const initialOffsets = [
-      { y: 220, x: -25, rot: -8 },
-      { y: 220, x: 10, rot: 7 },
-      { y: 220, x: 25, rot: -8 }
+      { y: 260, x: -35, rot: -10, rotY: 6 },
+      { y: 260, x: 12, rot: 9, rotY: -5 },
+      { y: 260, x: 35, rot: -10, rotY: 7 }
     ];
 
     cards.forEach((card, idx) => {
-      const off = initialOffsets[idx] || { y: 220, x: 0, rot: 0 };
+      const off = initialOffsets[idx] || { y: 260, x: 0, rot: 0, rotY: 0 };
       gsap.set(card, {
         opacity: 0,
         y: off.y,
         x: off.x,
         rotation: off.rot,
-        scale: 0.96,
-        transformOrigin: 'top center'
+        rotateY: off.rotY,
+        scale: 0.94,
+        transformOrigin: '50% 0%'
       });
     });
 
@@ -310,22 +315,22 @@
         ease: 'power2.out'
       });
 
-      // Step 2: Glowing thread reveals and tightens
+      // Step 2: Glowing clothesline rope reveals and tightens with natural wave
       if (threadWrap) {
         tl.to(threadWrap, {
           opacity: 1,
           scaleX: 1,
-          duration: 0.45,
+          duration: 0.5,
           ease: 'power2.out'
         }, '-=0.2');
       }
 
-      // Step 3: 3 Cards float up caught in an upward breeze (0.15s stagger)
+      // Step 3: Cards fly up like caught in an upward breeze and stick to rope (0.16s stagger)
       const baseStart = 0.55;
 
       cards.forEach((card, idx) => {
-        const cardStartTime = baseStart + (idx * 0.15);
-        const flyDuration = 0.78;
+        const cardStartTime = baseStart + (idx * 0.16);
+        const flyDuration = 0.85;
         const targetAngle = restingAngles[idx] || 0;
         const impactTime = cardStartTime + flyDuration;
 
@@ -335,50 +340,69 @@
           y: 0,
           x: 0,
           rotation: targetAngle,
+          rotateY: 0,
           scale: 1,
           duration: flyDuration,
           ease: 'power2.out'
         }, cardStartTime);
 
-        // Clothespin clips onto the thread:
-        // 1) Thread dips 4px and bounces softly with elastic.out(1, 0.45)
-        if (threadPath) {
-          tl.to(threadPath, {
-            attr: { d: 'M 8,16 Q 300,26 600,29 Q 900,26 1192,16' },
+        // Clothespin sticks onto the rope:
+        // 1) Rope dips 5px at impact and bounces back with elastic ease
+        if (ropePaths.length) {
+          tl.to(ropePaths, {
+            attr: { d: ropeDipPath },
             duration: 0.16,
             ease: 'power1.in'
           }, impactTime);
 
-          tl.to(threadPath, {
-            attr: { d: 'M 8,16 Q 300,23 600,25 Q 900,23 1192,16' },
-            duration: 0.85,
+          tl.to(ropePaths, {
+            attr: { d: ropeNormalPath },
+            duration: 0.9,
             ease: 'elastic.out(1, 0.45)'
           }, impactTime + 0.16);
         }
 
-        // 2) Card settles into its natural slanted angle with soft tactile spring
+        // 2) Card top-hinged tactile rebound into slanted resting angle
         tl.to(card, {
           rotation: targetAngle,
-          duration: 0.45,
-          ease: 'elastic.out(1, 0.5)',
+          scale: 1.0,
+          duration: 0.6,
+          ease: 'elastic.out(1.1, 0.5)',
           onComplete: () => {
-            // Start continuous gentle pendulum breeze sway (±1.5deg over 4s-6s)
-            startPendulumSway(card, idx, targetAngle);
+            // Start continuous flowy breeze movement
+            startFlowyAirMovement(card, idx, targetAngle);
           }
         }, impactTime);
       });
+
+      // Subtle breathing wave motion on the clothesline rope
+      if (ropePaths.length) {
+        gsap.to(ropePaths, {
+          y: 1.5,
+          duration: 3.4,
+          yoyo: true,
+          repeat: -1,
+          ease: 'sine.inOut',
+          delay: 2.0
+        });
+      }
     }
 
-    // Continuous, slow, gentle pendulum breeze motion
-    function startPendulumSway(card, idx, restingAngle) {
-      const swayAmplitudes = [1.3, 1.2, 1.3];
-      const swayDurations = [4.8, 5.4, 4.4];
-      const amp = swayAmplitudes[idx] || 1.3;
-      const dur = swayDurations[idx] || 5.0;
+    // Continuous, flowy air movement simulation (pendulum sway + subtle air lift + 3D flutter)
+    function startFlowyAirMovement(card, idx, restingAngle) {
+      const airConfigs = [
+        { amp: 3.2, lift: 3.5, flutter: 4.5, dur: 4.8 },
+        { amp: 2.8, lift: 4.0, flutter: -4.0, dur: 5.6 },
+        { amp: 3.2, lift: 3.2, flutter: 4.8, dur: 4.4 }
+      ];
+      const cfg = airConfigs[idx] || { amp: 3.0, lift: 3.5, flutter: 4.0, dur: 5.0 };
 
+      // Flowy pendulum sway
       const swayTween = gsap.to(card, {
-        rotation: restingAngle + amp,
-        duration: dur,
+        rotation: restingAngle + cfg.amp,
+        y: cfg.lift,
+        rotateY: cfg.flutter,
+        duration: cfg.dur,
         ease: 'sine.inOut',
         yoyo: true,
         repeat: -1
@@ -387,13 +411,14 @@
       card._swayTween = swayTween;
       card._restingAngle = restingAngle;
 
-      // Hover interaction: smoothly straighten to 0deg, scale up to 1.05
+      // Hover interaction: smoothly straighten to 0deg, scale up to 1.05, lift card slightly
       card.addEventListener('mouseenter', () => {
         if (card._swayTween) card._swayTween.pause();
         gsap.to(card, {
           rotation: 0,
+          rotateY: 0,
           scale: 1.05,
-          y: -4,
+          y: -6,
           duration: 0.35,
           ease: 'power2.out',
           overwrite: 'auto'
@@ -403,9 +428,10 @@
       card.addEventListener('mouseleave', () => {
         gsap.to(card, {
           rotation: card._restingAngle,
+          rotateY: 0,
           scale: 1,
           y: 0,
-          duration: 0.45,
+          duration: 0.5,
           ease: 'power2.out',
           overwrite: 'auto',
           onComplete: () => {

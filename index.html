@@ -349,39 +349,64 @@
           </div>
         </div>
 
-        <!-- Horizontal Glowing Rope / Thread Spanning Across Section -->
+        <!-- Realistic Hanging Clothesline Rope Spanning Across Section with Natural Waves -->
         <div class="hanging-thread-wrap" id="hangingThreadWrap" aria-hidden="true">
-          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 36" preserveAspectRatio="none">
+          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 48" preserveAspectRatio="none">
             <defs>
-              <filter id="threadGlow" x="-20%" y="-50%" width="140%" height="200%">
-                <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <filter id="ropeShadow" x="-10%" y="-40%" width="120%" height="200%">
+                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.6)" />
+              </filter>
+              <filter id="ropeStudioGlow" x="-20%" y="-50%" width="140%" height="200%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
                 </feMerge>
               </filter>
+              <linearGradient id="hempRopeBase" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#edd5b3" />
+                <stop offset="25%" stop-color="#c6a374" />
+                <stop offset="65%" stop-color="#936d41" />
+                <stop offset="100%" stop-color="#553a1a" />
+              </linearGradient>
             </defs>
-            <!-- Wall Anchor Eyelets -->
-            <circle cx="8" cy="16" r="4.5" class="thread-anchor-eyelet" />
-            <circle cx="1192" cy="16" r="4.5" class="thread-anchor-eyelet" />
-            <!-- Curved Rope Path with Natural Sag Under Weight of Cards -->
-            <path id="hangingThreadPath" d="M 8,16 Q 300,23 600,25 Q 900,23 1192,16" class="thread-line" filter="url(#threadGlow)" />
+
+            <!-- Wall Anchor Eyelets at Screen Edges -->
+            <g class="rope-wall-anchor left-anchor">
+              <circle cx="8" cy="20" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="8" cy="20" r="2.5" fill="#edd5b3" />
+            </g>
+            <g class="rope-wall-anchor right-anchor">
+              <circle cx="1192" cy="20" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="1192" cy="20" r="2.5" fill="#edd5b3" />
+            </g>
+
+            <!-- 1. Ambient Lighting Underglow -->
+            <path id="ropeGlowLine" class="rope-ambient-glow" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" filter="url(#ropeStudioGlow)" />
+
+            <!-- 2. Main Natural Hemp Rope Body (Curved Wave Sag between cards) -->
+            <path id="hangingRopeCore" class="rope-core" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" filter="url(#ropeShadow)" />
+
+            <!-- 3. Twisted Helical Fiber Strands (Deep Grooves) -->
+            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" />
+
+            <!-- 4. Twisted Strand Highlights (Top Fiber Light Glint) -->
+            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" />
           </svg>
         </div>
 
         <!-- 3 Hanging Dark-Glass Polaroid Service Cards -->
         <div class="hanging-cards-container" id="hangingCardsGrid">
           <!-- Card 1: Web Development & Digital Solutions -->
-          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3deg; --bar: linear-gradient(90deg, #ff2a85, #00f5ff);">
-            <!-- Realistic 3D Metallic Clothespin Anchor -->
+          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3.5deg; --bar: linear-gradient(90deg, #ff2a85, #00f5ff);">
+            <!-- Realistic Wooden Clothespin Peg with Spring & Gripping Jaws -->
             <div class="card-clothespin" aria-hidden="true">
               <div class="pin-glow-halo"></div>
-              <div class="pin-clamp-shadow"></div>
-              <div class="pin-clamp-body">
-                <div class="clip-lever-top"></div>
-                <div class="clip-spring-coil"></div>
-                <div class="clip-jaw-bottom"></div>
-                <div class="pin-jewel-dot"></div>
+              <div class="pin-shadow"></div>
+              <div class="peg-body">
+                <div class="peg-lever-top"></div>
+                <div class="peg-spring"></div>
+                <div class="peg-jaw-bottom"></div>
               </div>
             </div>
 
@@ -404,15 +429,14 @@
           </div>
 
           <!-- Card 2: Creative Design & Branding -->
-          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 2.5deg; --bar: linear-gradient(90deg, #e0a96d, #ff2a85);">
+          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 3.0deg; --bar: linear-gradient(90deg, #e0a96d, #ff2a85);">
             <div class="card-clothespin" aria-hidden="true">
               <div class="pin-glow-halo"></div>
-              <div class="pin-clamp-shadow"></div>
-              <div class="pin-clamp-body">
-                <div class="clip-lever-top"></div>
-                <div class="clip-spring-coil"></div>
-                <div class="clip-jaw-bottom"></div>
-                <div class="pin-jewel-dot"></div>
+              <div class="pin-shadow"></div>
+              <div class="peg-body">
+                <div class="peg-lever-top"></div>
+                <div class="peg-spring"></div>
+                <div class="peg-jaw-bottom"></div>
               </div>
             </div>
 
@@ -433,15 +457,14 @@
           </div>
 
           <!-- Card 3: Creative & Advertising -->
-          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2deg; --bar: linear-gradient(90deg, #ff2a85, #7b5cff);">
+          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2.5deg; --bar: linear-gradient(90deg, #ff2a85, #7b5cff);">
             <div class="card-clothespin" aria-hidden="true">
               <div class="pin-glow-halo"></div>
-              <div class="pin-clamp-shadow"></div>
-              <div class="pin-clamp-body">
-                <div class="clip-lever-top"></div>
-                <div class="clip-spring-coil"></div>
-                <div class="clip-jaw-bottom"></div>
-                <div class="pin-jewel-dot"></div>
+              <div class="pin-shadow"></div>
+              <div class="peg-body">
+                <div class="peg-lever-top"></div>
+                <div class="peg-spring"></div>
+                <div class="peg-jaw-bottom"></div>
               </div>
             </div>
 
