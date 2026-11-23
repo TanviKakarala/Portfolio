@@ -848,8 +848,8 @@
         const p = (t - 1.0) / 0.5;
         centerPos = {
           x: 0,
-          y: -30 * p,
-          scale: 1.0 + 0.12 * p,
+          y: -16 * p,
+          scale: 1.0 + 0.08 * p,
           opacity: 1.0,
           isPicked: true,
           zIndex: 10
@@ -860,8 +860,8 @@
         // Phase 3 (1.5s - 2.2s): Peak Hold / Inspection under claw
         centerPos = {
           x: 0,
-          y: -30,
-          scale: 1.12,
+          y: -16,
+          scale: 1.08,
           opacity: 1.0,
           isPicked: true,
           zIndex: 10
@@ -873,8 +873,8 @@
         const p = (t - 2.2) / 0.4;
         centerPos = {
           x: 0,
-          y: -30 * (1 - p),
-          scale: 1.12 - 0.12 * p,
+          y: -16 * (1 - p),
+          scale: 1.08 - 0.08 * p,
           opacity: 1.0,
           isPicked: false,
           zIndex: 8
