@@ -258,12 +258,12 @@
     const cards = creatorSec.querySelectorAll('.hanging-card');
     if (!cards.length) return;
 
-    // Natural slanted resting angles (-3.5deg, +3.0deg, -2.5deg)
-    const restingAngles = [-3.5, 3.0, -2.5];
+    // Natural slanted resting angles (-3.8deg, +3.2deg, -2.6deg)
+    const restingAngles = [-3.8, 3.2, -2.6];
 
-    // Rope natural wave path vs impact dip wave path
-    const ropeNormalPath = 'M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20';
-    const ropeDipPath = 'M 0,20 Q 115,26 230,28 Q 415,36 600,30 Q 785,37 970,28 Q 1085,25 1200,20';
+    // Authentic Wavy Clothesline: resting wavy path vs elastic impact dip wave path
+    const ropeNormalPath = 'M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28';
+    const ropeDipPath    = 'M 0,28 Q 115,58 230,48 Q 415,82 600,54 Q 785,84 970,48 Q 1085,58 1200,28';
 
     // Initial setup: air-flowing starting position from below the viewport
     gsap.set(headerRow, {
@@ -279,22 +279,23 @@
       });
     }
 
-    // Initial card setup: curved air-flowing drift offsets
+    // Initial card setup: deep below viewport with fluttering initial bank angles
     const initialOffsets = [
-      { y: 260, x: -35, rot: -10, rotY: 6 },
-      { y: 260, x: 12, rot: 9, rotY: -5 },
-      { y: 260, x: 35, rot: -10, rotY: 7 }
+      { y: 440, x: -45, rot: -18, rotY: 18 },
+      { y: 460, x: 40, rot: 16, rotY: -16 },
+      { y: 440, x: -38, rot: -15, rotY: 14 }
     ];
 
     cards.forEach((card, idx) => {
-      const off = initialOffsets[idx] || { y: 260, x: 0, rot: 0, rotY: 0 };
+      const off = initialOffsets[idx] || { y: 440, x: 0, rot: 0, rotY: 0 };
       gsap.set(card, {
         opacity: 0,
         y: off.y,
         x: off.x,
         rotation: off.rot,
         rotateY: off.rotY,
-        scale: 0.94,
+        rotateX: 6,
+        scale: 0.90,
         transformOrigin: '50% 0%'
       });
     });
@@ -320,105 +321,157 @@
         tl.to(threadWrap, {
           opacity: 1,
           scaleX: 1,
-          duration: 0.5,
+          duration: 0.55,
           ease: 'power2.out'
         }, '-=0.2');
       }
 
-      // Step 3: Cards fly up like caught in an upward breeze and stick to rope (0.16s stagger)
+      // Step 3: Cards fly up like paper caught in a rising updraft (reverse movement of falling down)
+      // Staggered arrival: 0.18s between cards
       const baseStart = 0.55;
 
       cards.forEach((card, idx) => {
-        const cardStartTime = baseStart + (idx * 0.16);
-        const flyDuration = 0.85;
+        const cardStartTime = baseStart + (idx * 0.18);
         const targetAngle = restingAngles[idx] || 0;
-        const impactTime = cardStartTime + flyDuration;
 
-        // Upward breeze floating motion
-        tl.to(card, {
+        // Custom aerodynamic draft coordinates per card for authentic reverse-falling flight
+        const draftConfig = [
+          { midX: 28, midRot: 14, midRotY: -12, crestX: -8, crestRot: -5 },
+          { midX: -26, midRot: -14, midRotY: 12, crestX: 8, crestRot: 5 },
+          { midX: 24, midRot: 12, midRotY: -10, crestX: -6, crestRot: -4 }
+        ][idx] || { midX: 20, midRot: 10, midRotY: -10, crestX: 0, crestRot: 0 };
+
+        const cardFlightTl = gsap.timeline();
+
+        // Stage 1: Ascends from deep below, catching air draft and swooping across
+        cardFlightTl.to(card, {
+          opacity: 0.7,
+          y: 280,
+          x: draftConfig.midX,
+          rotation: draftConfig.midRot,
+          rotateY: draftConfig.midRotY,
+          rotateX: 2,
+          scale: 0.94,
+          duration: 0.34,
+          ease: 'sine.out'
+        })
+        // Stage 2: Swooping S-curve back across as it gains lift
+        .to(card, {
+          opacity: 0.95,
+          y: 120,
+          x: draftConfig.crestX,
+          rotation: draftConfig.crestRot,
+          rotateY: draftConfig.midRotY * -0.6,
+          rotateX: -2,
+          scale: 0.98,
+          duration: 0.32,
+          ease: 'sine.inOut'
+        })
+        // Stage 3: Approaches rope at the top with slight upward aerodynamic overshoot
+        .to(card, {
           opacity: 1,
+          y: -8,
+          x: 0,
+          rotation: targetAngle * 0.7,
+          rotateY: 0,
+          rotateX: 0,
+          scale: 1.01,
+          duration: 0.22,
+          ease: 'power1.out'
+        })
+        // Stage 4: Clothespin clips onto wavy rope & card elastically rebounds to resting angle
+        .to(card, {
           y: 0,
           x: 0,
           rotation: targetAngle,
           rotateY: 0,
-          scale: 1,
-          duration: flyDuration,
-          ease: 'power2.out'
-        }, cardStartTime);
+          rotateX: 0,
+          scale: 1.0,
+          duration: 0.7,
+          ease: 'elastic.out(1.15, 0.45)',
+          onComplete: () => {
+            // Start continuous flowy airy hovering
+            startFlowyAirMovement(card, idx, targetAngle);
+          }
+        });
 
-        // Clothespin sticks onto the rope:
-        // 1) Rope dips 5px at impact and bounces back with elastic ease
+        tl.add(cardFlightTl, cardStartTime);
+
+        // Rope physical reaction on clothespin impact:
+        // When card reaches top (~0.88s into its flight), clothesline dips and bounces
+        const impactTime = cardStartTime + 0.88;
         if (ropePaths.length) {
           tl.to(ropePaths, {
             attr: { d: ropeDipPath },
             duration: 0.16,
-            ease: 'power1.in'
+            ease: 'power2.in'
           }, impactTime);
 
           tl.to(ropePaths, {
             attr: { d: ropeNormalPath },
-            duration: 0.9,
-            ease: 'elastic.out(1, 0.45)'
+            duration: 0.95,
+            ease: 'elastic.out(1.15, 0.42)'
           }, impactTime + 0.16);
         }
-
-        // 2) Card top-hinged tactile rebound into slanted resting angle
-        tl.to(card, {
-          rotation: targetAngle,
-          scale: 1.0,
-          duration: 0.6,
-          ease: 'elastic.out(1.1, 0.5)',
-          onComplete: () => {
-            // Start continuous flowy breeze movement
-            startFlowyAirMovement(card, idx, targetAngle);
-          }
-        }, impactTime);
       });
 
-      // Subtle breathing wave motion on the clothesline rope
+      // Subtle living wave breathing motion on the clothesline rope
       if (ropePaths.length) {
         gsap.to(ropePaths, {
-          y: 1.5,
-          duration: 3.4,
+          y: 2.2,
+          duration: 3.8,
           yoyo: true,
           repeat: -1,
           ease: 'sine.inOut',
-          delay: 2.0
+          delay: 2.5
         });
       }
     }
 
-    // Continuous, flowy air movement simulation (pendulum sway + subtle air lift + 3D flutter)
+    // Continuous, amplified flowy air movement (generous pendulum sway + airy vertical lift + 3D flutter)
     function startFlowyAirMovement(card, idx, restingAngle) {
       const airConfigs = [
-        { amp: 3.2, lift: 3.5, flutter: 4.5, dur: 4.8 },
-        { amp: 2.8, lift: 4.0, flutter: -4.0, dur: 5.6 },
-        { amp: 3.2, lift: 3.2, flutter: 4.8, dur: 4.4 }
+        { amp: 6.8, liftMin: -7, liftMax: 5, flutterY: 11, flutterX: 3.5, durSway: 4.4, durLift: 3.8 },
+        { amp: 6.2, liftMin: -8, liftMax: 6, flutterY: -12, flutterX: -4.0, durSway: 5.2, durLift: 4.5 },
+        { amp: 7.2, liftMin: -6, liftMax: 6, flutterY: 13, flutterX: 3.0, durSway: 4.6, durLift: 4.0 }
       ];
-      const cfg = airConfigs[idx] || { amp: 3.0, lift: 3.5, flutter: 4.0, dur: 5.0 };
+      const cfg = airConfigs[idx] || { amp: 6.5, liftMin: -7, liftMax: 6, flutterY: 10, flutterX: 3.5, durSway: 4.8, durLift: 4.2 };
 
-      // Flowy pendulum sway
+      // 1. Amplified flowy pendulum sway with 3D perspective flutter
       const swayTween = gsap.to(card, {
         rotation: restingAngle + cfg.amp,
-        y: cfg.lift,
-        rotateY: cfg.flutter,
-        duration: cfg.dur,
+        rotateY: cfg.flutterY,
+        rotateX: cfg.flutterX,
+        duration: cfg.durSway,
         ease: 'sine.inOut',
         yoyo: true,
         repeat: -1
       });
 
+      // 2. Visible airy floating vertical lift
+      const liftTween = gsap.to(card, {
+        y: cfg.liftMin,
+        duration: cfg.durLift,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        delay: idx * 0.35
+      });
+
       card._swayTween = swayTween;
+      card._liftTween = liftTween;
       card._restingAngle = restingAngle;
 
-      // Hover interaction: smoothly straighten to 0deg, scale up to 1.05, lift card slightly
+      // Hover interaction: smoothly straighten to 0deg, scale up, lift card slightly
       card.addEventListener('mouseenter', () => {
         if (card._swayTween) card._swayTween.pause();
+        if (card._liftTween) card._liftTween.pause();
         gsap.to(card, {
           rotation: 0,
           rotateY: 0,
-          scale: 1.05,
-          y: -6,
+          rotateX: 0,
+          scale: 1.045,
+          y: -10,
           duration: 0.35,
           ease: 'power2.out',
           overwrite: 'auto'
@@ -429,6 +482,7 @@
         gsap.to(card, {
           rotation: card._restingAngle,
           rotateY: 0,
+          rotateX: 0,
           scale: 1,
           y: 0,
           duration: 0.5,
@@ -436,6 +490,7 @@
           overwrite: 'auto',
           onComplete: () => {
             if (card._swayTween) card._swayTween.play();
+            if (card._liftTween) card._liftTween.play();
           }
         });
       });

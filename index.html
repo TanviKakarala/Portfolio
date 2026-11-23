@@ -349,15 +349,15 @@
           </div>
         </div>
 
-        <!-- Realistic Hanging Clothesline Rope Spanning Across Section with Natural Waves -->
+        <!-- Realistic Hanging Clothesline Rope with Natural Wavy Undulation & Sag -->
         <div class="hanging-thread-wrap" id="hangingThreadWrap" aria-hidden="true">
-          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 48" preserveAspectRatio="none">
+          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 80" preserveAspectRatio="none">
             <defs>
               <filter id="ropeShadow" x="-10%" y="-40%" width="120%" height="200%">
-                <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="rgba(0,0,0,0.6)" />
+                <feDropShadow dx="0" dy="5" stdDeviation="3.5" flood-color="rgba(0,0,0,0.65)" />
               </filter>
               <filter id="ropeStudioGlow" x="-20%" y="-50%" width="140%" height="200%">
-                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feGaussianBlur stdDeviation="4.5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -373,25 +373,25 @@
 
             <!-- Wall Anchor Eyelets at Screen Edges -->
             <g class="rope-wall-anchor left-anchor">
-              <circle cx="8" cy="20" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="8" cy="20" r="2.5" fill="#edd5b3" />
+              <circle cx="8" cy="28" r="7" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="8" cy="28" r="3" fill="#edd5b3" />
             </g>
             <g class="rope-wall-anchor right-anchor">
-              <circle cx="1192" cy="20" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="1192" cy="20" r="2.5" fill="#edd5b3" />
+              <circle cx="1192" cy="28" r="7" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="1192" cy="28" r="3" fill="#edd5b3" />
             </g>
 
             <!-- 1. Ambient Lighting Underglow -->
-            <path id="ropeGlowLine" class="rope-ambient-glow" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" filter="url(#ropeStudioGlow)" />
+            <path id="ropeGlowLine" class="rope-ambient-glow" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" filter="url(#ropeStudioGlow)" />
 
-            <!-- 2. Main Natural Hemp Rope Body (Curved Wave Sag between cards) -->
-            <path id="hangingRopeCore" class="rope-core" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" filter="url(#ropeShadow)" />
+            <!-- 2. Main Natural Hemp Rope Body (Pronounced Wavy Shape with deep natural sags) -->
+            <path id="hangingRopeCore" class="rope-core" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" filter="url(#ropeShadow)" />
 
             <!-- 3. Twisted Helical Fiber Strands (Deep Grooves) -->
-            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" />
+            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" />
 
             <!-- 4. Twisted Strand Highlights (Top Fiber Light Glint) -->
-            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,20 Q 115,22 230,24 Q 415,31 600,25 Q 785,32 970,24 Q 1085,22 1200,20" />
+            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" />
           </svg>
         </div>
 

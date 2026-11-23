@@ -1,98 +1,124 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 480" width="100%" height="100%">
   <defs>
     <linearGradient id="brand-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#110515"/>
-      <stop offset="50%" stop-color="#1d0a22"/>
-      <stop offset="100%" stop-color="#0a030d"/>
+      <stop offset="0%" stop-color="#0f0412"/>
+      <stop offset="50%" stop-color="#1b081e"/>
+      <stop offset="100%" stop-color="#08020b"/>
     </linearGradient>
-    <linearGradient id="gold-foil" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fff3b0"/>
-      <stop offset="40%" stop-color="#e0a96d"/>
-      <stop offset="70%" stop-color="#c58940"/>
-      <stop offset="100%" stop-color="#784c1b"/>
+    <linearGradient id="gold-leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8d6"/>
+      <stop offset="35%" stop-color="#e2b774"/>
+      <stop offset="70%" stop-color="#c58c42"/>
+      <stop offset="100%" stop-color="#734a17"/>
     </linearGradient>
     <linearGradient id="rose-foil" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffb3c7"/>
       <stop offset="50%" stop-color="#ff2a85"/>
-      <stop offset="100%" stop-color="#9d0208"/>
+      <stop offset="100%" stop-color="#8a003a"/>
     </linearGradient>
     <filter id="brand-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feGaussianBlur stdDeviation="15" result="blur"/>
     </filter>
   </defs>
 
-  <rect width="600" height="380" fill="url(#brand-bg)"/>
+  <rect width="600" height="480" fill="url(#brand-bg)"/>
 
   <!-- Ambient Luxury Glow -->
-  <circle cx="200" cy="180" r="140" fill="#e0a96d" opacity="0.15" filter="url(#brand-glow)"/>
-  <circle cx="420" cy="200" r="130" fill="#ff2a85" opacity="0.16" filter="url(#brand-glow)"/>
+  <circle cx="200" cy="220" r="170" fill="#e2b774" opacity="0.16" filter="url(#brand-glow)"/>
+  <circle cx="430" cy="240" r="150" fill="#ff2a85" opacity="0.18" filter="url(#brand-glow)"/>
 
-  <!-- Blueprint Architectural Grid &amp; Golden Ratio Circles -->
-  <g stroke="rgba(224, 169, 109, 0.12)" stroke-width="1" fill="none">
-    <circle cx="180" cy="180" r="90"/>
-    <circle cx="180" cy="180" r="60"/>
-    <circle cx="180" cy="180" r="30"/>
-    <line x1="60" y1="180" x2="300" y2="180" stroke-dasharray="3 3"/>
-    <line x1="180" y1="60" x2="180" y2="300" stroke-dasharray="3 3"/>
-    <polygon points="180,90 258,225 102,225" stroke="rgba(255, 42, 133, 0.2)"/>
+  <!-- Geometric Construction Guides -->
+  <g stroke="rgba(226, 183, 116, 0.14)" stroke-width="1" fill="none">
+    <circle cx="170" cy="180" r="100"/>
+    <circle cx="170" cy="180" r="68"/>
+    <circle cx="170" cy="180" r="34"/>
+    <line x1="40" y1="180" x2="300" y2="180" stroke-dasharray="3 3"/>
+    <line x1="170" y1="50" x2="170" y2="310" stroke-dasharray="3 3"/>
+    <polygon points="170,80 255,230 85,230" stroke="rgba(255,42,133,0.2)"/>
   </g>
 
-  <!-- Left: Luxury Brand Monogram Emblem -->
-  <g transform="translate(180, 180)">
-    <!-- Emblem Outer Ring -->
-    <circle cx="0" cy="0" r="72" fill="#16081b" stroke="url(#gold-foil)" stroke-width="2"/>
-    <circle cx="0" cy="0" r="64" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" stroke-dasharray="4 4"/>
-    
-    <!-- Monogram Geometry (T &amp; K / Diamond Apex) -->
-    <path d="M -36,-26 L 36,-26 M 0,-26 L 0,36 M -24,-2 L 24,36 M 2,-2 L 26,-26" fill="none" stroke="url(#gold-foil)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="0" cy="-26" r="4" fill="#fff"/>
-    <circle cx="0" cy="36" r="3" fill="url(#gold-foil)"/>
+  <!-- 1. ICONIC BRAND MONOGRAM EMBLEM (Upper Left) -->
+  <g transform="translate(170, 180)">
+    <!-- Outer Shield Seal -->
+    <circle cx="0" cy="0" r="76" fill="#150619" stroke="url(#gold-leaf)" stroke-width="2.2" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.7))"/>
+    <circle cx="0" cy="0" r="68" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" stroke-dasharray="4 4"/>
 
-    <text x="0" y="54" font-family="'Cinzel', 'Playfair Display', serif" font-size="8.5" font-weight="700" fill="#e0a96d" letter-spacing="3" text-anchor="middle">ATELIER MARQUE</text>
+    <!-- Interlocking Monogram Geometry (T & K / Crown Motif) -->
+    <path d="M -40,-28 L 40,-28 M 0,-28 L 0,38 M -26,-2 L 26,38 M 2,-2 L 28,-28" fill="none" stroke="url(#gold-leaf)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="0" cy="-28" r="4.5" fill="#ffffff"/>
+    <circle cx="0" cy="38" r="3.5" fill="url(#gold-leaf)"/>
+
+    <text x="0" y="58" font-family="'Cinzel', 'Playfair Display', serif" font-size="9.5" font-weight="700" fill="#e2b774" letter-spacing="3" text-anchor="middle">ATELIER MARQUE</text>
   </g>
 
-  <!-- Right: Color Palette Swatch Fan &amp; Packaging Card -->
-  <g transform="translate(320, 50)">
-    <!-- Swatch Cards Stack -->
-    <rect width="240" height="140" rx="10" fill="#17071e" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/>
-    <text x="16" y="28" font-family="'Cinzel', serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1">BRAND SYSTEM SPECS</text>
-    <text x="16" y="44" font-family="system-ui, sans-serif" font-size="9" fill="#b89eb0">Cohesive Guidelines &#183; Packaging &#183; Decks</text>
+  <!-- 2. BRAND POSTER / EDITORIAL DECK MOCKUP (Right Side, Tilted) -->
+  <g transform="translate(330, 45)">
+    <!-- Poster Frame with Shadow -->
+    <rect width="230" height="290" rx="10" fill="#14061a" stroke="rgba(255,255,255,0.15)" stroke-width="1.2" filter="drop-shadow(0 14px 30px rgba(0,0,0,0.7))"/>
+    <!-- Poster Header Accent -->
+    <rect x="0" y="0" width="230" height="4" fill="url(#rose-foil)"/>
 
-    <!-- 4 Palette Swatch Chips -->
-    <g transform="translate(16, 62)">
-      <!-- Swatch 1: Obsidian Plum -->
-      <g transform="translate(0, 0)">
-        <rect width="44" height="44" rx="6" fill="#1b0713" stroke="rgba(255,255,255,0.2)"/>
-        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#d2bad0" text-anchor="middle">#1B0713</text>
+    <g transform="translate(20, 24)">
+      <text x="0" y="16" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#ff2a85" letter-spacing="2">CAMPAIGN POSTER / DECK</text>
+      <text x="0" y="44" font-family="'Cinzel', serif" font-size="20" font-weight="800" fill="#ffffff" letter-spacing="1">OPULENCE</text>
+      <text x="0" y="60" font-family="serif" font-size="11" font-style="italic" fill="#ffb3c7">The Art of Commodity Elegance</text>
+
+      <!-- Center Minimalist Artwork in Poster -->
+      <g transform="translate(0, 75)">
+        <rect width="190" height="110" rx="6" fill="#1c0a24" stroke="url(#gold-leaf)" stroke-width="1"/>
+        <circle cx="95" cy="55" r="34" fill="none" stroke="url(#gold-leaf)" stroke-width="1.5"/>
+        <circle cx="95" cy="55" r="22" fill="rgba(226, 183, 116, 0.15)"/>
+        <text x="95" y="60" font-family="serif" font-size="18" fill="#e2b774" text-anchor="middle">&#10022;</text>
+        <text x="95" y="98" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#f5dfc6" text-anchor="middle">SUMMER BRAND LAUNCH</text>
       </g>
-      <!-- Swatch 2: Rose Fuchsia -->
-      <g transform="translate(54, 0)">
-        <rect width="44" height="44" rx="6" fill="#ff2a85" stroke="rgba(255,255,255,0.3)"/>
-        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#ffb3c7" text-anchor="middle">#FF2A85</text>
-      </g>
-      <!-- Swatch 3: Champagne Gold -->
-      <g transform="translate(108, 0)">
-        <rect width="44" height="44" rx="6" fill="#e0a96d" stroke="rgba(255,255,255,0.3)"/>
-        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#f5dfc6" text-anchor="middle">#E0A96D</text>
-      </g>
-      <!-- Swatch 4: Electric Cyan -->
-      <g transform="translate(162, 0)">
-        <rect width="44" height="44" rx="6" fill="#00f5ff" stroke="rgba(255,255,255,0.3)"/>
-        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#b4f5fc" text-anchor="middle">#00F5FF</text>
+
+      <!-- Poster Bottom Typography Specimen -->
+      <g transform="translate(0, 205)">
+        <text x="0" y="12" font-family="'JetBrains Mono', monospace" font-size="7.5" fill="#a08ca0">TYPOGRAPHY: CANELA SERIF &amp; AEONIK</text>
+        <line x1="0" y1="18" x2="190" y2="18" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <text x="0" y="32" font-family="system-ui, sans-serif" font-size="8" fill="#d8cad8">Cohesive Logo, Packaging &amp; Investor Pitch Decks</text>
       </g>
     </g>
+  </g>
 
-    <!-- Packaging Mockup Card Beneath -->
-    <g transform="translate(0, 155)">
-      <rect width="240" height="125" rx="10" fill="#110416" stroke="rgba(224, 169, 109, 0.35)" stroke-width="1"/>
-      <!-- Package Foil Label -->
-      <rect x="18" y="16" width="204" height="93" rx="6" fill="#1b0a22" stroke="url(#gold-foil)" stroke-width="1.2"/>
-      <circle cx="50" cy="50" r="16" fill="none" stroke="url(#gold-foil)" stroke-width="1.5"/>
-      <text x="50" y="54" font-family="serif" font-size="13" fill="#e0a96d" text-anchor="middle">&#10022;</text>
-      <text x="78" y="46" font-family="'Cinzel', serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1.5">L'OPULENCE</text>
-      <text x="78" y="60" font-family="system-ui, sans-serif" font-size="8.5" fill="#ffb3c7">Custom Luxury Packaging Label</text>
-      <rect x="78" y="68" width="120" height="14" rx="7" fill="rgba(224, 169, 109, 0.15)"/>
-      <text x="84" y="78" font-family="'JetBrains Mono', monospace" font-size="7" fill="#e0a96d">FOIL STAMP &#183; EMBOSSED 300GSM</text>
+  <!-- 3. LUXURY PACKAGING BOX MOCKUP (Bottom Left Foreground) -->
+  <g transform="translate(45, 310)">
+    <!-- 3D Box Top & Front Faces -->
+    <rect width="260" height="135" rx="10" fill="#16051c" stroke="url(#gold-leaf)" stroke-width="1.4" filter="drop-shadow(0 16px 28px rgba(0,0,0,0.85))"/>
+
+    <g transform="translate(18, 16)">
+      <!-- Gold Foil Embossed Badge on Box -->
+      <rect width="224" height="102" rx="6" fill="#100314" stroke="rgba(226, 183, 116, 0.4)" stroke-width="1"/>
+      <circle cx="34" cy="46" r="18" fill="rgba(226,183,116,0.12)" stroke="url(#gold-leaf)" stroke-width="1.5"/>
+      <text x="34" y="52" font-family="serif" font-size="15" fill="#e2b774" text-anchor="middle">&#10022;</text>
+
+      <text x="64" y="38" font-family="'Cinzel', serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="2">L'OPULENCE</text>
+      <text x="64" y="54" font-family="system-ui, sans-serif" font-size="9" fill="#ffb3c7">Bespoke Rigid Box &amp; Label Packaging</text>
+
+      <rect x="64" y="64" width="145" height="18" rx="9" fill="rgba(226, 183, 116, 0.15)"/>
+      <text x="74" y="76" font-family="'JetBrains Mono', monospace" font-size="7.5" font-weight="700" fill="#e2b774">GOLD FOIL &#183; EMBOSSED 350GSM</text>
+    </g>
+  </g>
+
+  <!-- 4. COLOR PALETTE SWATCH DECK (Bottom Right Foreground) -->
+  <g transform="translate(330, 355)">
+    <rect width="230" height="90" rx="10" fill="#150619" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <text x="16" y="22" font-family="'JetBrains Mono', monospace" font-size="8" font-weight="700" fill="#ffb3c7" letter-spacing="1">BRAND SYSTEM SWATCHES</text>
+
+    <!-- 4 Color Chips -->
+    <g transform="translate(16, 34)">
+      <!-- Obsidian -->
+      <rect width="42" height="34" rx="5" fill="#1b0713" stroke="rgba(255,255,255,0.2)"/>
+      <text x="21" y="46" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#d2bad0" text-anchor="middle">#1B0713</text>
+      <!-- Rose -->
+      <rect x="52" y="0" width="42" height="34" rx="5" fill="#ff2a85" stroke="rgba(255,255,255,0.3)"/>
+      <text x="73" y="46" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#ffb3c7" text-anchor="middle">#FF2A85</text>
+      <!-- Gold -->
+      <rect x="104" y="0" width="42" height="34" rx="5" fill="#e2b774" stroke="rgba(255,255,255,0.3)"/>
+      <text x="125" y="46" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#f5dfc6" text-anchor="middle">#E2B774</text>
+      <!-- Cyan -->
+      <rect x="156" y="0" width="42" height="34" rx="5" fill="#00f5ff" stroke="rgba(255,255,255,0.3)"/>
+      <text x="177" y="46" font-family="'JetBrains Mono', monospace" font-size="6.5" fill="#b4f5fc" text-anchor="middle">#00F5FF</text>
     </g>
   </g>
 </svg>
