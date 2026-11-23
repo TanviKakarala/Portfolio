@@ -193,77 +193,48 @@
     }
   });
 
-  // 4. Interactive Studio Color Swatches (#creator) with Dynamic Card Hover Glow Sync
+  // 4. Interactive Studio Color Swatches (#creator) — safely guarded if swatches element exists
   const swatchButtons = document.querySelectorAll('#colorSwatches .swatch-btn');
   const creatorSection = document.getElementById('creator');
-
-  const themePalettes = {
-    'default': {
-      bar: 'linear-gradient(90deg, #ff2a85, #ffb3c7)',
-      glow: 'rgba(255, 42, 133, 0.5)',
-      border: 'rgba(255, 42, 133, 0.65)',
-      color: '#ff2a85'
-    },
-    'electric-cyan': {
-      bar: 'linear-gradient(90deg, #00f5ff, #0088ff)',
-      glow: 'rgba(0, 245, 255, 0.5)',
-      border: 'rgba(0, 245, 255, 0.65)',
-      color: '#00f5ff'
-    },
-    'rose-magenta': {
-      bar: 'linear-gradient(90deg, #ff2a85, #ff758c)',
-      glow: 'rgba(255, 42, 133, 0.5)',
-      border: 'rgba(255, 42, 133, 0.65)',
-      color: '#ff2a85'
-    },
-    'aurora-gold': {
-      bar: 'linear-gradient(90deg, #ffd700, #ff5e36)',
-      glow: 'rgba(255, 215, 0, 0.5)',
-      border: 'rgba(255, 215, 0, 0.65)',
-      color: '#ffd700'
-    }
-  };
-
-  swatchButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      swatchButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const themeKey = btn.dataset.theme;
-      const palette = themePalettes[themeKey] || themePalettes.default;
-      
-      if (creatorSection) {
+  if (swatchButtons.length && creatorSection) {
+    const themePalettes = {
+      'default': { bar: 'linear-gradient(90deg, #ff2a85, #ffb3c7)', glow: 'rgba(255, 42, 133, 0.5)', border: 'rgba(255, 42, 133, 0.65)', color: '#ff2a85' },
+      'electric-cyan': { bar: 'linear-gradient(90deg, #00f5ff, #0088ff)', glow: 'rgba(0, 245, 255, 0.5)', border: 'rgba(0, 245, 255, 0.65)', color: '#00f5ff' },
+      'rose-magenta': { bar: 'linear-gradient(90deg, #ff2a85, #ff758c)', glow: 'rgba(255, 42, 133, 0.5)', border: 'rgba(255, 42, 133, 0.65)', color: '#ff2a85' },
+      'aurora-gold': { bar: 'linear-gradient(90deg, #ffd700, #ff5e36)', glow: 'rgba(255, 215, 0, 0.5)', border: 'rgba(255, 215, 0, 0.65)', color: '#ffd700' }
+    };
+    swatchButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        swatchButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const themeKey = btn.dataset.theme;
+        const palette = themePalettes[themeKey] || themePalettes.default;
         creatorSection.style.setProperty('--creator-active-bar', palette.bar);
         creatorSection.style.setProperty('--creator-active-glow', palette.glow);
         creatorSection.style.setProperty('--creator-active-border', palette.border);
         creatorSection.style.setProperty('--creator-active-color', palette.color);
         creatorSection.style.setProperty('--bar', palette.bar);
-      }
-      
-      document.querySelectorAll('.cre .glass, .hanging-card').forEach(card => {
-        card.style.setProperty('--bar', palette.bar);
-        card.style.setProperty('--card-glow', palette.glow);
-        card.style.setProperty('--card-border', palette.border);
       });
     });
-  });
+  }
 
-  // 4b. Freelance Studio: "Hanging Clothesline Rope & Flowy Pinned Cards" (GSAP)
+  // 4b. Freelance Studio: "Hanging Clothesline Rope & Wind-Blown Cards" (GSAP)
   function initCreatorHangingCardsAnimation() {
     const creatorSec = document.getElementById('creator');
     if (!creatorSec || typeof gsap === 'undefined') return;
 
     const headerRow = creatorSec.querySelector('.creator-header-row');
     const threadWrap = document.getElementById('hangingThreadWrap');
-    const ropePaths = creatorSec.querySelectorAll('#hangingRopeCore, #ropeTwistDark, #ropeTwistLight, #ropeGlowLine');
+    const ropePaths = creatorSec.querySelectorAll('#hangingRopeShadow, #hangingRopeCore, #ropeTwistDark, #ropeTwistLight');
     const cards = creatorSec.querySelectorAll('.hanging-card');
     if (!cards.length) return;
 
     // Natural slanted resting angles (-3.8deg, +3.2deg, -2.6deg)
     const restingAngles = [-3.8, 3.2, -2.6];
 
-    // Authentic Wavy Clothesline: resting wavy path vs elastic impact dip wave path
-    const ropeNormalPath = 'M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28';
-    const ropeDipPath    = 'M 0,28 Q 115,58 230,48 Q 415,82 600,54 Q 785,84 970,48 Q 1085,58 1200,28';
+    // Authentic Wavy Clothesline: pronounced resting wave sag vs elastic impact dip wave
+    const ropeNormalPath = 'M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38';
+    const ropeDipPath    = 'M 0,38 Q 115,66 230,56 Q 415,96 600,64 Q 785,96 970,56 Q 1085,66 1200,38';
 
     // Initial setup: air-flowing starting position from below the viewport
     gsap.set(headerRow, {
@@ -281,20 +252,20 @@
 
     // Initial card setup: deep below viewport with fluttering initial bank angles
     const initialOffsets = [
-      { y: 440, x: -45, rot: -18, rotY: 18 },
-      { y: 460, x: 40, rot: 16, rotY: -16 },
-      { y: 440, x: -38, rot: -15, rotY: 14 }
+      { y: 460, x: -50, rot: -20, rotY: 18, rotX: 8 },
+      { y: 480, x: 45, rot: 18, rotY: -16, rotX: 10 },
+      { y: 460, x: -40, rot: -16, rotY: 15, rotX: 8 }
     ];
 
     cards.forEach((card, idx) => {
-      const off = initialOffsets[idx] || { y: 440, x: 0, rot: 0, rotY: 0 };
+      const off = initialOffsets[idx] || { y: 460, x: 0, rot: 0, rotY: 0, rotX: 0 };
       gsap.set(card, {
         opacity: 0,
         y: off.y,
         x: off.x,
         rotation: off.rot,
         rotateY: off.rotY,
-        rotateX: 6,
+        rotateX: off.rotX,
         scale: 0.90,
         transformOrigin: '50% 0%'
       });
@@ -316,7 +287,7 @@
         ease: 'power2.out'
       });
 
-      // Step 2: Glowing clothesline rope reveals and tightens with natural wave
+      // Step 2: Clothesline rope reveals with organic wave sag
       if (threadWrap) {
         tl.to(threadWrap, {
           opacity: 1,
@@ -336,9 +307,9 @@
 
         // Custom aerodynamic draft coordinates per card for authentic reverse-falling flight
         const draftConfig = [
-          { midX: 28, midRot: 14, midRotY: -12, crestX: -8, crestRot: -5 },
-          { midX: -26, midRot: -14, midRotY: 12, crestX: 8, crestRot: 5 },
-          { midX: 24, midRot: 12, midRotY: -10, crestX: -6, crestRot: -4 }
+          { midX: 30, midRot: 15, midRotY: -14, crestX: -10, crestRot: -6 },
+          { midX: -28, midRot: -15, midRotY: 13, crestX: 10, crestRot: 6 },
+          { midX: 26, midRot: 13, midRotY: -12, crestX: -8, crestRot: -5 }
         ][idx] || { midX: 20, midRot: 10, midRotY: -10, crestX: 0, crestRot: 0 };
 
         const cardFlightTl = gsap.timeline();
@@ -350,7 +321,7 @@
           x: draftConfig.midX,
           rotation: draftConfig.midRot,
           rotateY: draftConfig.midRotY,
-          rotateX: 2,
+          rotateX: 4,
           scale: 0.94,
           duration: 0.34,
           ease: 'sine.out'
@@ -362,7 +333,7 @@
           x: draftConfig.crestX,
           rotation: draftConfig.crestRot,
           rotateY: draftConfig.midRotY * -0.6,
-          rotateX: -2,
+          rotateX: -3,
           scale: 0.98,
           duration: 0.32,
           ease: 'sine.inOut'
@@ -390,8 +361,8 @@
           duration: 0.7,
           ease: 'elastic.out(1.15, 0.45)',
           onComplete: () => {
-            // Start continuous flowy airy hovering
-            startFlowyAirMovement(card, idx, targetAngle);
+            // Start continuous organic wind blowing movement
+            startWindBreezeMovement(card, idx, targetAngle);
           }
         });
 
@@ -418,8 +389,8 @@
       // Subtle living wave breathing motion on the clothesline rope
       if (ropePaths.length) {
         gsap.to(ropePaths, {
-          y: 2.2,
-          duration: 3.8,
+          y: 2.0,
+          duration: 3.6,
           yoyo: true,
           repeat: -1,
           ease: 'sine.inOut',
@@ -428,50 +399,75 @@
       }
     }
 
-    // Continuous, amplified flowy air movement (generous pendulum sway + airy vertical lift + 3D flutter)
-    function startFlowyAirMovement(card, idx, restingAngle) {
-      const airConfigs = [
-        { amp: 6.8, liftMin: -7, liftMax: 5, flutterY: 11, flutterX: 3.5, durSway: 4.4, durLift: 3.8 },
-        { amp: 6.2, liftMin: -8, liftMax: 6, flutterY: -12, flutterX: -4.0, durSway: 5.2, durLift: 4.5 },
-        { amp: 7.2, liftMin: -6, liftMax: 6, flutterY: 13, flutterX: 3.0, durSway: 4.6, durLift: 4.0 }
+    // Continuous, amplified wind blowing movement (pendulum sway + sail lift + 3D flutter)
+    function startWindBreezeMovement(card, idx, restingAngle) {
+      const windConfigs = [
+        {
+          swayAngle: 8.5,       // sideways pendulum swing ±8.5 deg
+          rotX: 13,            // wind lifts bottom edge outward/upward +13deg
+          rotY: 10,            // flutter twist ±10deg
+          liftY: -11,          // vertical air lift -11px
+          durSway: 3.8,        // natural pendulum timing
+          durLift: 2.9,        // out-of-phase vertical lift
+          delay: 0.1
+        },
+        {
+          swayAngle: 9.2,      // center card sways deeper ±9.2 deg
+          rotX: 15,            // wind lifts bottom edge +15deg
+          rotY: -11,           // flutter twist ±11deg
+          liftY: -13,          // vertical air lift -13px
+          durSway: 4.4,
+          durLift: 3.3,
+          delay: 0.4
+        },
+        {
+          swayAngle: 8.8,      // right card sways ±8.8 deg
+          rotX: 12,            // wind lifts bottom edge +12deg
+          rotY: 12,            // flutter twist ±12deg
+          liftY: -10,          // vertical air lift -10px
+          durSway: 3.6,
+          durLift: 2.7,
+          delay: 0.25
+        }
       ];
-      const cfg = airConfigs[idx] || { amp: 6.5, liftMin: -7, liftMax: 6, flutterY: 10, flutterX: 3.5, durSway: 4.8, durLift: 4.2 };
+      const cfg = windConfigs[idx] || { swayAngle: 8.5, rotX: 12, rotY: 10, liftY: -10, durSway: 4.0, durLift: 3.0, delay: 0 };
 
-      // 1. Amplified flowy pendulum sway with 3D perspective flutter
-      const swayTween = gsap.to(card, {
-        rotation: restingAngle + cfg.amp,
-        rotateY: cfg.flutterY,
-        rotateX: cfg.flutterX,
+      // 1. Amplified sideways pendulum sway with 3D wind sail angle and flutter
+      const windSwayTween = gsap.to(card, {
+        rotation: restingAngle + (idx % 2 === 0 ? cfg.swayAngle : -cfg.swayAngle),
+        rotateX: cfg.rotX,
+        rotateY: cfg.rotY,
         duration: cfg.durSway,
         ease: 'sine.inOut',
         yoyo: true,
-        repeat: -1
+        repeat: -1,
+        delay: cfg.delay
       });
 
-      // 2. Visible airy floating vertical lift
-      const liftTween = gsap.to(card, {
-        y: cfg.liftMin,
+      // 2. Visible vertical wind draft lift
+      const windLiftTween = gsap.to(card, {
+        y: cfg.liftY,
         duration: cfg.durLift,
         ease: 'sine.inOut',
         yoyo: true,
         repeat: -1,
-        delay: idx * 0.35
+        delay: cfg.delay + 0.3
       });
 
-      card._swayTween = swayTween;
-      card._liftTween = liftTween;
+      card._windSwayTween = windSwayTween;
+      card._windLiftTween = windLiftTween;
       card._restingAngle = restingAngle;
 
       // Hover interaction: smoothly straighten to 0deg, scale up, lift card slightly
       card.addEventListener('mouseenter', () => {
-        if (card._swayTween) card._swayTween.pause();
-        if (card._liftTween) card._liftTween.pause();
+        if (card._windSwayTween) card._windSwayTween.pause();
+        if (card._windLiftTween) card._windLiftTween.pause();
         gsap.to(card, {
           rotation: 0,
-          rotateY: 0,
           rotateX: 0,
-          scale: 1.045,
-          y: -10,
+          rotateY: 0,
+          scale: 1.04,
+          y: -12,
           duration: 0.35,
           ease: 'power2.out',
           overwrite: 'auto'
@@ -481,16 +477,16 @@
       card.addEventListener('mouseleave', () => {
         gsap.to(card, {
           rotation: card._restingAngle,
-          rotateY: 0,
           rotateX: 0,
+          rotateY: 0,
           scale: 1,
           y: 0,
           duration: 0.5,
           ease: 'power2.out',
           overwrite: 'auto',
           onComplete: () => {
-            if (card._swayTween) card._swayTween.play();
-            if (card._liftTween) card._liftTween.play();
+            if (card._windSwayTween) card._windSwayTween.play();
+            if (card._windLiftTween) card._windLiftTween.play();
           }
         });
       });

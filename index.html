@@ -337,31 +337,15 @@
             <p class="lead creator-lead">
               Building high-converting digital storefronts, brand identities, and AI-powered campaigns that make businesses impossible to ignore.
             </p>
-            <div class="palette-bar">
-              <span class="palette-label">Interactive Studio Lighting:</span>
-              <div class="swatches" id="colorSwatches">
-                <button class="swatch-btn active" data-theme="default" style="background: linear-gradient(135deg, #00f5ff, #ff2a85);" title="Dual-Core Signature"></button>
-                <button class="swatch-btn" data-theme="electric-cyan" style="background: linear-gradient(135deg, #00f5ff, #0066ff);" title="Electric Cyan"></button>
-                <button class="swatch-btn" data-theme="rose-magenta" style="background: linear-gradient(135deg, #ff2a85, #ffb3c7);" title="Rose Magenta"></button>
-                <button class="swatch-btn" data-theme="aurora-gold" style="background: linear-gradient(135deg, #ffd700, #ff5e36);" title="Golden Prestige"></button>
-              </div>
-            </div>
           </div>
         </div>
 
-        <!-- Realistic Hanging Clothesline Rope with Natural Wavy Undulation & Sag -->
+        <!-- Realistic Hanging Clothesline Rope with Natural Wavy Sag Between Cards -->
         <div class="hanging-thread-wrap" id="hangingThreadWrap" aria-hidden="true">
-          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <defs>
-              <filter id="ropeShadow" x="-10%" y="-40%" width="120%" height="200%">
-                <feDropShadow dx="0" dy="5" stdDeviation="3.5" flood-color="rgba(0,0,0,0.65)" />
-              </filter>
-              <filter id="ropeStudioGlow" x="-20%" y="-50%" width="140%" height="200%">
-                <feGaussianBlur stdDeviation="4.5" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
+              <filter id="ropeShadow" x="-10%" y="-30%" width="120%" height="200%">
+                <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="rgba(0,0,0,0.55)" />
               </filter>
               <linearGradient id="hempRopeBase" x1="0%" y1="0%" x2="0%" y2="100%">
                 <stop offset="0%" stop-color="#edd5b3" />
@@ -373,51 +357,45 @@
 
             <!-- Wall Anchor Eyelets at Screen Edges -->
             <g class="rope-wall-anchor left-anchor">
-              <circle cx="8" cy="28" r="7" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="8" cy="28" r="3" fill="#edd5b3" />
+              <circle cx="8" cy="38" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="8" cy="38" r="2.5" fill="#edd5b3" />
             </g>
             <g class="rope-wall-anchor right-anchor">
-              <circle cx="1192" cy="28" r="7" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
-              <circle cx="1192" cy="28" r="3" fill="#edd5b3" />
+              <circle cx="1192" cy="38" r="6" fill="#1b120c" stroke="#c6a374" stroke-width="2" />
+              <circle cx="1192" cy="38" r="2.5" fill="#edd5b3" />
             </g>
 
-            <!-- 1. Ambient Lighting Underglow -->
-            <path id="ropeGlowLine" class="rope-ambient-glow" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" filter="url(#ropeStudioGlow)" />
+            <!-- 1. Shadow Underlayer -->
+            <path id="hangingRopeShadow" class="rope-shadow-line" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" filter="url(#ropeShadow)" />
 
-            <!-- 2. Main Natural Hemp Rope Body (Pronounced Wavy Shape with deep natural sags) -->
-            <path id="hangingRopeCore" class="rope-core" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" filter="url(#ropeShadow)" />
+            <!-- 2. Main Natural Hemp Rope Body (Pronounced Wavy Sag) -->
+            <path id="hangingRopeCore" class="rope-core" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
 
             <!-- 3. Twisted Helical Fiber Strands (Deep Grooves) -->
-            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" />
+            <path id="ropeTwistDark" class="rope-twist-dark" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
 
             <!-- 4. Twisted Strand Highlights (Top Fiber Light Glint) -->
-            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,28 Q 115,48 230,36 Q 415,70 600,42 Q 785,72 970,36 Q 1085,48 1200,28" />
+            <path id="ropeTwistLight" class="rope-twist-light" d="M 0,38 Q 115,56 230,46 Q 415,84 600,54 Q 785,84 970,46 Q 1085,56 1200,38" />
           </svg>
         </div>
 
-        <!-- 3 Hanging Dark-Glass Polaroid Service Cards -->
+        <!-- 3 Hanging Dark-Glass Long Portrait Rectangular Cards -->
         <div class="hanging-cards-container" id="hangingCardsGrid">
           <!-- Card 1: Web Development & Digital Solutions -->
-          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3.5deg; --bar: linear-gradient(90deg, #ff2a85, #00f5ff);">
-            <!-- Realistic Wooden Clothespin Peg with Spring & Gripping Jaws -->
+          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3.8deg;">
+            <!-- Authentic Wooden Clothespin Peg -->
             <div class="card-clothespin" aria-hidden="true">
-              <div class="pin-glow-halo"></div>
-              <div class="pin-shadow"></div>
-              <div class="peg-body">
-                <div class="peg-lever-top"></div>
-                <div class="peg-spring"></div>
-                <div class="peg-jaw-bottom"></div>
-              </div>
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
             </div>
 
-            <!-- Upper Half (~65% height): Crisp Dark-Mode Preview Image -->
+            <!-- Upper Half: Tall Rectangular Preview Image -->
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
-              <img src="assets/images/service-web-dev.svg" alt="Web Development and Digital Solutions Preview" class="card-photo-img" loading="eager" width="600" height="380">
-              <div class="photo-corner-badge">WEB DEV · LIVE</div>
+              <img src="assets/images/service-web-design.webp" alt="Creative Web Design and Digital Solutions" class="card-photo-img" loading="eager" width="764" height="1024">
+              <div class="photo-corner-badge">WEB DEV · LIVE STOREFRONTS</div>
             </div>
 
-            <!-- Lower Half (~35% height): Clean, Bold Service Title -->
+            <!-- Lower Half: Clean, Bold Service Title -->
             <div class="card-caption-block">
               <span class="card-micro-label">01 // PLATFORMS &amp; STORES</span>
               <h3 class="card-service-title">Web Development &amp; Digital Solutions</h3>
@@ -429,21 +407,15 @@
           </div>
 
           <!-- Card 2: Creative Design & Branding -->
-          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 3.0deg; --bar: linear-gradient(90deg, #e0a96d, #ff2a85);">
+          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 3.2deg;">
             <div class="card-clothespin" aria-hidden="true">
-              <div class="pin-glow-halo"></div>
-              <div class="pin-shadow"></div>
-              <div class="peg-body">
-                <div class="peg-lever-top"></div>
-                <div class="peg-spring"></div>
-                <div class="peg-jaw-bottom"></div>
-              </div>
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
             </div>
 
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
-              <img src="assets/images/service-branding.svg" alt="Creative Design and Brand Identity Preview" class="card-photo-img" loading="eager" width="600" height="380">
-              <div class="photo-corner-badge">IDENTITY · DESIGN</div>
+              <img src="assets/images/service-branding-design.webp" alt="Creative Design and Brand Identity" class="card-photo-img" loading="eager" width="764" height="1024">
+              <div class="photo-corner-badge">BRANDING · IDENTITY SYSTEMS</div>
             </div>
 
             <div class="card-caption-block">
@@ -457,21 +429,15 @@
           </div>
 
           <!-- Card 3: Creative & Advertising -->
-          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2.5deg; --bar: linear-gradient(90deg, #ff2a85, #7b5cff);">
+          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2.6deg;">
             <div class="card-clothespin" aria-hidden="true">
-              <div class="pin-glow-halo"></div>
-              <div class="pin-shadow"></div>
-              <div class="peg-body">
-                <div class="peg-lever-top"></div>
-                <div class="peg-spring"></div>
-                <div class="peg-jaw-bottom"></div>
-              </div>
+              <img src="assets/images/wooden-clothespin.svg" alt="Wooden Clothespin" class="clothespin-svg-img" width="34" height="76">
             </div>
 
             <div class="card-photo-frame">
               <div class="photo-inner-glare"></div>
-              <img src="assets/images/service-advertising.svg" alt="Creative Commercial and Motion Advertising Preview" class="card-photo-img" loading="eager" width="600" height="380">
-              <div class="photo-corner-badge">AI ADS · 4K MOTION</div>
+              <img src="assets/images/service-creative-ads.webp" alt="Creative Commercial and Advertising" class="card-photo-img" loading="eager" width="764" height="1024">
+              <div class="photo-corner-badge">CREATIVE · AI COMMERCIALS</div>
             </div>
 
             <div class="card-caption-block">
