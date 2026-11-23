@@ -239,7 +239,7 @@
         creatorSection.style.setProperty('--bar', palette.bar);
       }
       
-      document.querySelectorAll('.cre .glass').forEach(card => {
+      document.querySelectorAll('.cre .glass, .hanging-card').forEach(card => {
         card.style.setProperty('--bar', palette.bar);
         card.style.setProperty('--card-glow', palette.glow);
         card.style.setProperty('--card-border', palette.border);
@@ -247,40 +247,62 @@
     });
   });
 
-  // 4b. Freelance Studio: "Fly-Up & Snap" Entrance Animation (GSAP)
-  function initCreatorFlyUpAnimation() {
+  // 4b. Freelance Studio: "Hanging Thread & Pinned Photo Cards" (GSAP)
+  function initCreatorHangingCardsAnimation() {
     const creatorSec = document.getElementById('creator');
     if (!creatorSec || typeof gsap === 'undefined') return;
 
     const headerRow = creatorSec.querySelector('.creator-header-row');
-    const cards = creatorSec.querySelectorAll('.creator-card');
+    const threadWrap = document.getElementById('hangingThreadWrap');
+    const threadPath = document.getElementById('hangingThreadPath');
+    const cards = creatorSec.querySelectorAll('.hanging-card');
     if (!cards.length) return;
 
-    // Initial setup: heading hidden slightly down, cards below the fold with alternating tilts
+    // Natural slanted resting angles (-3deg, +2.5deg, -2deg)
+    const restingAngles = [-3, 2.5, -2];
+
+    // Initial setup: air-flowing starting position from below the viewport
     gsap.set(headerRow, {
       opacity: 0,
       y: 28
     });
 
-    cards.forEach((card, i) => {
+    if (threadWrap) {
+      gsap.set(threadWrap, {
+        opacity: 0,
+        scaleX: 0.95,
+        transformOrigin: 'center center'
+      });
+    }
+
+    // Initial card setup: curved air-flowing drift offsets
+    const initialOffsets = [
+      { y: 220, x: -25, rot: -8 },
+      { y: 220, x: 10, rot: 7 },
+      { y: 220, x: 25, rot: -8 }
+    ];
+
+    cards.forEach((card, idx) => {
+      const off = initialOffsets[idx] || { y: 220, x: 0, rot: 0 };
       gsap.set(card, {
         opacity: 0,
-        y: 160,
-        scale: 0.94,
-        rotation: i % 2 === 0 ? -2 : 2,
-        transformOrigin: '50% 100%'
+        y: off.y,
+        x: off.x,
+        rotation: off.rot,
+        scale: 0.96,
+        transformOrigin: 'top center'
       });
     });
 
     let hasAnimated = false;
 
-    function playFlyUp() {
+    function runHangingEntranceSequence() {
       if (hasAnimated) return;
       hasAnimated = true;
 
       const tl = gsap.timeline();
 
-      // Step 1 (Heading): Fade and slide headline & intro cleanly into place at top of viewport (0.5s ease-out)
+      // Step 1: Heading slides into place (0.5s ease-out)
       tl.to(headerRow, {
         opacity: 1,
         y: 0,
@@ -288,30 +310,117 @@
         ease: 'power2.out'
       });
 
-      // Step 2 (Cards Fly Up & Dock): Starting 0.15s after heading settles
-      // Animate 4 cards flying upward from y: 160, scale: 0.94, tilt -> y: 0, scale: 1, rotate: 0deg
-      // back.out(1.25) spring easing with 0.09s stagger delay from left to right
-      tl.to(cards, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotation: 0,
-        duration: 0.75,
-        ease: 'back.out(1.25)',
-        stagger: 0.09,
-        onComplete: () => {
-          // Clear transform inline style so CSS hover (translateY(-6px)) works smoothly
-          cards.forEach(c => gsap.set(c, { clearProps: 'transform' }));
+      // Step 2: Glowing thread reveals and tightens
+      if (threadWrap) {
+        tl.to(threadWrap, {
+          opacity: 1,
+          scaleX: 1,
+          duration: 0.45,
+          ease: 'power2.out'
+        }, '-=0.2');
+      }
+
+      // Step 3: 3 Cards float up caught in an upward breeze (0.15s stagger)
+      const baseStart = 0.55;
+
+      cards.forEach((card, idx) => {
+        const cardStartTime = baseStart + (idx * 0.15);
+        const flyDuration = 0.78;
+        const targetAngle = restingAngles[idx] || 0;
+        const impactTime = cardStartTime + flyDuration;
+
+        // Upward breeze floating motion
+        tl.to(card, {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          rotation: targetAngle,
+          scale: 1,
+          duration: flyDuration,
+          ease: 'power2.out'
+        }, cardStartTime);
+
+        // Clothespin clips onto the thread:
+        // 1) Thread dips 4px and bounces softly with elastic.out(1, 0.45)
+        if (threadPath) {
+          tl.to(threadPath, {
+            attr: { d: 'M 8,16 Q 300,26 600,29 Q 900,26 1192,16' },
+            duration: 0.16,
+            ease: 'power1.in'
+          }, impactTime);
+
+          tl.to(threadPath, {
+            attr: { d: 'M 8,16 Q 300,23 600,25 Q 900,23 1192,16' },
+            duration: 0.85,
+            ease: 'elastic.out(1, 0.45)'
+          }, impactTime + 0.16);
         }
-      }, '+=0.15');
+
+        // 2) Card settles into its natural slanted angle with soft tactile spring
+        tl.to(card, {
+          rotation: targetAngle,
+          duration: 0.45,
+          ease: 'elastic.out(1, 0.5)',
+          onComplete: () => {
+            // Start continuous gentle pendulum breeze sway (±1.5deg over 4s-6s)
+            startPendulumSway(card, idx, targetAngle);
+          }
+        }, impactTime);
+      });
     }
 
-    // Trigger on IntersectionObserver when scrolled into or opened
+    // Continuous, slow, gentle pendulum breeze motion
+    function startPendulumSway(card, idx, restingAngle) {
+      const swayAmplitudes = [1.3, 1.2, 1.3];
+      const swayDurations = [4.8, 5.4, 4.4];
+      const amp = swayAmplitudes[idx] || 1.3;
+      const dur = swayDurations[idx] || 5.0;
+
+      const swayTween = gsap.to(card, {
+        rotation: restingAngle + amp,
+        duration: dur,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1
+      });
+
+      card._swayTween = swayTween;
+      card._restingAngle = restingAngle;
+
+      // Hover interaction: smoothly straighten to 0deg, scale up to 1.05
+      card.addEventListener('mouseenter', () => {
+        if (card._swayTween) card._swayTween.pause();
+        gsap.to(card, {
+          rotation: 0,
+          scale: 1.05,
+          y: -4,
+          duration: 0.35,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          rotation: card._restingAngle,
+          scale: 1,
+          y: 0,
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto',
+          onComplete: () => {
+            if (card._swayTween) card._swayTween.play();
+          }
+        });
+      });
+    }
+
+    // Trigger when user opens or scrolls into this section (once: true)
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            playFlyUp();
+            runHangingEntranceSequence();
           }
         });
       }, {
@@ -319,25 +428,23 @@
       });
       observer.observe(creatorSec);
     } else {
-      playFlyUp();
+      runHangingEntranceSequence();
     }
 
-    // ScrollTrigger integration if loaded
+    // ScrollTrigger hook if available
     if (typeof ScrollTrigger !== 'undefined') {
       try {
         ScrollTrigger.create({
           trigger: creatorSec,
           start: 'top 75%',
           once: true,
-          onEnter: playFlyUp
+          onEnter: runHangingEntranceSequence
         });
-      } catch (e) {
-        // Fallback already running
-      }
+      } catch (e) {}
     }
   }
 
-  initCreatorFlyUpAnimation();
+  initCreatorHangingCardsAnimation();
 
   // 5. Interactive WhatsApp Brief Generator (#bf)
   const needBtns = document.querySelectorAll('#needOpts .opt-btn');

@@ -1929,12 +1929,45 @@ html {
    SECTION 2: THE CREATOR STUDIO — BESPOKE WEBSITES (FIRST)
    ========================================================================== */
 #creator {
-  background: radial-gradient(70vmax 45vmax at 100% 0%, rgba(245, 56, 106, 0.35), transparent),
-              linear-gradient(180deg, #1b0713, #2E0F20 50%, #4B1F36);
+  position: relative;
+  background: #1b0713;
+  overflow: hidden;
   --creator-active-bar: linear-gradient(90deg, #ff2a85, #ffb3c7);
   --creator-active-glow: rgba(255, 42, 133, 0.5);
   --creator-active-border: rgba(255, 42, 133, 0.65);
   --creator-active-color: #ff2a85;
+}
+
+/* Watercolor Blooming Video Background Layer */
+.creator-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  filter: saturate(1.2) contrast(1.08);
+}
+
+.creator-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(75vmax 50vmax at 85% 15%, rgba(255, 42, 133, 0.22), transparent 70%),
+              radial-gradient(60vmax 40vmax at 15% 85%, rgba(0, 245, 255, 0.12), transparent 70%),
+              linear-gradient(180deg, rgba(22, 6, 17, 0.74) 0%, rgba(38, 12, 28, 0.8) 50%, rgba(68, 22, 46, 0.88) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+#creator .container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .creator-header-row {
@@ -1942,7 +1975,7 @@ html {
   justify-content: space-between;
   align-items: flex-end;
   gap: 24px;
-  margin-bottom: clamp(14px, 2vh, 24px);
+  margin-bottom: clamp(10px, 1.6vh, 20px);
   will-change: transform, opacity;
 }
 
@@ -1957,7 +1990,7 @@ html {
 }
 
 .creator-h2 {
-  font: 700 clamp(36px, 4.8vw, 68px)/1.02 var(--font-serif);
+  font: 700 clamp(34px, 4.2vw, 64px)/1.02 var(--font-serif);
   letter-spacing: -.03em;
   color: #ffffff;
   margin: 4px 0 0;
@@ -1972,25 +2005,27 @@ html {
 
 .creator-lead {
   max-width: 46ch;
-  font-size: clamp(13px, 0.95vw, 15px);
-  line-height: 1.5;
+  font-size: clamp(12.5px, 0.9vw, 14.5px);
+  line-height: 1.48;
   color: #e2d2dc;
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 
 .palette-bar {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 6px 14px;
+  padding: 5px 13px;
   border-radius: 99px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   width: max-content;
 }
 
 .palette-label {
-  font: 500 11px var(--font-mono);
+  font: 500 10.5px var(--font-mono);
   color: #ffd5e0;
 }
 
@@ -2000,8 +2035,8 @@ html {
 }
 
 .swatch-btn {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
@@ -2011,103 +2046,303 @@ html {
 .swatch-btn:hover, .swatch-btn.active {
   transform: scale(1.2);
   border-color: #fff;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
-/* 4-Card Service Pillars in #creator — Fly-Up & Snap Grid */
-.creator-cards-grid {
+/* ==========================================================================
+   HORIZONTAL GLOWING ROPE / THREAD & 3 HANGING CARDS
+   ========================================================================== */
+.hanging-thread-wrap {
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  margin-top: clamp(2px, 0.8vh, 12px);
+  margin-bottom: -15px; /* Rope threads cleanly through top clothespin clamps */
+  pointer-events: none;
+}
+
+.hanging-thread-svg {
+  width: 100%;
+  height: 36px;
+  display: block;
+  overflow: visible;
+}
+
+.thread-anchor-eyelet {
+  fill: #ffffff;
+  stroke: var(--creator-active-color, #ff2a85);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px var(--creator-active-color, #ff2a85));
+  transition: stroke 0.4s ease, filter 0.4s ease;
+}
+
+.thread-line {
+  fill: none;
+  stroke: var(--creator-active-color, #ff2a85);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px var(--creator-active-color, rgba(255, 42, 133, 0.85)));
+  transition: stroke 0.4s ease;
+}
+
+/* 3 Hanging Cards Container */
+.hanging-cards-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(12px, 1.4vw, 20px);
-  perspective: 1000px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2.4vw, 36px);
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  perspective: 1200px;
+  position: relative;
+  z-index: 6;
 }
 
-.creator-cards-grid .glass {
-  padding: clamp(18px, 2.2vh, 26px) clamp(16px, 1.4vw, 22px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: clamp(190px, 25vh, 240px);
-  background: rgba(255, 255, 255, 0.04);
+.hanging-card.polaroid-card {
+  position: relative;
+  background: rgba(16, 7, 22, 0.74);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 18px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.35s ease,
-              border-color 0.35s ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 10px 10px 16px;
+  display: flex;
+  flex-direction: column;
+  transform-origin: top center;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.65),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2),
+              inset 0 0 24px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.35s ease,
+              box-shadow 0.35s ease;
   will-change: transform, opacity;
+  cursor: pointer;
 }
 
-/* Interactive Card Hover & Studio Lighting Sync */
-.creator-cards-grid .glass:hover {
-  transform: translateY(-6px) !important;
-  border-color: var(--card-border, var(--creator-active-border, rgba(255, 42, 133, 0.65)));
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6),
-              0 0 24px var(--card-glow, var(--creator-active-glow, rgba(255, 42, 133, 0.45)));
+/* Realistic 3D Metallic Clothespin / Spring Clamp */
+.card-clothespin {
+  position: absolute;
+  top: -17px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 36px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-.cre .glass::before {
+.pin-clamp-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.75);
+  filter: blur(3px);
+}
+
+.pin-clamp-body {
+  position: relative;
+  width: 14px;
+  height: 33px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #f0f4f8 0%, #b4c2d4 35%, #56687e 70%, #1a222e 100%);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.65), inset 0 1px 1px #ffffff;
+}
+
+.clip-lever-top {
+  width: 100%;
+  height: 11px;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #ffffff 0%, #9baec4 100%);
+}
+
+.clip-jaw-bottom {
+  width: 100%;
+  height: 11px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(180deg, #74879e 0%, #202b38 100%);
+}
+
+.clip-spring-coil {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 10px;
+  border-radius: 5px;
+  background: radial-gradient(circle at 30% 30%, #fff2b2 0%, #e0a96d 40%, #7a4a1d 85%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.pin-jewel-dot {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--creator-active-color, #ff2a85) 60%, #4a0820 100%);
+  box-shadow: 0 0 8px var(--creator-active-color, #ff2a85);
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.pin-glow-halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--creator-active-glow, rgba(255, 42, 133, 0.6)) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Upper Half (~65% height): Crisp Dark-Mode Preview Image */
+.card-photo-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(190px, 24vh, 235px);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #08020a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.7);
+}
+
+.card-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.photo-inner-glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 45%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.photo-corner-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font: 700 9px var(--font-mono);
+  letter-spacing: 0.08em;
+  background: rgba(14, 5, 20, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffb3c7;
+  border: 1px solid rgba(255, 42, 133, 0.35);
+  z-index: 3;
+}
+
+/* Lower Half (~35% height): Clean, Bold Service Title */
+.card-caption-block {
+  padding: clamp(10px, 1.4vh, 16px) 8px 2px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-micro-label {
+  font: 700 9px var(--font-mono);
+  letter-spacing: 0.16em;
+  color: var(--creator-active-color, #ff2a85);
+  text-transform: uppercase;
+  transition: color 0.35s ease;
+}
+
+.card-service-title {
+  font: 700 clamp(15.5px, 1.2vw, 18.5px)/1.2 var(--font-serif);
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.card-sub-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.sub-tag {
+  padding: 3px 8px;
+  border-radius: 99px;
+  font: 500 10px var(--font-mono);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffd5e0;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Top Accent Bar Sync */
+.hanging-card::before {
   content: "";
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   height: 3px;
+  border-radius: 18px 18px 0 0;
   background: var(--bar, var(--creator-active-bar, linear-gradient(90deg, #ff2a85, #ffb3c7)));
-  transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s ease,
-              background 0.4s ease;
+  transition: height 0.3s ease, box-shadow 0.3s ease, background 0.4s ease;
   z-index: 2;
 }
 
-.creator-cards-grid .glass:hover::before {
+/* Hover Interaction: Straightens (rotate: 0deg), Scales (scale: 1.05), Brightens Border & Pin */
+.hanging-card:hover {
+  border-color: var(--card-border, var(--creator-active-border, rgba(255, 42, 133, 0.75)));
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.8),
+              0 0 28px var(--card-glow, var(--creator-active-glow, rgba(255, 42, 133, 0.45))),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.hanging-card:hover::before {
   height: 4px;
   box-shadow: 0 0 16px var(--card-glow, var(--creator-active-glow, rgba(255, 42, 133, 0.85)));
 }
 
-.creator-cards-grid .glass h3 {
-  font: 700 clamp(16px, 1.2vw, 19px)/1.2 var(--font-serif);
-  margin: 6px 0 6px;
-  color: #ffffff;
+.hanging-card:hover .card-photo-img {
+  transform: scale(1.04);
 }
 
-.creator-cards-grid .glass p {
-  font-size: clamp(11.5px, 0.88vw, 13px);
-  line-height: 1.48;
-  color: #d6c6d2;
-  margin-bottom: auto;
+.hanging-card:hover .pin-glow-halo {
+  opacity: 1;
 }
 
-.creator-cards-grid .micro-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  list-style: none;
-  padding: 0;
-  margin: 12px 0 0;
+.hanging-card:hover .pin-jewel-dot {
+  transform: translate(-50%, -50%) scale(1.25);
+  box-shadow: 0 0 14px var(--creator-active-color, #ff2a85),
+              0 0 24px var(--creator-active-color, #ff2a85);
 }
 
-.creator-cards-grid .micro-tags li {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #FFE4EE;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
-}
-
-.creator-cards-grid .glass:hover .micro-tags li {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+.hanging-card:hover .sub-tag {
+  background: rgba(255, 42, 133, 0.16);
+  border-color: rgba(255, 42, 133, 0.45);
   color: #ffffff;
 }
 

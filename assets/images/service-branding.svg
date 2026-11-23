@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" width="100%" height="100%">
+  <defs>
+    <linearGradient id="brand-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#110515"/>
+      <stop offset="50%" stop-color="#1d0a22"/>
+      <stop offset="100%" stop-color="#0a030d"/>
+    </linearGradient>
+    <linearGradient id="gold-foil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3b0"/>
+      <stop offset="40%" stop-color="#e0a96d"/>
+      <stop offset="70%" stop-color="#c58940"/>
+      <stop offset="100%" stop-color="#784c1b"/>
+    </linearGradient>
+    <linearGradient id="rose-foil" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb3c7"/>
+      <stop offset="50%" stop-color="#ff2a85"/>
+      <stop offset="100%" stop-color="#9d0208"/>
+    </linearGradient>
+    <filter id="brand-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+    </filter>
+  </defs>
+
+  <rect width="600" height="380" fill="url(#brand-bg)"/>
+
+  <!-- Ambient Luxury Glow -->
+  <circle cx="200" cy="180" r="140" fill="#e0a96d" opacity="0.15" filter="url(#brand-glow)"/>
+  <circle cx="420" cy="200" r="130" fill="#ff2a85" opacity="0.16" filter="url(#brand-glow)"/>
+
+  <!-- Blueprint Architectural Grid &amp; Golden Ratio Circles -->
+  <g stroke="rgba(224, 169, 109, 0.12)" stroke-width="1" fill="none">
+    <circle cx="180" cy="180" r="90"/>
+    <circle cx="180" cy="180" r="60"/>
+    <circle cx="180" cy="180" r="30"/>
+    <line x1="60" y1="180" x2="300" y2="180" stroke-dasharray="3 3"/>
+    <line x1="180" y1="60" x2="180" y2="300" stroke-dasharray="3 3"/>
+    <polygon points="180,90 258,225 102,225" stroke="rgba(255, 42, 133, 0.2)"/>
+  </g>
+
+  <!-- Left: Luxury Brand Monogram Emblem -->
+  <g transform="translate(180, 180)">
+    <!-- Emblem Outer Ring -->
+    <circle cx="0" cy="0" r="72" fill="#16081b" stroke="url(#gold-foil)" stroke-width="2"/>
+    <circle cx="0" cy="0" r="64" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+    
+    <!-- Monogram Geometry (T &amp; K / Diamond Apex) -->
+    <path d="M -36,-26 L 36,-26 M 0,-26 L 0,36 M -24,-2 L 24,36 M 2,-2 L 26,-26" fill="none" stroke="url(#gold-foil)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="0" cy="-26" r="4" fill="#fff"/>
+    <circle cx="0" cy="36" r="3" fill="url(#gold-foil)"/>
+
+    <text x="0" y="54" font-family="'Cinzel', 'Playfair Display', serif" font-size="8.5" font-weight="700" fill="#e0a96d" letter-spacing="3" text-anchor="middle">ATELIER MARQUE</text>
+  </g>
+
+  <!-- Right: Color Palette Swatch Fan &amp; Packaging Card -->
+  <g transform="translate(320, 50)">
+    <!-- Swatch Cards Stack -->
+    <rect width="240" height="140" rx="10" fill="#17071e" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1"/>
+    <text x="16" y="28" font-family="'Cinzel', serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1">BRAND SYSTEM SPECS</text>
+    <text x="16" y="44" font-family="system-ui, sans-serif" font-size="9" fill="#b89eb0">Cohesive Guidelines &#183; Packaging &#183; Decks</text>
+
+    <!-- 4 Palette Swatch Chips -->
+    <g transform="translate(16, 62)">
+      <!-- Swatch 1: Obsidian Plum -->
+      <g transform="translate(0, 0)">
+        <rect width="44" height="44" rx="6" fill="#1b0713" stroke="rgba(255,255,255,0.2)"/>
+        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#d2bad0" text-anchor="middle">#1B0713</text>
+      </g>
+      <!-- Swatch 2: Rose Fuchsia -->
+      <g transform="translate(54, 0)">
+        <rect width="44" height="44" rx="6" fill="#ff2a85" stroke="rgba(255,255,255,0.3)"/>
+        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#ffb3c7" text-anchor="middle">#FF2A85</text>
+      </g>
+      <!-- Swatch 3: Champagne Gold -->
+      <g transform="translate(108, 0)">
+        <rect width="44" height="44" rx="6" fill="#e0a96d" stroke="rgba(255,255,255,0.3)"/>
+        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#f5dfc6" text-anchor="middle">#E0A96D</text>
+      </g>
+      <!-- Swatch 4: Electric Cyan -->
+      <g transform="translate(162, 0)">
+        <rect width="44" height="44" rx="6" fill="#00f5ff" stroke="rgba(255,255,255,0.3)"/>
+        <text x="22" y="60" font-family="'JetBrains Mono', monospace" font-size="7" fill="#b4f5fc" text-anchor="middle">#00F5FF</text>
+      </g>
+    </g>
+
+    <!-- Packaging Mockup Card Beneath -->
+    <g transform="translate(0, 155)">
+      <rect width="240" height="125" rx="10" fill="#110416" stroke="rgba(224, 169, 109, 0.35)" stroke-width="1"/>
+      <!-- Package Foil Label -->
+      <rect x="18" y="16" width="204" height="93" rx="6" fill="#1b0a22" stroke="url(#gold-foil)" stroke-width="1.2"/>
+      <circle cx="50" cy="50" r="16" fill="none" stroke="url(#gold-foil)" stroke-width="1.5"/>
+      <text x="50" y="54" font-family="serif" font-size="13" fill="#e0a96d" text-anchor="middle">&#10022;</text>
+      <text x="78" y="46" font-family="'Cinzel', serif" font-size="12" font-weight="700" fill="#ffffff" letter-spacing="1.5">L'OPULENCE</text>
+      <text x="78" y="60" font-family="system-ui, sans-serif" font-size="8.5" fill="#ffb3c7">Custom Luxury Packaging Label</text>
+      <rect x="78" y="68" width="120" height="14" rx="7" fill="rgba(224, 169, 109, 0.15)"/>
+      <text x="84" y="78" font-family="'JetBrains Mono', monospace" font-size="7" fill="#e0a96d">FOIL STAMP &#183; EMBOSSED 300GSM</text>
+    </g>
+  </g>
+</svg>

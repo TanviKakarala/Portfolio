@@ -321,6 +321,12 @@
          SECTION 2: THE CREATOR STUDIO — BESPOKE WEBSITES (FIRST)
          ======================================================================== -->
     <section class="sec cre" id="creator">
+      <!-- Watercolor Blooming Video Background Layer -->
+      <video class="creator-bg-video" id="creatorBgVideo" autoplay loop muted playsinline aria-hidden="true">
+        <source src="assets/creator-bg-video.mp4" type="video/mp4">
+      </video>
+      <div class="creator-bg-overlay" aria-hidden="true"></div>
+
       <div class="container">
         <div class="sec-header-row creator-header-row">
           <div class="sec-title-block">
@@ -343,46 +349,116 @@
           </div>
         </div>
 
-        <!-- 4 Creative Service Pillars Grid -->
-        <div class="creator-cards-grid" id="creatorCardsGrid">
-          <div class="glass creator-card" data-card-idx="0" style="--bar: linear-gradient(90deg, #ff2a85, #ffb3c7);">
-            <div class="card-icon-tag text-pink">💻 WEB DESIGN &amp; DEV</div>
-            <h3>Bespoke Websites</h3>
-            <p>High-converting digital storefronts engineered for speed and clarity.</p>
-            <ul class="micro-tags">
-              <li>Responsive UI/UX</li>
-              <li>Modern Web</li>
-            </ul>
+        <!-- Horizontal Glowing Rope / Thread Spanning Across Section -->
+        <div class="hanging-thread-wrap" id="hangingThreadWrap" aria-hidden="true">
+          <svg class="hanging-thread-svg" id="hangingThreadSvg" viewBox="0 0 1200 36" preserveAspectRatio="none">
+            <defs>
+              <filter id="threadGlow" x="-20%" y="-50%" width="140%" height="200%">
+                <feGaussianBlur stdDeviation="3.5" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Wall Anchor Eyelets -->
+            <circle cx="8" cy="16" r="4.5" class="thread-anchor-eyelet" />
+            <circle cx="1192" cy="16" r="4.5" class="thread-anchor-eyelet" />
+            <!-- Curved Rope Path with Natural Sag Under Weight of Cards -->
+            <path id="hangingThreadPath" d="M 8,16 Q 300,23 600,25 Q 900,23 1192,16" class="thread-line" filter="url(#threadGlow)" />
+          </svg>
+        </div>
+
+        <!-- 3 Hanging Dark-Glass Polaroid Service Cards -->
+        <div class="hanging-cards-container" id="hangingCardsGrid">
+          <!-- Card 1: Web Development & Digital Solutions -->
+          <div class="hanging-card polaroid-card" data-card-idx="0" style="--hang-angle: -3deg; --bar: linear-gradient(90deg, #ff2a85, #00f5ff);">
+            <!-- Realistic 3D Metallic Clothespin Anchor -->
+            <div class="card-clothespin" aria-hidden="true">
+              <div class="pin-glow-halo"></div>
+              <div class="pin-clamp-shadow"></div>
+              <div class="pin-clamp-body">
+                <div class="clip-lever-top"></div>
+                <div class="clip-spring-coil"></div>
+                <div class="clip-jaw-bottom"></div>
+                <div class="pin-jewel-dot"></div>
+              </div>
+            </div>
+
+            <!-- Upper Half (~65% height): Crisp Dark-Mode Preview Image -->
+            <div class="card-photo-frame">
+              <div class="photo-inner-glare"></div>
+              <img src="assets/images/service-web-dev.svg" alt="Web Development and Digital Solutions Preview" class="card-photo-img" loading="eager" width="600" height="380">
+              <div class="photo-corner-badge">WEB DEV · LIVE</div>
+            </div>
+
+            <!-- Lower Half (~35% height): Clean, Bold Service Title -->
+            <div class="card-caption-block">
+              <span class="card-micro-label">01 // PLATFORMS &amp; STORES</span>
+              <h3 class="card-service-title">Web Development &amp; Digital Solutions</h3>
+              <div class="card-sub-tags">
+                <span class="sub-tag">Responsive UI/UX</span>
+                <span class="sub-tag">Modern Web &amp; Apps</span>
+              </div>
+            </div>
           </div>
 
-          <div class="glass creator-card" data-card-idx="1" style="--bar: linear-gradient(90deg, #ff2a85, #7b5cff);">
-            <div class="card-icon-tag text-pink">🎬 AI CREATIVE &amp; ADS</div>
-            <h3>AI Commercials</h3>
-            <p>Studio-grade product visuals and ad campaigns powered by AI.</p>
-            <ul class="micro-tags">
-              <li>Product Video</li>
-              <li>AI Visuals</li>
-            </ul>
+          <!-- Card 2: Creative Design & Branding -->
+          <div class="hanging-card polaroid-card" data-card-idx="1" style="--hang-angle: 2.5deg; --bar: linear-gradient(90deg, #e0a96d, #ff2a85);">
+            <div class="card-clothespin" aria-hidden="true">
+              <div class="pin-glow-halo"></div>
+              <div class="pin-clamp-shadow"></div>
+              <div class="pin-clamp-body">
+                <div class="clip-lever-top"></div>
+                <div class="clip-spring-coil"></div>
+                <div class="clip-jaw-bottom"></div>
+                <div class="pin-jewel-dot"></div>
+              </div>
+            </div>
+
+            <div class="card-photo-frame">
+              <div class="photo-inner-glare"></div>
+              <img src="assets/images/service-branding.svg" alt="Creative Design and Brand Identity Preview" class="card-photo-img" loading="eager" width="600" height="380">
+              <div class="photo-corner-badge">IDENTITY · DESIGN</div>
+            </div>
+
+            <div class="card-caption-block">
+              <span class="card-micro-label">02 // BRAND SYSTEMS</span>
+              <h3 class="card-service-title">Creative Design &amp; Branding</h3>
+              <div class="card-sub-tags">
+                <span class="sub-tag">Logos &amp; Packaging</span>
+                <span class="sub-tag">Pitch Decks &amp; Systems</span>
+              </div>
+            </div>
           </div>
 
-          <div class="glass creator-card" data-card-idx="2" style="--bar: linear-gradient(90deg, #ff2a85, #ffc857);">
-            <div class="card-icon-tag text-pink">🎨 BRAND IDENTITY</div>
-            <h3>Brand Identity</h3>
-            <p>Distinctive logos, packaging labels, and cohesive brand systems.</p>
-            <ul class="micro-tags">
-              <li>Brand Systems</li>
-              <li>Pitch Decks</li>
-            </ul>
-          </div>
+          <!-- Card 3: Creative & Advertising -->
+          <div class="hanging-card polaroid-card" data-card-idx="2" style="--hang-angle: -2deg; --bar: linear-gradient(90deg, #ff2a85, #7b5cff);">
+            <div class="card-clothespin" aria-hidden="true">
+              <div class="pin-glow-halo"></div>
+              <div class="pin-clamp-shadow"></div>
+              <div class="pin-clamp-body">
+                <div class="clip-lever-top"></div>
+                <div class="clip-spring-coil"></div>
+                <div class="clip-jaw-bottom"></div>
+                <div class="pin-jewel-dot"></div>
+              </div>
+            </div>
 
-          <div class="glass creator-card" data-card-idx="3" style="--bar: linear-gradient(90deg, #ff2a85, #38bdf8);">
-            <div class="card-icon-tag text-pink">🤖 WORKFLOW AUTOMATION</div>
-            <h3>AI Automation</h3>
-            <p>Smart assistants and automated workflows that save daily hours.</p>
-            <ul class="micro-tags">
-              <li>AI Agents</li>
-              <li>Workflows</li>
-            </ul>
+            <div class="card-photo-frame">
+              <div class="photo-inner-glare"></div>
+              <img src="assets/images/service-advertising.svg" alt="Creative Commercial and Motion Advertising Preview" class="card-photo-img" loading="eager" width="600" height="380">
+              <div class="photo-corner-badge">AI ADS · 4K MOTION</div>
+            </div>
+
+            <div class="card-caption-block">
+              <span class="card-micro-label">03 // CAMPAIGNS &amp; VIDEO</span>
+              <h3 class="card-service-title">Creative &amp; Advertising</h3>
+              <div class="card-sub-tags">
+                <span class="sub-tag">AI Commercials</span>
+                <span class="sub-tag">Product Video &amp; 3D Ads</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
