@@ -763,20 +763,18 @@
     const nextBtn = document.getElementById('conveyorNextBtn');
     if (!cards.length) return;
 
-    let cycleIndex = 0;
+    let loopCount = 0;
     let isHovered = false;
     let isSeeking = false;
     let lastTime = 0;
 
-    // First Movement cycle duration: 0.0s to 1.958s
-    const FIRST_MOVEMENT_DURATION = 1.958;
-    // Roll transition window: starts at 1.65s, wraps through loop to 0.45s
-    const ROLL_START = 1.65;
-    const ROLL_END = 0.45;
-    const TOTAL_ROLL_SPAN = (FIRST_MOVEMENT_DURATION - ROLL_START) + ROLL_END; // 0.758s video time
+    const HALF_CYCLE = 1.958;
+    const ROLL_START = 1.60;
+    const ROLL_END = 0.50;
+    const TOTAL_ROLL_SPAN = (HALF_CYCLE - ROLL_START) + ROLL_END; // 0.858s
 
-    // Set video playback rate to smooth, studio tempo (~3.15s per card in real time)
-    video.playbackRate = 0.62;
+    // Set video playback rate to smooth studio pace (~3.4s per card)
+    video.playbackRate = 0.58;
 
     // Hover pause on conveyor stage
     track.addEventListener('mouseenter', () => {
@@ -805,10 +803,19 @@
     // Manual navigation: seek to specific card in held inspection state
     function seekToCard(targetIdx) {
       isSeeking = true;
-      cycleIndex = (targetIdx + cards.length) % cards.length;
-      updateDots(cycleIndex);
-      video.currentTime = 1.35; // Held inspection state under the robotic hand
-      renderPositionsAtTime(1.35, cycleIndex);
+      const target = ((targetIdx % 3) + 3) % 3;
+      if (target === 0) {
+        loopCount = 0;
+        video.currentTime = 1.25;
+      } else if (target === 1) {
+        loopCount = 0;
+        video.currentTime = 3.208;
+      } else {
+        loopCount = 1;
+        video.currentTime = 1.25;
+      }
+      lastTime = video.currentTime;
+      renderPositionsAtTime(video.currentTime, loopCount);
       setTimeout(() => { isSeeking = false; }, 400);
     }
 
@@ -819,177 +826,99 @@
       });
     });
 
+    let currentActiveCard = 0;
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        seekToCard(cycleIndex - 1);
+        seekToCard(currentActiveCard - 1);
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        seekToCard(cycleIndex + 1);
+        seekToCard(currentActiveCard + 1);
       });
     }
 
-    // Render positions for all 3 cards simultaneously without overlapping
-    // Replicates the First Movement for each card: glide -> hand expands -> holds -> moves upside -> resets
-    function renderPositionsAtTime(t, activeIdx) {
+    // Continuous, mathematically smooth conveyor ring renderer
+    // Zero seeks, zero card teleporting, monotonic physical conveyor glide
+    function renderPositionsAtTime(t, loops) {
       const trackWidth = track.offsetWidth || 1200;
       const slotOffset = Math.min(380, Math.max(260, trackWidth * 0.30));
-      const exitOffset = slotOffset * 2.0;
+      const L = 3 * slotOffset;
 
-      const centerIdx = activeIdx % cards.length;
-      const leftIdx   = (activeIdx + 1) % cards.length; // Next card on the left
-      const rightIdx  = (activeIdx + 2) % cards.length; // Previous card departing on the right
+      const halfCycleIdx = t >= HALF_CYCLE ? 1 : 0;
+      const tau = t - halfCycleIdx * HALF_CYCLE;
+      const continuousHalfCycles = loops * 2 + halfCycleIdx;
 
-      updateDots(centerIdx);
-
-      // Determine conveyor roll progress (rollP: 0 to 1)
-      let isRolling = false;
-      let rollP = 0;
-
-      if (t >= ROLL_START) {
-        isRolling = true;
-        rollP = (t - ROLL_START) / TOTAL_ROLL_SPAN;
-      } else if (t < ROLL_END) {
-        isRolling = true;
-        rollP = (FIRST_MOVEMENT_DURATION - ROLL_START + t) / TOTAL_ROLL_SPAN;
-      }
-
-      rollP = Math.min(1.0, Math.max(0.0, rollP));
-      const easeP = 0.5 - 0.5 * Math.cos(rollP * Math.PI); // Harmonic glide curve
-
-      let centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
-      let leftPos   = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-      let rightPos  = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-
-      if (isRolling) {
-        // Roll phase: cards advance in strict constant separation (slotOffset) — 0% overlap
-        if (t < ROLL_END) {
-          // After loop wrap: activeIdx is the incoming card gliding into center
-          centerPos = {
-            x: -slotOffset + slotOffset * easeP,
-            y: 0,
-            scale: 0.90 + 0.10 * easeP,
-            opacity: 0.75 + 0.25 * easeP,
-            isPicked: false,
-            zIndex: 8
-          };
-          rightPos = {
-            x: slotOffset * easeP,
-            y: 0,
-            scale: 1.0 - 0.10 * easeP,
-            opacity: 1.0 - 0.25 * easeP,
-            isPicked: false,
-            zIndex: 6
-          };
-          leftPos = {
-            x: -slotOffset,
-            y: 0,
-            scale: 0.90,
-            opacity: Math.min(0.75, 0.75 * easeP),
-            isPicked: false,
-            zIndex: 4
-          };
-        } else {
-          // Before loop wrap: activeIdx was picked, now rolling right to make room for next card
-          centerPos = {
-            x: slotOffset * easeP,
-            y: 0,
-            scale: 1.0 - 0.10 * easeP,
-            opacity: 1.0 - 0.25 * easeP,
-            isPicked: false,
-            zIndex: 6
-          };
-          leftPos = {
-            x: -slotOffset + slotOffset * easeP,
-            y: 0,
-            scale: 0.90 + 0.10 * easeP,
-            opacity: 0.75 + 0.25 * easeP,
-            isPicked: false,
-            zIndex: 8
-          };
-          rightPos = {
-            x: slotOffset + (exitOffset - slotOffset) * easeP,
-            y: 0,
-            scale: 0.90,
-            opacity: Math.max(0, 0.75 * (1 - easeP)),
-            isPicked: false,
-            zIndex: 2
-          };
-        }
+      // Compute continuous slot progress (monotonically advancing)
+      let slotProgress;
+      if (tau < ROLL_END) {
+        const p = ((HALF_CYCLE - ROLL_START) + tau) / TOTAL_ROLL_SPAN;
+        const easeP = 0.5 - 0.5 * Math.cos(p * Math.PI);
+        slotProgress = (continuousHalfCycles - 1) + easeP;
+      } else if (tau < ROLL_START) {
+        slotProgress = continuousHalfCycles;
       } else {
-        // Stationary presentation phase (0.45s to 1.65s): card touching half of the belt, framed cleanly below robotic hand
-        if (t < 1.05) {
-          // Phase 2 (0.45s - 1.05s): Card rests touching belt half; robotic hand descends & expands wide overhead
-          centerPos = { x: 0, y: 0, scale: 1.0, opacity: 1.0, isPicked: false, zIndex: 8 };
-        } else if (t < 1.60) {
-          // Phase 3 & 4 (1.05s - 1.60s): Hand grasps & holds card top; neon cyan glow active; card stays grounded touching belt half
-          centerPos = {
-            x: 0,
-            y: 0,
-            scale: 1.0,
-            opacity: 1.0,
-            isPicked: true,
-            zIndex: 10
-          };
-        } else {
-          // Phase 5 (1.60s - 1.65s): Hand releases; prepare for smooth conveyor roll to next card
-          centerPos = {
-            x: 0,
-            y: 0,
-            scale: 1.0,
-            opacity: 1.0,
-            isPicked: false,
-            zIndex: 8
-          };
-        }
-
-        leftPos  = { x: -slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
-        rightPos = { x: slotOffset, y: 0, scale: 0.90, opacity: 0.75, isPicked: false, zIndex: 4 };
+        const p = (tau - ROLL_START) / TOTAL_ROLL_SPAN;
+        const easeP = 0.5 - 0.5 * Math.cos(p * Math.PI);
+        slotProgress = continuousHalfCycles + easeP;
       }
 
-      // Apply GPU transforms & states to all 3 cards
-      const states = {
-        [centerIdx]: centerPos,
-        [leftIdx]: leftPos,
-        [rightIdx]: rightPos
-      };
+      // Active card index for dot indicator
+      currentActiveCard = ((Math.round(slotProgress) % 3) + 3) % 3;
+      updateDots(currentActiveCard);
 
-      cards.forEach((card, idx) => {
-        const state = states[idx];
-        if (!state) return;
+      // Position all 3 cards along the continuous conveyor ring
+      cards.forEach((card, i) => {
+        let rawX = (((-i + slotProgress) % 3 + 3) % 3) * slotOffset;
+        if (rawX > L / 2) rawX -= L;
+        const ax = Math.abs(rawX);
 
-        if (state.isPicked) {
+        // Opacity: fully visible within ±slotOffset, fades out smoothly between slotOffset and 1.4*slotOffset
+        let opacity;
+        if (ax <= slotOffset) {
+          opacity = 0.75 + 0.25 * Math.max(0, 1 - ax / (slotOffset * 0.5));
+        } else if (ax < 1.4 * slotOffset) {
+          opacity = 0.75 * Math.max(0, 1 - (ax - slotOffset) / (0.4 * slotOffset));
+        } else {
+          opacity = 0;
+        }
+
+        // Scale
+        const scale = ax <= slotOffset ? (0.90 + 0.10 * Math.max(0, 1 - ax / slotOffset)) : 0.85;
+
+        // Claw hold inspection state with neon cyan glow (card stays grounded on belt)
+        const isPicked = (ax < 35) && (tau >= 1.05 && tau < 1.48);
+
+        if (isPicked) {
           card.classList.add('is-picked');
         } else {
           card.classList.remove('is-picked');
         }
 
-        card.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) scale(${state.scale})`;
-        card.style.opacity = state.opacity.toFixed(3);
-        card.style.zIndex = state.zIndex.toString();
-        card.style.pointerEvents = state.opacity > 0.2 ? 'auto' : 'none';
+        const zIndex = ax < 35 ? 10 : (ax <= slotOffset ? 5 : 2);
+
+        card.style.transform = `translate3d(${rawX.toFixed(2)}px, 0px, 0) scale(${scale.toFixed(3)})`;
+        card.style.opacity = opacity.toFixed(3);
+        card.style.zIndex = zIndex.toString();
+        card.style.pointerEvents = opacity > 0.2 ? 'auto' : 'none';
       });
     }
 
-    // 60fps Animation Loop: Loops the First Movement cleanly for each card in turn
+    // 60fps Animation Loop: Plays naturally through video loops with zero seeking stalls
     let animFrameId = null;
 
     function renderConveyorLoop() {
       if (!isHovered && !isSeeking && video && !video.paused) {
-        let curTime = video.currentTime;
+        const curTime = video.currentTime;
 
-        // Detect video loop wrap or loop threshold at 1.958s:
-        if (curTime >= FIRST_MOVEMENT_DURATION || curTime < lastTime - 1.0) {
-          video.currentTime = 0.001;
-          curTime = 0.001;
-          cycleIndex = (cycleIndex + 1) % cards.length;
-          updateDots(cycleIndex);
+        // Detect natural video loop wrap (at 3.917s back to 0.0s)
+        if (curTime < lastTime - 1.0) {
+          loopCount++;
         }
         lastTime = curTime;
 
-        renderPositionsAtTime(curTime, cycleIndex);
+        renderPositionsAtTime(curTime, loopCount);
       }
 
       animFrameId = requestAnimationFrame(renderConveyorLoop);
@@ -1004,7 +933,7 @@
       const secObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            video.playbackRate = 0.62;
+            video.playbackRate = 0.58;
             if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorLoop);
             if (!isHovered && video.paused) video.play().catch(() => {});
           } else {
