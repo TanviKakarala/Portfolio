@@ -2400,7 +2400,7 @@ html {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 9.8vh; /* Extended downside right to the conveyor tread seam marked by the arrow */
+  bottom: clamp(60px, 8.0vh, 88px); /* Anchored deep into the conveyor belt tread plate touching the red line */
   height: 0;
   display: flex;
   align-items: flex-end;
@@ -2408,18 +2408,18 @@ html {
   pointer-events: none;
 }
 
-/* Individual Conveyor Service Card — Tall elongated monolith extending down till the arrow */
+/* Individual Conveyor Service Card — Tall elongated monolith extending down till the belt */
 .conveyor-card.eng-card {
   position: absolute;
-  bottom: 0; /* Firmly seated directly touching the conveyor belt tread seam at the arrow */
-  width: clamp(245px, 19vw, 290px);
-  min-height: clamp(310px, 37.2vh, 405px); /* Increased height extending from below hand all the way to arrow */
+  bottom: 0; /* Firmly seated directly touching the conveyor belt tread at the red line */
+  width: clamp(265px, 21.5vw, 320px);
+  min-height: clamp(345px, 42.5vh, 440px); /* Increased size extending from below hand all the way to belt */
   background: rgba(5, 14, 26, 0.95);
   border: 1.5px solid rgba(0, 229, 255, 0.28);
   border-radius: 14px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 10px 10px 14px;
+  padding: 12px 12px 16px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85),
@@ -2466,8 +2466,8 @@ html {
 .conveyor-card .card-photo-frame {
   position: relative;
   width: 100%;
-  height: clamp(160px, 19vh, 205px);
-  border-radius: 8px;
+  height: clamp(180px, 22.5vh, 230px);
+  border-radius: 9px;
   overflow: hidden;
   background: #020710;
   border: 1px solid rgba(0, 229, 255, 0.18);
@@ -2479,7 +2479,7 @@ html {
   height: 100%;
   object-fit: cover;
   object-position: center center;
-  border-radius: 6px;
+  border-radius: 7px;
   display: block;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2491,11 +2491,11 @@ html {
 /* Badges and Typography */
 .photo-corner-badge.eng-badge {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  padding: 2px 7px;
+  top: 8px;
+  right: 8px;
+  padding: 3px 8px;
   border-radius: 99px;
-  font: 700 8px var(--font-mono);
+  font: 700 8.5px var(--font-mono);
   letter-spacing: 0.08em;
   background: rgba(3, 11, 20, 0.88);
   backdrop-filter: blur(8px);
@@ -2507,7 +2507,7 @@ html {
 }
 
 .conveyor-card .card-caption-block {
-  padding: clamp(10px, 1.3vh, 14px) 6px 4px;
+  padding: clamp(10px, 1.4vh, 16px) 6px 4px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -2516,7 +2516,7 @@ html {
 }
 
 .eng-micro-label {
-  font: 700 8.5px var(--font-mono);
+  font: 700 9px var(--font-mono);
   letter-spacing: 0.16em;
   color: #00E5FF;
   text-transform: uppercase;
@@ -2524,16 +2524,16 @@ html {
 }
 
 .eng-service-title {
-  font: 700 clamp(14px, 1.05vw, 16.5px)/1.2 var(--font-serif);
+  font: 700 clamp(15px, 1.15vw, 17.5px)/1.2 var(--font-serif);
   color: #ffffff;
   margin: 0;
   letter-spacing: -0.01em;
 }
 
 .eng-tag {
-  padding: 3px 8px;
+  padding: 3.5px 9px;
   border-radius: 99px;
-  font: 500 9px var(--font-mono);
+  font: 500 9.5px var(--font-mono);
   background: rgba(0, 229, 255, 0.08);
   border: 1px solid rgba(0, 229, 255, 0.25);
   color: #d4efff;
