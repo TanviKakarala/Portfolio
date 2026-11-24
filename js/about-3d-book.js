@@ -2,15 +2,16 @@
  * About 3D Scroll-Driven Book
  * Built with React 18, GSAP ScrollTrigger & 3D CSS Transforms
  * 
- * Features:
- * - Perspective 2200px, transform-style preserve-3d
- * - Closed book starts centered in viewport (x: -25%)
- * - 0% - 25% scroll: Front cover opens -180deg; book centers (x: 0%); inside reveals permanent full-bleed portrait
- * - 25% - 55% scroll: Sheet 1 (Who I Am & Philosophy) turns 0 to -180deg
- * - 55% - 82% scroll: Sheet 2 (Selected Work & Impact) turns 0 to -180deg
- * - 82% - 100% scroll: Sheet 3 (Medals & Recognition) active spread
- * - Minimalist bottom progress dots & Prev/Next controls
- * - backface-visibility: hidden on all faces; zero flickering or text mirroring
+ * Choreography:
+ * - 0% scroll: Book starts closed & centered in viewport with Tanvi's photo title cover
+ * - 0% - 20% scroll: Book translates to centered spread; photo lifts off in 3D arc, flies across spine and docks permanently as the left page!
+ * - 20% - 35% scroll: Spread 1 (Chapter I: Who I Am & Philosophy) is open and readable
+ * - 35% - 55% scroll: Sheet 1 turns 3D (-180deg) and slips under the permanent left portrait
+ * - 55% - 70% scroll: Spread 2 (Chapter II: Selected Work & Impact) is open and readable
+ * - 70% - 90% scroll: Sheet 2 turns 3D (-180deg) and slips under the permanent left portrait
+ * - 90% - 100% scroll: Spread 3 (Chapter III: Academic Excellence, Laurels & CTA) is open and readable
+ * - Floating side navigation arrows (← / →) matching "The Long Light" template
+ * - Bottom progress dots & scrub indicator
  */
 
 (function () {
@@ -21,7 +22,11 @@
   function About3DBook() {
     const sectionRef = useRef(null);
     const bookWrapRef = useRef(null);
-    const coverRef = useRef(null);
+    const casingRef = useRef(null);
+    const spineRef = useRef(null);
+    const flyingCardRef = useRef(null);
+    const coverTitleRef = useRef(null);
+    const portraitBadgeRef = useRef(null);
     const sheet1Ref = useRef(null);
     const sheet2Ref = useRef(null);
     const sheet3Ref = useRef(null);
@@ -40,19 +45,37 @@
 
       const section = sectionRef.current;
       const bookWrap = bookWrapRef.current;
-      const cover = coverRef.current;
+      const casing = casingRef.current;
+      const spine = spineRef.current;
+      const flyingCard = flyingCardRef.current;
+      const coverTitle = coverTitleRef.current;
+      const portraitBadge = portraitBadgeRef.current;
       const sheet1 = sheet1Ref.current;
       const sheet2 = sheet2Ref.current;
       const sheet3 = sheet3Ref.current;
 
-      if (!section || !bookWrap || !cover || !sheet1 || !sheet2) return;
+      if (!section || !bookWrap || !flyingCard || !sheet1 || !sheet2) return;
 
       // Set initial 3D transforms
+      // Closed book starts centered in viewport (xPercent: -25 centers the right half)
       gsap.set(bookWrap, { xPercent: -25, transformOrigin: 'center center' });
-      gsap.set(cover, { rotateY: 0, transformOrigin: 'left center', zIndex: 30 });
+      gsap.set(flyingCard, {
+        xPercent: 0,
+        yPercent: 0,
+        z: 0,
+        rotateY: 0,
+        scale: 1,
+        transformOrigin: 'center center',
+        zIndex: 40
+      });
+      if (casing) gsap.set(casing, { opacity: 0 });
+      if (spine) gsap.set(spine, { opacity: 0 });
+      if (coverTitle) gsap.set(coverTitle, { opacity: 1, y: 0 });
+      if (portraitBadge) gsap.set(portraitBadge, { opacity: 0, y: 12 });
+
       gsap.set(sheet1, { rotateY: 0, transformOrigin: 'left center', zIndex: 25 });
       gsap.set(sheet2, { rotateY: 0, transformOrigin: 'left center', zIndex: 20 });
-      if (sheet3) gsap.set(sheet3, { rotateY: 0, transformOrigin: 'left center', zIndex: 15 });
+      if (sheet3) gsap.set(sheet3, { rotateY: 0, transformOrigin: 'left center', zIndex: 10 });
 
       // Create scroll-driven master timeline
       const tl = gsap.timeline({
@@ -78,19 +101,26 @@
               setActivePage(3);
             }
 
-            // Ensure left base is strictly invisible whenever book is closed (p <= 0.03)
-            const leftBaseEl = section.querySelector('.book-left-base');
-            if (leftBaseEl) {
+            // Strictly hide casing, spine, and left base when book is closed (p <= 0.03)
+            if (casing) {
               if (p <= 0.03) {
-                leftBaseEl.style.opacity = '0';
-                leftBaseEl.style.pointerEvents = 'none';
+                casing.style.opacity = '0';
               } else if (p < 0.20) {
-                const fade = Math.min(1, Math.max(0, (p - 0.03) / 0.15));
-                leftBaseEl.style.opacity = fade.toFixed(3);
-                leftBaseEl.style.pointerEvents = fade > 0.5 ? 'auto' : 'none';
+                const fade = Math.min(1, Math.max(0, (p - 0.03) / 0.14));
+                casing.style.opacity = fade.toFixed(3);
               } else {
-                leftBaseEl.style.opacity = '1';
-                leftBaseEl.style.pointerEvents = 'auto';
+                casing.style.opacity = '1';
+              }
+            }
+
+            if (spine) {
+              if (p <= 0.03) {
+                spine.style.opacity = '0';
+              } else if (p < 0.20) {
+                const fade = Math.min(1, Math.max(0, (p - 0.03) / 0.14));
+                spine.style.opacity = fade.toFixed(3);
+              } else {
+                spine.style.opacity = '1';
               }
             }
           }
@@ -99,29 +129,84 @@
 
       timelineRef.current = tl;
 
-      // STEP 1 (0.00 -> 0.20):
-      // Book translates from centered closed position (x: -25%) to centered open spread (x: 0%)
-      // Front cover flips 0deg -> -180deg to reveal inside left portrait
+      // =============================================================
+      // STEP 1 (0.00 -> 0.20): PHOTO FLIES AND STICKS LEFT!
+      // =============================================================
+      // 1. Book centers on screen
       tl.to(bookWrap, {
         xPercent: 0,
-        ease: 'power1.inOut',
+        ease: 'power2.inOut',
         duration: 0.20
       }, 0);
 
-      tl.to(cover, {
-        rotateY: -180,
-        ease: 'power1.inOut',
-        duration: 0.20,
-        onUpdate: function () {
-          cover.style.zIndex = '30';
-        }
+      // Casing and spine fade in as book opens into spread
+      if (casing) {
+        tl.to(casing, {
+          opacity: 1,
+          ease: 'power1.inOut',
+          duration: 0.15
+        }, 0.04);
+      }
+
+      if (spine) {
+        tl.to(spine, {
+          opacity: 1,
+          ease: 'power1.inOut',
+          duration: 0.15
+        }, 0.04);
+      }
+
+      // 2. Photo Card flies across spine to the left (-100%) in 3D arc
+      tl.to(flyingCard, {
+        xPercent: -100,
+        ease: 'power2.inOut',
+        duration: 0.20
       }, 0);
 
-      // REST WINDOW 1 (0.20 -> 0.35): Spread 1 (Philosophy) resting and readable
+      // 3. 3D Elevation arc: lifts up along Z, tilts slightly, then lands smoothly
+      tl.to(flyingCard, {
+        z: 110,
+        rotateY: -10,
+        scale: 1.035,
+        ease: 'power2.out',
+        duration: 0.10
+      }, 0);
 
-      // STEP 2 (0.35 -> 0.55):
-      // Sheet 1 (Who I Am & Philosophy) flips 0deg -> -180deg
-      // When landing on the left, it slips UNDER cover (zIndex: 6 vs 30) so portrait remains permanent!
+      tl.to(flyingCard, {
+        z: 0,
+        rotateY: 0,
+        scale: 1,
+        ease: 'power2.in',
+        duration: 0.10
+      }, 0.10);
+
+      // 4. Editorial Title on cover dissolves as photo flies
+      if (coverTitle) {
+        tl.to(coverTitle, {
+          opacity: 0,
+          y: -18,
+          ease: 'power1.out',
+          duration: 0.12
+        }, 0);
+      }
+
+      // 5. Left Portrait Badge illuminates upon landing on the left
+      if (portraitBadge) {
+        tl.to(portraitBadge, {
+          opacity: 1,
+          y: 0,
+          ease: 'power1.out',
+          duration: 0.09
+        }, 0.11);
+      }
+
+      // =============================================================
+      // REST WINDOW 1 (0.20 -> 0.35): Spread 1 (Philosophy) readable
+      // =============================================================
+
+      // =============================================================
+      // STEP 2 (0.35 -> 0.55): Page 1 turns in 3D to reveal Page 2
+      // =============================================================
       tl.to(sheet1, {
         rotateY: -180,
         ease: 'power1.inOut',
@@ -129,18 +214,20 @@
         onUpdate: function () {
           const prog = this.progress();
           if (prog > 0.5) {
-            sheet1.style.zIndex = '6';
+            sheet1.style.zIndex = '6'; // Slips underneath permanent left photo (zIndex: 40)
           } else {
             sheet1.style.zIndex = '25';
           }
         }
       }, 0.35);
 
-      // REST WINDOW 2 (0.55 -> 0.70): Spread 2 (Selected Work & Impact) resting and readable
+      // =============================================================
+      // REST WINDOW 2 (0.55 -> 0.70): Spread 2 (Selected Work) readable
+      // =============================================================
 
-      // STEP 3 (0.70 -> 0.90):
-      // Sheet 2 (Selected Work & Impact) flips 0deg -> -180deg
-      // When landing on the left, it slips UNDER cover (zIndex: 7 vs 30) so portrait remains permanent!
+      // =============================================================
+      // STEP 3 (0.70 -> 0.90): Page 2 turns in 3D to reveal Page 3
+      // =============================================================
       tl.to(sheet2, {
         rotateY: -180,
         ease: 'power1.inOut',
@@ -148,16 +235,16 @@
         onUpdate: function () {
           const prog = this.progress();
           if (prog > 0.5) {
-            sheet2.style.zIndex = '7';
+            sheet2.style.zIndex = '7'; // Slips underneath permanent left photo (zIndex: 40)
           } else {
             sheet2.style.zIndex = '20';
           }
         }
       }, 0.70);
 
-      // REST WINDOW 3 (0.90 -> 1.00): Spread 3 (Honors & Recognition) resting and readable
-
-      // Slight settle cushion for final spread
+      // =============================================================
+      // REST WINDOW 3 (0.90 -> 1.00): Spread 3 (Honors & CTA) readable
+      // =============================================================
       tl.to({}, { duration: 0.10 }, 0.90);
 
       // Refresh ScrollTrigger after DOM & images settle
@@ -190,11 +277,8 @@
       const scrollY = st.start + (st.end - st.start) * targetProgress;
 
       if (pageIdx === 0) {
-        const leftBaseEl = document.querySelector('.book-left-base');
-        if (leftBaseEl) {
-          leftBaseEl.style.opacity = '0';
-          leftBaseEl.style.pointerEvents = 'none';
-        }
+        if (casingRef.current) casingRef.current.style.opacity = '0';
+        if (spineRef.current) spineRef.current.style.opacity = '0';
       }
 
       window.scrollTo({
@@ -219,34 +303,46 @@
         )
       ),
 
+      // Floating Left Navigation Arrow (matches "The Long Light" template)
+      h('button', {
+        className: 'book-floating-arrow arrow-left',
+        onClick: () => goToPage(Math.max(0, activePage - 1)),
+        disabled: activePage === 0,
+        'aria-label': 'Previous page',
+        title: 'Previous page'
+      },
+        h('span', { className: 'arrow-icon' }, '←')
+      ),
+
+      // Floating Right Navigation Arrow (matches "The Long Light" template)
+      h('button', {
+        className: 'book-floating-arrow arrow-right',
+        onClick: () => goToPage(Math.min(3, activePage + 1)),
+        disabled: activePage === 3,
+        'aria-label': 'Next page',
+        title: 'Next page'
+      },
+        h('span', { className: 'arrow-icon' }, '→')
+      ),
+
       // 3D Perspective Stage
       h('div', { className: 'book-3d-stage' },
         h('div', { ref: bookWrapRef, className: 'book-monolith-wrapper' },
 
-          // Realistic Book Base Platform / Spine Groove Shadow
-          h('div', { className: 'book-spine-crease', 'aria-hidden': 'true' }),
+          // Hardcover Casing Frame (Backing of open spread)
+          h('div', { ref: casingRef, className: 'book-casing-frame', 'aria-hidden': 'true' }),
+
+          // Center Spine Groove Shadow & Gold Crease
+          h('div', { ref: spineRef, className: 'book-spine-crease', 'aria-hidden': 'true' }),
 
           // -------------------------------------------------------------
-          // PERMANENT BASE LEFT PAGE: Inside Cover Full-Bleed Portrait
+          // PERMANENT BASE LEFT PAGE (Hardcover Inner Lining)
           // -------------------------------------------------------------
           h('div', { className: 'book-leaf book-left-base' },
-            h('div', { className: 'book-page-face page-front book-portrait-page' },
+            h('div', { className: 'book-page-face page-front book-left-lining' },
               h('div', { className: 'book-page-bevel' },
-                h('div', { className: 'portrait-frame-container' },
-                  h('img', {
-                    src: 'assets/images/tanvi-portrait.webp',
-                    alt: 'Tanvi Kakarala — Portrait',
-                    className: 'book-portrait-img',
-                    loading: 'eager'
-                  }),
-                  h('div', { className: 'portrait-vignette-overlay' }),
-                  h('div', { className: 'portrait-meta-badge' },
-                    h('span', { className: 'portrait-badge-dot' }),
-                    h('div', { className: 'portrait-badge-text' },
-                      h('b', null, 'Tanvi Kakarala'),
-                      h('span', null, 'Data Engineer & Digital Solutions Architect')
-                    )
-                  )
+                h('div', { className: 'left-lining-texture' },
+                  h('div', { className: 'lining-monogram' }, 'TK')
                 )
               ),
               h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
@@ -466,67 +562,65 @@
           ),
 
           // -------------------------------------------------------------
-          // FRONT COVER (Flips -180deg around left spine at 0% - 25% scroll)
+          // THE FLYING PORTRAIT CARD: Starts as Cover, Flies & Sticks Left!
           // -------------------------------------------------------------
-          h('div', { ref: coverRef, className: 'book-leaf book-cover-leaf' },
-            // Front: Embossed Leather & Gold Foil Cover
-            h('div', {
-              className: 'book-page-face page-front book-front-cover',
-              onClick: () => goToPage(1),
-              style: { cursor: 'pointer' },
-              title: 'Click to open memoir'
-            },
-              h('div', { className: 'cover-leather-texture' },
-                h('div', { className: 'cover-gold-border' },
-                  h('div', { className: 'cover-inner-frame' },
-                    h('div', { className: 'cover-top-emblem' },
-                      h('span', { className: 'cover-crest-icon' }, '❖'),
-                      h('span', { className: 'cover-folio-tag' }, 'FOLIO MMXXVI')
-                    ),
-                    h('div', { className: 'cover-title-group' },
-                      h('span', { className: 'cover-pre-title' }, 'ABOUT TANVI KAKARALA'),
-                      h('h1', { className: 'cover-heading' },
-                        'The Story Behind ',
-                        h('br'),
-                        h('i', null, 'The Craft.')
-                      ),
-                      h('div', { className: 'cover-divider-gold' }),
-                      h('p', { className: 'cover-subtitle' },
-                        'Enterprise Data Engineering · Digital Solutions Architecture · Creative Direction'
-                      )
-                    ),
-                    h('div', { className: 'cover-footer-prompt' },
-                      h('span', { className: 'prompt-icon' }, '↓'),
-                      h('span', { className: 'prompt-text' }, 'Scroll or Click to Open Memoir')
-                    )
-                  )
-                )
-              ),
-              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
-            ),
+          h('div', {
+            ref: flyingCardRef,
+            className: `flying-portrait-card ${activePage === 0 ? 'is-cover-state' : 'is-stuck-left'}`,
+            onClick: activePage === 0 ? () => goToPage(1) : undefined,
+            title: activePage === 0 ? 'Click to open memoir' : undefined,
+            style: { cursor: activePage === 0 ? 'pointer' : 'default' }
+          },
+            h('div', { className: 'portrait-card-inner' },
+              // High-resolution Portrait Image
+              h('img', {
+                src: 'assets/images/tanvi-portrait.webp',
+                alt: 'Tanvi Kakarala — Portrait Cover',
+                className: 'portrait-card-img',
+                loading: 'eager'
+              }),
 
-            // Inside of Cover: Becomes Permanent Left Face when flipped -180deg
-            h('div', { className: 'book-page-face page-back book-inside-cover' },
-              h('div', { className: 'book-page-bevel' },
-                h('div', { className: 'portrait-frame-container' },
-                  h('img', {
-                    src: 'assets/images/tanvi-portrait.webp',
-                    alt: 'Tanvi Kakarala — Portrait Inside Cover',
-                    className: 'book-portrait-img',
-                    loading: 'eager'
-                  }),
-                  h('div', { className: 'portrait-vignette-overlay' }),
-                  h('div', { className: 'portrait-meta-badge' },
-                    h('span', { className: 'portrait-badge-dot' }),
-                    h('div', { className: 'portrait-badge-text' },
-                      h('b', null, 'Tanvi Kakarala'),
-                      h('span', null, 'Data Engineer & Digital Solutions Architect')
-                    )
+              // Luxury Vignette Overlay
+              h('div', { className: 'portrait-card-vignette' }),
+
+              // -------------------------------------------------------
+              // COVER EDITORIAL FRAME: Visible at 0% scroll, dissolves as photo flies
+              // -------------------------------------------------------
+              h('div', { ref: coverTitleRef, className: 'cover-editorial-frame' },
+                h('div', { className: 'cover-top-emblem' },
+                  h('span', { className: 'cover-crest-icon' }, '❖'),
+                  h('span', { className: 'cover-folio-tag' }, 'FOLIO MMXXVI')
+                ),
+                h('div', { className: 'cover-title-group' },
+                  h('span', { className: 'cover-pre-title' }, 'MEMOIR // THE LIVING FOLIO'),
+                  h('h1', { className: 'cover-heading' },
+                    'TANVI KAKARALA',
+                    h('br'),
+                    h('i', null, 'The Story Behind The Craft')
+                  ),
+                  h('div', { className: 'cover-divider-gold' }),
+                  h('p', { className: 'cover-subtitle' },
+                    'Enterprise Data Engineering · Digital Solutions Architecture'
                   )
+                ),
+                h('div', { className: 'cover-footer-prompt' },
+                  h('span', { className: 'prompt-icon' }, '→'),
+                  h('span', { className: 'prompt-text' }, 'Scroll or Click to Open')
                 )
               ),
-              h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
-            )
+
+              // -------------------------------------------------------
+              // PORTRAIT METADATA BADGE: Illuminates once landed on left!
+              // -------------------------------------------------------
+              h('div', { ref: portraitBadgeRef, className: 'portrait-meta-badge' },
+                h('span', { className: 'portrait-badge-dot' }),
+                h('div', { className: 'portrait-badge-text' },
+                  h('b', null, 'Tanvi Kakarala'),
+                  h('span', null, 'Data Engineer & Digital Solutions Architect')
+                )
+              )
+            ),
+            h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
           )
 
         )
@@ -539,6 +633,7 @@
         h('button', {
           className: 'book-nav-arrow prev-btn',
           onClick: () => goToPage(Math.max(0, activePage - 1)),
+          disabled: activePage === 0,
           'aria-label': 'Previous page'
         }, '‹'),
 
@@ -564,6 +659,7 @@
         h('button', {
           className: 'book-nav-arrow next-btn',
           onClick: () => goToPage(Math.min(3, activePage + 1)),
+          disabled: activePage === 3,
           'aria-label': 'Next page'
         }, '›'),
 
