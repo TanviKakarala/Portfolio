@@ -564,23 +564,23 @@
   // 6. Case Study Modal Lightbox Data & Logic
   const caseStudiesData = {
     'opulence': {
-      title: 'OPULENCE — Premium Export Business Website',
-      category: 'International Trading & Commodity Export · Production Live',
-      heroImage: 'assets/images/opulence.svg',
-      liveUrl: 'https://opulence-trading.netlify.app',
-      overview: 'Developed a high-prestige, responsive corporate website for OPULENCE, an international export and trading enterprise dealing in agricultural commodities and minerals. Built from scratch with an emphasis on visual storytelling, interactive catalogs, and responsive performance.',
+      title: 'OPULENCE — International Trading & Commodity Export',
+      category: 'Flagship B2B Export Portal · Production Live',
+      heroImage: 'assets/images/opulence-showcase.png',
+      liveUrl: 'https://github.com/TanviKakarala/Opulence_Website',
+      overview: 'Engineered an international B2B export portal for OPULENCE, showcasing premium agro-commodity exports (Coffee, Chicory, Tea, Spices, FMCG) from India to worldwide markets. Built with an emphasis on visual prestige, interactive catalogs, and sub-second performance.',
       challenges: [
-        'Needed a website that would establish immediate credibility with high-value institutional and government buyers across Europe, the Middle East, and Asia.',
-        'Required fast loading across varied mobile device networks in port regions worldwide.',
-        'Integrating AI-assisted visual animations and product showcases without slowing down the site.'
+        'Needed a digital portal that commands immediate credibility with high-value institutional and government commodity buyers across Europe, the Middle East, and Asia.',
+        'Required ultra-fast, responsive delivery across varied networks in global port regions without heavy framework overhead.',
+        'Implementing a cinematic 3D globe animation tied smoothly to scroll position without degrading frame rates.'
       ],
       solutions: [
-        'Crafted a bespoke, dark-gold aesthetic with custom typography and smooth CSS micro-interactions.',
-        'Engineered an interactive commodity catalog showcasing product specifications, packaging standards, and global shipping terms.',
-        'Leveraged AI-assisted video and visual workflows to generate cinematic product visual loops.',
-        'Achieved sub-second first-contentful-paint (FCP) and deployed to global Netlify edge servers with automated SSL and caching.'
+        'Crafted a bespoke, luxury dark-gold design system with metallic typography and smooth micro-interactions.',
+        'Developed a custom 60fps HTML5 Canvas rendering engine driving a 478-frame cinematic 3D globe animation synchronized with scroll position.',
+        'Built dynamic product specification catalogs, interactive packaging suites, and direct RFQ enquiry dispatch.',
+        'Engineered a zero-external-dependency core with pure vanilla HTML5, CSS3, and JavaScript delivering sub-second load times worldwide.'
       ],
-      techStack: ['HTML5', 'Modern CSS3', 'JavaScript ES6+', 'AI Visual Pipelines', 'Netlify Edge', 'Responsive UI/UX']
+      techStack: ['HTML5 Canvas (478-Frame 3D Engine)', 'Vanilla JavaScript ES6+', 'Modern CSS3 Design System', 'Responsive UI/UX', 'Web3Forms RFQ Dispatch']
     },
     'aastha': {
       title: 'Aastha Enterprises — Commercial Beverage Experience',
@@ -701,32 +701,34 @@
     }
   });
 
-  // Featured Case Study Tabs Logic (#work)
+  // Featured Case Study Tabs Logic (#work - if tabs exist)
   const workTabBtns = document.querySelectorAll('.work-tab-btn');
   const workCases = document.querySelectorAll('.work-case');
-  workTabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-work-target');
-      if (!targetId) return;
+  if (workTabBtns.length > 0) {
+    workTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-work-target');
+        if (!targetId) return;
 
-      workTabBtns.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
+        workTabBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
 
-      workCases.forEach(wc => {
-        if (wc.id === targetId) {
-          wc.classList.add('active');
-          wc.style.display = 'grid';
-        } else {
-          wc.classList.remove('active');
-          wc.style.display = 'none';
-        }
+        workCases.forEach(wc => {
+          if (wc.id === targetId) {
+            wc.classList.add('active');
+            wc.style.display = 'grid';
+          } else {
+            wc.classList.remove('active');
+            wc.style.display = 'none';
+          }
+        });
       });
     });
-  });
+  }
 
   // Cursor-Following Radial Glow on Left Grid (.room.e)
   const roomEngineer = document.querySelector('.room.e');

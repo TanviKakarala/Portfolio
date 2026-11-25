@@ -2718,18 +2718,24 @@ html {
 }
 
 .browser-content {
-  background: linear-gradient(135deg, #141f33, #3a1027 60%, #68173f);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+  background: #080d18;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 .browser-img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 8px;
+  border-radius: 0 0 16px 16px;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.browser:hover .browser-img {
+  transform: scale(1.015);
 }
 
 /* ==========================================================================
