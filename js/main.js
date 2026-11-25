@@ -773,8 +773,8 @@
     const ROLL_END = 0.50;
     const TOTAL_ROLL_SPAN = (HALF_CYCLE - ROLL_START) + ROLL_END; // 0.858s
 
-    // Set video playback rate to smooth studio pace (~3.4s per card)
-    video.playbackRate = 0.58;
+    // Set video playback rate to calm studio pace (~4.5s per card for luxurious readability)
+    video.playbackRate = 0.42;
 
     // Hover pause on conveyor stage
     track.addEventListener('mouseenter', () => {
@@ -800,23 +800,23 @@
       });
     }
 
-    // Manual navigation: seek to specific card in held inspection state
+    // Manual navigation: seek to specific card at start of inspection sequence
     function seekToCard(targetIdx) {
       isSeeking = true;
       const target = ((targetIdx % 3) + 3) % 3;
       if (target === 0) {
         loopCount = 0;
-        video.currentTime = 1.25;
+        video.currentTime = 0.52;
       } else if (target === 1) {
         loopCount = 0;
-        video.currentTime = 3.208;
+        video.currentTime = 2.478;
       } else {
         loopCount = 1;
-        video.currentTime = 1.25;
+        video.currentTime = 0.52;
       }
       lastTime = video.currentTime;
       renderPositionsAtTime(video.currentTime, loopCount);
-      setTimeout(() => { isSeeking = false; }, 400);
+      setTimeout(() => { isSeeking = false; }, 350);
     }
 
     // Dot navigation
@@ -953,14 +953,21 @@
     updateDots(0);
 
     // Optimize with IntersectionObserver: only run RAF when visible
+    let hasInitializedOnView = false;
     if ('IntersectionObserver' in window) {
       const secObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            video.playbackRate = 0.58;
+            // Calm, readable luxury pace so Automation & Business Solutions stays visible
+            video.playbackRate = 0.42;
+            if (!hasInitializedOnView) {
+              hasInitializedOnView = true;
+              seekToCard(0);
+            }
             if (!animFrameId) animFrameId = requestAnimationFrame(renderConveyorLoop);
             if (!isHovered && video.paused) video.play().catch(() => {});
           } else {
+            hasInitializedOnView = false;
             if (animFrameId) {
               cancelAnimationFrame(animFrameId);
               animFrameId = null;

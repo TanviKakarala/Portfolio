@@ -1,17 +1,18 @@
 /**
- * About 3D Scroll-Driven Book
+ * About 3D Flipping Portfolio Book
  * Built with React 18, GSAP ScrollTrigger & 3D CSS Transforms
  * 
- * Choreography:
- * - 0% scroll: Book starts closed & centered in viewport with Tanvi's photo title cover
- * - 0% - 20% scroll: Book translates to centered spread; photo lifts off in 3D arc, flies across spine and docks permanently as the left page!
- * - 20% - 35% scroll: Spread 1 (Chapter I: Who I Am & Philosophy) is open and readable
- * - 35% - 55% scroll: Sheet 1 turns 3D (-180deg) and slips under the permanent left portrait
- * - 55% - 70% scroll: Spread 2 (Chapter II: Selected Work & Impact) is open and readable
- * - 70% - 90% scroll: Sheet 2 turns 3D (-180deg) and slips under the permanent left portrait
- * - 90% - 100% scroll: Spread 3 (Chapter III: Academic Excellence, Laurels & CTA) is open and readable
- * - Floating side navigation arrows (← / →) matching "The Long Light" template
- * - Bottom progress dots & scrub indicator
+ * Aesthetic:
+ * - Sweeping dual-tone blue and rose-pink translucent wave backdrop with soft reflective floor & subtle gold rings
+ * - Front cover matches finalized editorial artwork: PORTFOLIO, oval gold cameo with Tanvi's portrait, cursive script
+ * - Spread 1: Left: Large crisp portrait of Tanvi (assets/images/tanvi-portrait.webp) with blush-rose frame & caption badge
+ *             Right: About Me editorial overview (Data Engineering + Creative Web & Automation)
+ * - Spread 2: Left: Medals & Honors showcase (4× College Topper Gold Medals, Valedictorian)
+ *             Right: Milestones, Certifications & Impact (Microsoft Fabric, PySpark, Agentic AI, metrics)
+ * - Spread 3: Left: Signature Spotlight (Swecha Core Contributor, 1,000+ mentored, Telugu AI open datasets)
+ *             Right: Engineering Rigor Meets Creative Design + CTA buttons
+ * - Sizing: Fills ~88%-94% of viewport height
+ * - Controls: ScrollTrigger scrub + floating side arrows (← / →) + bottom progress dots
  */
 
 (function () {
@@ -22,17 +23,14 @@
   function About3DBook() {
     const sectionRef = useRef(null);
     const bookWrapRef = useRef(null);
-    const casingRef = useRef(null);
     const spineRef = useRef(null);
-    const flyingCardRef = useRef(null);
-    const coverTitleRef = useRef(null);
-    const portraitBadgeRef = useRef(null);
+    const coverRef = useRef(null);
     const sheet1Ref = useRef(null);
     const sheet2Ref = useRef(null);
     const sheet3Ref = useRef(null);
     const timelineRef = useRef(null);
 
-    const [activePage, setActivePage] = useState(0); // 0: Cover, 1: Philosophy, 2: Impact, 3: Awards
+    const [activePage, setActivePage] = useState(0); // 0: Cover, 1: Spread 1 (About), 2: Spread 2 (Medals), 3: Spread 3 (Craft Finale)
     const [progressPercent, setProgressPercent] = useState(0);
 
     useEffect(() => {
@@ -45,44 +43,29 @@
 
       const section = sectionRef.current;
       const bookWrap = bookWrapRef.current;
-      const casing = casingRef.current;
       const spine = spineRef.current;
-      const flyingCard = flyingCardRef.current;
-      const coverTitle = coverTitleRef.current;
-      const portraitBadge = portraitBadgeRef.current;
+      const cover = coverRef.current;
       const sheet1 = sheet1Ref.current;
       const sheet2 = sheet2Ref.current;
       const sheet3 = sheet3Ref.current;
 
-      if (!section || !bookWrap || !flyingCard || !sheet1 || !sheet2) return;
+      if (!section || !bookWrap || !cover || !sheet1 || !sheet2) return;
 
       // Set initial 3D transforms
-      // Closed book starts centered in viewport (xPercent: -25 centers the right half)
+      // Closed book starts centered in viewport (xPercent: -25 shifts the right-half cover to center screen)
       gsap.set(bookWrap, { xPercent: -25, transformOrigin: 'center center' });
-      gsap.set(flyingCard, {
-        xPercent: 0,
-        yPercent: 0,
-        z: 0,
-        rotateY: 0,
-        scale: 1,
-        transformOrigin: 'center center',
-        zIndex: 40
-      });
-      if (casing) gsap.set(casing, { opacity: 0 });
-      if (spine) gsap.set(spine, { opacity: 0 });
-      if (coverTitle) gsap.set(coverTitle, { opacity: 1, y: 0 });
-      if (portraitBadge) gsap.set(portraitBadge, { opacity: 0, y: 12 });
-
-      gsap.set(sheet1, { rotateY: 0, transformOrigin: 'left center', zIndex: 25 });
-      gsap.set(sheet2, { rotateY: 0, transformOrigin: 'left center', zIndex: 20 });
+      gsap.set(cover, { rotateY: 0, transformOrigin: 'left center', zIndex: 35 });
+      gsap.set(sheet1, { rotateY: 0, transformOrigin: 'left center', zIndex: 30 });
+      gsap.set(sheet2, { rotateY: 0, transformOrigin: 'left center', zIndex: 25 });
       if (sheet3) gsap.set(sheet3, { rotateY: 0, transformOrigin: 'left center', zIndex: 10 });
+      if (spine) gsap.set(spine, { opacity: 0 });
 
       // Create scroll-driven master timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=2600',
+          end: '+=2800',
           pin: true,
           scrub: 1,
           anticipatePin: 1,
@@ -101,18 +84,7 @@
               setActivePage(3);
             }
 
-            // Strictly hide casing, spine, and left base when book is closed (p <= 0.03)
-            if (casing) {
-              if (p <= 0.03) {
-                casing.style.opacity = '0';
-              } else if (p < 0.20) {
-                const fade = Math.min(1, Math.max(0, (p - 0.03) / 0.14));
-                casing.style.opacity = fade.toFixed(3);
-              } else {
-                casing.style.opacity = '1';
-              }
-            }
-
+            // Spine crease visibility control
             if (spine) {
               if (p <= 0.03) {
                 spine.style.opacity = '0';
@@ -130,127 +102,93 @@
       timelineRef.current = tl;
 
       // =============================================================
-      // STEP 1 (0.00 -> 0.20): PHOTO FLIES AND STICKS LEFT!
+      // STEP 1 (0.00 -> 0.22): FRONT COVER OPENS TO SPREAD 1
       // =============================================================
       // 1. Book centers on screen
       tl.to(bookWrap, {
         xPercent: 0,
         ease: 'power2.inOut',
-        duration: 0.20
+        duration: 0.22
       }, 0);
 
-      // Casing and spine fade in as book opens into spread
-      if (casing) {
-        tl.to(casing, {
-          opacity: 1,
-          ease: 'power1.inOut',
-          duration: 0.15
-        }, 0.04);
-      }
-
+      // Spine crease fades in as book opens
       if (spine) {
         tl.to(spine, {
           opacity: 1,
           ease: 'power1.inOut',
-          duration: 0.15
+          duration: 0.16
         }, 0.04);
       }
 
-      // 2. Photo Card flies across spine to the left (-100%) in 3D arc
-      tl.to(flyingCard, {
-        xPercent: -100,
-        ease: 'power2.inOut',
-        duration: 0.20
-      }, 0);
-
-      // 3. 3D Elevation arc: lifts up along Z, tilts slightly, then lands smoothly
-      tl.to(flyingCard, {
-        z: 110,
-        rotateY: -10,
-        scale: 1.035,
-        ease: 'power2.out',
-        duration: 0.10
-      }, 0);
-
-      tl.to(flyingCard, {
-        z: 0,
-        rotateY: 0,
-        scale: 1,
-        ease: 'power2.in',
-        duration: 0.10
-      }, 0.10);
-
-      // 4. Editorial Title on cover dissolves as photo flies
-      if (coverTitle) {
-        tl.to(coverTitle, {
-          opacity: 0,
-          y: -18,
-          ease: 'power1.out',
-          duration: 0.12
-        }, 0);
-      }
-
-      // 5. Left Portrait Badge illuminates upon landing on the left
-      if (portraitBadge) {
-        tl.to(portraitBadge, {
-          opacity: 1,
-          y: 0,
-          ease: 'power1.out',
-          duration: 0.09
-        }, 0.11);
-      }
-
-      // =============================================================
-      // REST WINDOW 1 (0.20 -> 0.35): Spread 1 (Philosophy) readable
-      // =============================================================
-
-      // =============================================================
-      // STEP 2 (0.35 -> 0.55): Page 1 turns in 3D to reveal Page 2
-      // =============================================================
-      tl.to(sheet1, {
+      // Cover swings open around left spine (-180deg)
+      tl.to(cover, {
         rotateY: -180,
-        ease: 'power1.inOut',
-        duration: 0.20,
+        ease: 'power2.inOut',
+        duration: 0.22,
         onUpdate: function () {
           const prog = this.progress();
           if (prog > 0.5) {
-            sheet1.style.zIndex = '6'; // Slips underneath permanent left photo (zIndex: 40)
+            cover.style.zIndex = '15'; // When on left, sits under later sheets
           } else {
-            sheet1.style.zIndex = '25';
+            cover.style.zIndex = '35';
+          }
+        }
+      }, 0);
+
+      // =============================================================
+      // REST WINDOW 1 (0.22 -> 0.35): Spread 1 (About Intro) readable
+      // Left: Tanvi Portrait | Right: About Story & Pillars
+      // =============================================================
+
+      // =============================================================
+      // STEP 2 (0.35 -> 0.58): SHEET 1 FLIPS TO SPREAD 2
+      // =============================================================
+      tl.to(sheet1, {
+        rotateY: -180,
+        ease: 'power2.inOut',
+        duration: 0.23,
+        onUpdate: function () {
+          const prog = this.progress();
+          if (prog > 0.5) {
+            sheet1.style.zIndex = '20'; // Lands on left over the cover back
+          } else {
+            sheet1.style.zIndex = '30';
           }
         }
       }, 0.35);
 
       // =============================================================
-      // REST WINDOW 2 (0.55 -> 0.70): Spread 2 (Selected Work) readable
+      // REST WINDOW 2 (0.58 -> 0.70): Spread 2 (Medals & Recognition) readable
+      // Left: 4× Gold Medals | Right: Milestones & Certifications
       // =============================================================
 
       // =============================================================
-      // STEP 3 (0.70 -> 0.90): Page 2 turns in 3D to reveal Page 3
+      // STEP 3 (0.70 -> 0.92): SHEET 2 FLIPS TO SPREAD 3
       // =============================================================
       tl.to(sheet2, {
         rotateY: -180,
-        ease: 'power1.inOut',
-        duration: 0.20,
+        ease: 'power2.inOut',
+        duration: 0.22,
         onUpdate: function () {
           const prog = this.progress();
           if (prog > 0.5) {
-            sheet2.style.zIndex = '7'; // Slips underneath permanent left photo (zIndex: 40)
+            sheet2.style.zIndex = '25'; // Lands on left over Sheet 1
           } else {
-            sheet2.style.zIndex = '20';
+            sheet2.style.zIndex = '25';
           }
         }
       }, 0.70);
 
       // =============================================================
-      // REST WINDOW 3 (0.90 -> 1.00): Spread 3 (Honors & CTA) readable
+      // REST WINDOW 3 (0.92 -> 1.00): Spread 3 (Craft Finale + CTA) readable
+      // Left: Swecha Spotlight | Right: Convergence & Connect CTA
       // =============================================================
-      tl.to({}, { duration: 0.10 }, 0.90);
+      tl.to({}, { duration: 0.08 }, 0.92);
 
       // Refresh ScrollTrigger after DOM & images settle
       const refreshTimeout = setTimeout(() => {
         if (window.ScrollTrigger) ScrollTrigger.refresh();
-      }, 300);
+      }, 350);
 
       const handleRefresh = () => {
         if (window.ScrollTrigger) ScrollTrigger.refresh();
@@ -273,12 +211,11 @@
       if (!tl || !tl.scrollTrigger) return;
 
       const st = tl.scrollTrigger;
-      const targetProgress = pageIdx === 0 ? 0.00 : pageIdx === 1 ? 0.27 : pageIdx === 2 ? 0.62 : 0.95;
+      const targetProgress = pageIdx === 0 ? 0.00 : pageIdx === 1 ? 0.28 : pageIdx === 2 ? 0.64 : 0.96;
       const scrollY = st.start + (st.end - st.start) * targetProgress;
 
-      if (pageIdx === 0) {
-        if (casingRef.current) casingRef.current.style.opacity = '0';
-        if (spineRef.current) spineRef.current.style.opacity = '0';
+      if (pageIdx === 0 && spineRef.current) {
+        spineRef.current.style.opacity = '0';
       }
 
       window.scrollTo({
@@ -288,19 +225,21 @@
     };
 
     return h('div', { ref: sectionRef, className: 'book-section-viewport' },
-      // Background ambience
-      h('div', { className: 'book-ambient-backdrop', 'aria-hidden': 'true' },
-        h('div', { className: 'book-glow-orb book-glow-left' }),
-        h('div', { className: 'book-glow-orb book-glow-right' })
+      // Dual-tone blue and rose-pink translucent wave backdrop with reflective floor
+      h('div', { className: 'book-wave-backdrop', 'aria-hidden': 'true' },
+        h('img', {
+          src: 'assets/images/about-backdrop-clean.jpg',
+          alt: 'Wave Backdrop',
+          className: 'wave-backdrop-img',
+          loading: 'eager'
+        }),
+        h('div', { className: 'wave-backdrop-tint' }),
+        h('div', { className: 'wave-reflective-floor' })
       ),
 
-      // Header Bar Above Book
+      // Minimal Sleek Eyebrow Capsule (Pill layout that never collides with book)
       h('div', { className: 'book-header-capsule' },
-        h('span', { className: 'book-eyebrow' }, 'BIOGRAPHY // INTERACTIVE MEMOIR'),
-        h('h2', { className: 'book-main-title' },
-          'The Living Folio. ',
-          h('i', null, 'The Story Behind the Craft.')
-        )
+        h('span', { className: 'book-eyebrow' }, '● THE LIVING FOLIO · THE STORY BEHIND THE CRAFT')
       ),
 
       // Floating Left Navigation Arrow (matches "The Long Light" template)
@@ -308,7 +247,7 @@
         className: 'book-floating-arrow arrow-left',
         onClick: () => goToPage(Math.max(0, activePage - 1)),
         disabled: activePage === 0,
-        'aria-label': 'Previous page',
+        'aria-label': 'Previous spread',
         title: 'Previous page'
       },
         h('span', { className: 'arrow-icon' }, '←')
@@ -319,18 +258,18 @@
         className: 'book-floating-arrow arrow-right',
         onClick: () => goToPage(Math.min(3, activePage + 1)),
         disabled: activePage === 3,
-        'aria-label': 'Next page',
+        'aria-label': 'Next spread',
         title: 'Next page'
       },
         h('span', { className: 'arrow-icon' }, '→')
       ),
 
-      // 3D Perspective Stage
+      // 3D Perspective Stage (perspective: 2400px, transform-style: preserve-3d)
       h('div', { className: 'book-3d-stage' },
         h('div', { ref: bookWrapRef, className: 'book-monolith-wrapper' },
 
           // Hardcover Casing Frame (Backing of open spread)
-          h('div', { ref: casingRef, className: 'book-casing-frame', 'aria-hidden': 'true' }),
+          h('div', { className: 'book-casing-frame', 'aria-hidden': 'true' }),
 
           // Center Spine Groove Shadow & Gold Crease
           h('div', { ref: spineRef, className: 'book-spine-crease', 'aria-hidden': 'true' }),
@@ -350,28 +289,255 @@
           ),
 
           // -------------------------------------------------------------
-          // PERMANENT BASE RIGHT PAGE: Final Spread (Page 3: Honors & Awards)
+          // PERMANENT BASE RIGHT PAGE: SPREAD 3 RIGHT (Craft Finale & CTA)
           // -------------------------------------------------------------
           h('div', { ref: sheet3Ref, className: 'book-leaf book-right-base' },
-            h('div', { className: 'book-page-face page-front book-content-page honors-spread' },
+            h('div', { className: 'book-page-face page-front book-content-page craft-finale-spread' },
               h('div', { className: 'book-page-bevel' },
                 h('div', { className: 'book-content-scroll' },
                   h('div', { className: 'page-header-block' },
-                    h('span', { className: 'page-chapter-label' }, 'CHAPTER III // HONORS & RECOGNITION'),
-                    h('h3', { className: 'page-section-heading' }, 'Academic Excellence & Laurels')
+                    h('span', { className: 'page-chapter-label' }, 'CHAPTER III // THE CONVERGENCE'),
+                    h('h3', { className: 'page-section-heading' }, 'Engineering Rigor Meets Creative Design')
+                  ),
+
+                  h('p', { className: 'page-lead-para' },
+                    'Every enterprise data pipeline I build is architected with mathematical precision, self-healing integrity, and automated telemetry. Every digital product I design is crafted with luxury visual storytelling and 60FPS fluid motion.'
+                  ),
+
+                  // Dual-Core Synthesis Box
+                  h('div', { className: 'synthesis-callout-card' },
+                    h('div', { className: 'synthesis-item' },
+                      h('span', { className: 'synthesis-icon' }, '⚡'),
+                      h('div', null,
+                        h('b', null, 'Uncompromising Ownership:'),
+                        h('p', null, 'From data schema blueprint to production cloud deployment, every deliverable is personal and battle-tested.')
+                      )
+                    ),
+                    h('div', { className: 'synthesis-item' },
+                      h('span', { className: 'synthesis-icon' }, '💎'),
+                      h('div', null,
+                        h('b', null, 'End-to-End Speed:'),
+                        h('p', null, 'Eliminating handoff friction between design and engineering to ship high-converting experiences in days, not months.')
+                      )
+                    )
+                  ),
+
+                  // Key Competencies Cluster
+                  h('div', { className: 'competencies-row' },
+                    h('span', { className: 'comp-badge' }, 'Microsoft Fabric Lakehouse'),
+                    h('span', { className: 'comp-badge' }, 'PySpark Medallion ETL'),
+                    h('span', { className: 'comp-badge' }, 'Agentic AI Workflows'),
+                    h('span', { className: 'comp-badge' }, 'React & 3D WebGL')
+                  ),
+
+                  // Final CTA Connect Row
+                  h('div', { className: 'book-cta-action' },
+                    h('a', { href: '#contact', className: 'book-connect-btn' },
+                      h('span', null, 'Start a Conversation'),
+                      h('span', { className: 'btn-arrow' }, '→')
+                    ),
+                    h('a', { href: '#work', className: 'book-secondary-btn' },
+                      h('span', null, 'Explore Projects ↗')
+                    )
+                  )
+                )
+              ),
+              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
+            )
+          ),
+
+          // -------------------------------------------------------------
+          // SHEET 2: Turns 0 to -180deg
+          // Front = Spread 2 Right: Milestones & Enterprise Impact
+          // Back  = Spread 3 Left: Signature Spotlight (Swecha Community Leadership)
+          // -------------------------------------------------------------
+          h('div', { ref: sheet2Ref, className: 'book-leaf book-flipping-sheet sheet-2' },
+            // Front: Spread 2 Right — Milestones & Certifications
+            h('div', { className: 'book-page-face page-front book-content-page milestones-spread' },
+              h('div', { className: 'book-page-bevel' },
+                h('div', { className: 'book-content-scroll' },
+                  h('div', { className: 'page-header-block' },
+                    h('span', { className: 'page-chapter-label' }, 'CHAPTER II // PROVEN TRACK RECORD'),
+                    h('h3', { className: 'page-section-heading' }, 'Milestones, Certifications & Impact')
+                  ),
+
+                  // 3 Enterprise Milestone Cards
+                  h('div', { className: 'milestones-grid' },
+                    [
+                      {
+                        title: 'Enterprise Microsoft Fabric Lakehouse',
+                        scope: 'TEKsystems · Data Engineer',
+                        desc: 'Architected medallion architecture pipelines, automated PySpark transformation workflows, and engineered Agentic AI data migration validators.'
+                      },
+                      {
+                        title: 'Global Export Commerce Architecture',
+                        scope: 'OPULENCE Global Trading · Lead Architect',
+                        desc: 'Engineered conversion-driven digital platform for international luxury exports, custom quotation workflows, and 3D product visual staging.'
+                      },
+                      {
+                        title: 'Open Source Community Mentorship',
+                        scope: 'Swecha Free Software · Core Contributor',
+                        desc: 'Trained 1,000+ government school and college students across Telangana in GNU/Linux, Python, and open Telugu AI speech datasets.'
+                      }
+                    ].map((m, idx) =>
+                      h('div', { key: idx, className: 'milestone-card' },
+                        h('div', { className: 'milestone-header' },
+                          h('b', { className: 'milestone-title' }, m.title),
+                          h('span', { className: 'milestone-scope' }, m.scope)
+                        ),
+                        h('p', { className: 'milestone-desc' }, m.desc)
+                      )
+                    )
+                  ),
+
+                  // Metrics Bar
+                  h('div', { className: 'book-metrics-bar' },
+                    h('div', { className: 'b-stat' },
+                      h('b', null, '4×'),
+                      h('span', null, 'Gold Medalist')
+                    ),
+                    h('div', { className: 'b-stat' },
+                      h('b', null, '93%'),
+                      h('span', null, 'B.Tech Aggregate')
+                    ),
+                    h('div', { className: 'b-stat' },
+                      h('b', null, '2+ Yrs'),
+                      h('span', null, 'Enterprise Exp')
+                    ),
+                    h('div', { className: 'b-stat' },
+                      h('b', null, '1,000+'),
+                      h('span', null, 'Mentored')
+                    )
+                  )
+                )
+              ),
+              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
+            ),
+
+            // Back: Spread 3 Left — Signature Spotlight (Swecha Community Leadership)
+            h('div', { className: 'book-page-face page-back book-content-page signature-spotlight-spread' },
+              h('div', { className: 'book-page-bevel' },
+                h('div', { className: 'book-content-scroll' },
+                  h('div', { className: 'page-header-block' },
+                    h('span', { className: 'page-chapter-label' }, 'SIGNATURE SPOTLIGHT // PUBLIC IMPACT'),
+                    h('h3', { className: 'page-section-heading' }, 'Swecha Free Software Leadership')
+                  ),
+
+                  // Spotlight Visual Box
+                  h('div', { className: 'spotlight-hero-card' },
+                    h('div', { className: 'spotlight-badge-row' },
+                      h('span', { className: 'spotlight-tag' }, 'COMMUNITY CORE CONTRIBUTOR'),
+                      h('span', { className: 'spotlight-year' }, '2022 – PRESENT')
+                    ),
+                    h('h4', { className: 'spotlight-lead-title' },
+                      'Democratizing Open Technology Across Telangana'
+                    ),
+                    h('p', { className: 'spotlight-lead-desc' },
+                      'As an active volunteer and core contributor in the Swecha Free Software Movement, I spearheaded digital empowerment bootcamps, taught hundreds of underprivileged school students the fundamentals of Linux, and contributed to the curation of the largest open Telugu language dataset for indigenous AI model training.'
+                    )
+                  ),
+
+                  // Impact Stats
+                  h('div', { className: 'spotlight-stats-row' },
+                    h('div', { className: 'spot-stat' },
+                      h('b', null, '1,000+'),
+                      h('span', null, 'Students Trained')
+                    ),
+                    h('div', { className: 'spot-stat' },
+                      h('b', null, '15+'),
+                      h('span', null, 'Workshops Led')
+                    ),
+                    h('div', { className: 'spot-stat' },
+                      h('b', null, 'Open AI'),
+                      h('span', null, 'Telugu Datasets')
+                    )
+                  ),
+
+                  // Valedictorian Peer Quote
+                  h('div', { className: 'valedictorian-quote-box' },
+                    h('span', { className: 'valedictorian-icon' }, '🎓'),
+                    h('p', null,
+                      '“Tanvi combines academic brilliance with deep empathy and mentorship, elevating every peer and student she teaches.”'
+                    )
+                  )
+                )
+              ),
+              h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
+            )
+          ),
+
+          // -------------------------------------------------------------
+          // SHEET 1: Turns 0 to -180deg
+          // Front = Spread 1 Right: About Introduction Overview
+          // Back  = Spread 2 Left: Medals & Honors Showcase (4× Gold Medals)
+          // -------------------------------------------------------------
+          h('div', { ref: sheet1Ref, className: 'book-leaf book-flipping-sheet sheet-1' },
+            // Front: Spread 1 Right — About Introduction Overview
+            h('div', { className: 'book-page-face page-front book-content-page about-intro-spread' },
+              h('div', { className: 'book-page-bevel' },
+                h('div', { className: 'book-content-scroll' },
+                  h('div', { className: 'page-header-block' },
+                    h('span', { className: 'page-chapter-label' }, 'CHAPTER I // IDENTITY & CRAFT'),
+                    h('h3', { className: 'page-section-heading' }, 'About Tanvi Kakarala')
+                  ),
+
+                  h('p', { className: 'page-lead-para' },
+                    'I am an enterprise data engineer and freelance digital architect based in Hyderabad. My work bridges rigorous mathematical lakehouse architecture with bespoke luxury web design.'
+                  ),
+
+                  // Two Distinct Domains
+                  h('div', { className: 'domains-split-box' },
+                    h('div', { className: 'domain-card data-domain' },
+                      h('div', { className: 'domain-header' },
+                        h('span', { className: 'domain-icon' }, '📊'),
+                        h('b', null, 'Data Engineering & Intelligence')
+                      ),
+                      h('p', null,
+                        'Architecting resilient Microsoft Fabric lakehouses, PySpark ETL pipelines, SQL data models, and automated Agentic AI data migration frameworks for enterprise scalability.'
+                      )
+                    ),
+                    h('div', { className: 'domain-card web-domain' },
+                      h('div', { className: 'domain-header' },
+                        h('span', { className: 'domain-icon' }, '✨'),
+                        h('b', null, 'Creative Web & Automation')
+                      ),
+                      h('p', null,
+                        'Crafting high-converting responsive websites, luxury brand identities, 3D interactive experiences, and business workflow automations that command trust.'
+                      )
+                    )
+                  ),
+
+                  // Micro Tags Cluster
+                  h('div', { className: 'page-tags-cluster' },
+                    ['Microsoft Fabric', 'PySpark', 'Agentic AI', 'Azure Synapse', 'React & 3D', 'SQL Architecture', 'Python'].map((tag, idx) =>
+                      h('span', { key: idx, className: 'page-micro-tag' }, tag)
+                    )
+                  )
+                )
+              ),
+              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
+            ),
+
+            // Back: Spread 2 Left — Medals & Honors Showcase (4× Gold Medals)
+            h('div', { className: 'book-page-face page-back book-content-page medals-showcase-spread' },
+              h('div', { className: 'book-page-bevel' },
+                h('div', { className: 'book-content-scroll' },
+                  h('div', { className: 'page-header-block' },
+                    h('span', { className: 'page-chapter-label' }, 'ACADEMIC EXCELLENCE // LAURELS'),
+                    h('h3', { className: 'page-section-heading' }, '4× College Topper Gold Medals')
                   ),
 
                   h('p', { className: 'page-intro-text' },
-                    'Consistent academic distinction across all four engineering years, paired with open-source leadership and social education impact.'
+                    'Consistent academic distinction across all four engineering years, earning top collegiate honors each consecutive academic session.'
                   ),
 
                   // 4 Gold Medals Grid
                   h('div', { className: 'awards-gold-grid' },
                     [
-                      { year: 'Year 1', grade: '9.4 GPA', title: 'College Topper Gold Medal', desc: 'B.Tech CSE (AI & ML)' },
-                      { year: 'Year 2', grade: '9.3 GPA', title: 'College Topper Gold Medal', desc: 'Department Distinction' },
-                      { year: 'Year 3', grade: '9.2 GPA', title: 'College Topper Gold Medal', desc: 'Academic Rank 1' },
-                      { year: 'Year 4', grade: '9.3 GPA', title: 'Overall Topper Gold Medal', desc: 'Valedictorian Honors' }
+                      { year: 'Year 1', grade: '9.4 GPA', title: 'College Topper Gold Medal', desc: 'B.Tech CSE (AI & ML) · College Rank 1' },
+                      { year: 'Year 2', grade: '9.3 GPA', title: 'College Topper Gold Medal', desc: 'Department Distinction · Academic Rank 1' },
+                      { year: 'Year 3', grade: '9.2 GPA', title: 'College Topper Gold Medal', desc: 'Core Engineering Excellence · Rank 1' },
+                      { year: 'Year 4', grade: '9.3 GPA', title: 'Overall Topper Gold Medal', desc: 'Valedictorian Honors · 4-Year College Topper' }
                     ].map((award, i) =>
                       h('div', { key: i, className: 'award-pill-card' },
                         h('div', { className: 'award-icon-badge' }, '🥇'),
@@ -386,108 +552,14 @@
                     )
                   ),
 
-                  // Community Leadership Callout
-                  h('div', { className: 'community-quote-box' },
-                    h('b', { className: 'community-title' }, '🌟 Swecha Free Software Movement Core Member'),
-                    h('p', null,
-                      'Mentored 1,000+ government school and college students in Linux, web development, and curated open Telugu AI datasets.'
-                    )
-                  ),
-
-                  // Direct Action Link
-                  h('div', { className: 'book-cta-action' },
-                    h('a', { href: '#contact', className: 'book-connect-btn' },
-                      h('span', null, 'Start a Conversation'),
-                      h('span', { className: 'btn-arrow' }, '→')
+                  // Intermediate Distinction Callout
+                  h('div', { className: 'state-distinction-badge' },
+                    h('span', { className: 'badge-icon' }, '🌟'),
+                    h('div', null,
+                      h('b', null, 'State Board Academic Distinction: 98% Aggregate'),
+                      h('p', null, 'Board of Intermediate Education — State Distinction in Mathematics, Physics & Chemistry.')
                     )
                   )
-                )
-              ),
-              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
-            )
-          ),
-
-          // -------------------------------------------------------------
-          // SHEET 2: Selected Work & Impact (Turns to reveal Page 3)
-          // -------------------------------------------------------------
-          h('div', { ref: sheet2Ref, className: 'book-leaf book-flipping-sheet sheet-2' },
-            // Front: Selected Work & Impact
-            h('div', { className: 'book-page-face page-front book-content-page work-spread' },
-              h('div', { className: 'book-page-bevel' },
-                h('div', { className: 'book-content-scroll' },
-                  h('div', { className: 'page-header-block' },
-                    h('span', { className: 'page-chapter-label' }, 'CHAPTER II // PROVEN DELIVERABLES'),
-                    h('h3', { className: 'page-section-heading' }, 'Selected Work & Enterprise Impact')
-                  ),
-
-                  // 4 Work Showcase Cards
-                  h('div', { className: 'work-portfolio-grid' },
-                    [
-                      {
-                        title: 'OPULENCE Global Trading',
-                        role: 'Lead Web Architect',
-                        metric: 'Live Client Portal',
-                        desc: 'Full-cycle engineering for international luxury export business. Responsive architecture, AI product visuals, and conversion-optimized layout.'
-                      },
-                      {
-                        title: 'Aastha Enterprises',
-                        role: 'Digital Experience Designer',
-                        metric: 'Beverage Commerce',
-                        desc: 'Commercial website experience for automated vending solutions, product staging, and brand positioning.'
-                      },
-                      {
-                        title: 'TEKsystems Enterprise Fabric',
-                        role: 'Data Engineer',
-                        metric: 'Lakehouse & AI',
-                        desc: 'Enterprise Microsoft Fabric pipelines, PySpark medallion ETL, and automated Agentic AI data migration validation.'
-                      },
-                      {
-                        title: 'Swecha Open Source Initiative',
-                        role: 'Core Contributor',
-                        metric: '1,000+ Mentored',
-                        desc: 'Statewide digital literacy bootcamps, GNU/Linux workshops, and Telugu speech datasets for open AI models.'
-                      }
-                    ].map((item, i) =>
-                      h('div', { key: i, className: 'work-mini-card' },
-                        h('div', { className: 'work-card-head' },
-                          h('b', { className: 'work-card-title' }, item.title),
-                          h('span', { className: 'work-badge' }, item.metric)
-                        ),
-                        h('span', { className: 'work-role' }, item.role),
-                        h('p', { className: 'work-desc' }, item.desc)
-                      )
-                    )
-                  ),
-
-                  // Quick Stats Row
-                  h('div', { className: 'book-metrics-bar' },
-                    h('div', { className: 'b-stat' },
-                      h('b', null, '2+ Yrs'),
-                      h('span', null, 'Enterprise Exp')
-                    ),
-                    h('div', { className: 'b-stat' },
-                      h('b', null, '93%'),
-                      h('span', null, 'B.Tech Aggregate')
-                    ),
-                    h('div', { className: 'b-stat' },
-                      h('b', null, '4×'),
-                      h('span', null, 'Gold Medalist')
-                    )
-                  )
-                )
-              ),
-              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
-            ),
-
-            // Back: Decorative Endpaper Facing Left when flipped
-            h('div', { className: 'book-page-face page-back book-endpaper-page' },
-              h('div', { className: 'endpaper-inner' },
-                h('div', { className: 'endpaper-motif' },
-                  h('div', { className: 'endpaper-logo' }, 'TK'),
-                  h('span', { className: 'endpaper-quote' },
-                    '“Excellence is not an accident. It is the result of high intention, sincere effort, and intelligent execution.”'
-                  ),
-                  h('span', { className: 'endpaper-cite' }, '— Tanvi Kakarala')
                 )
               ),
               h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
@@ -495,132 +567,58 @@
           ),
 
           // -------------------------------------------------------------
-          // SHEET 1: Who I Am & Philosophy (Turns to reveal Page 2)
+          // FRONT COVER LEAF: Turns 0 to -180deg
+          // Front = Closed Front Cover (matches uploaded artwork book-cover-final.webp)
+          // Back  = Spread 1 Left: Large Crisp Portrait with Blush-Rose Frame
           // -------------------------------------------------------------
-          h('div', { ref: sheet1Ref, className: 'book-leaf book-flipping-sheet sheet-1' },
-            // Front: Who I Am & Philosophy
-            h('div', { className: 'book-page-face page-front book-content-page philosophy-spread' },
-              h('div', { className: 'book-page-bevel' },
-                h('div', { className: 'book-content-scroll' },
-                  h('div', { className: 'page-header-block' },
-                    h('span', { className: 'page-chapter-label' }, 'CHAPTER I // IDENTITY & PHILOSOPHY'),
-                    h('h3', { className: 'page-section-heading' }, 'Who I Am & The Dual-Core Craft')
-                  ),
-
-                  h('p', { className: 'page-lead-para' },
-                    'I am an enterprise data engineer and freelance digital architect based in Hyderabad. My work thrives at the convergence of mathematical logic and creative intuition.'
-                  ),
-
-                  h('div', { className: 'philosophy-pillars-box' },
-                    h('div', { className: 'pillar-row' },
-                      h('span', { className: 'pillar-icon' }, '⚡'),
-                      h('div', null,
-                        h('b', null, 'Engineering Rigor:'),
-                        h('p', null, 'Architecting resilient Microsoft Fabric lakehouses, PySpark ETL pipelines, and Agentic AI data migration frameworks that process enterprise workloads at scale.')
-                      )
-                    ),
-                    h('div', { className: 'pillar-row' },
-                      h('span', { className: 'pillar-icon' }, '🎨'),
-                      h('div', null,
-                        h('b', null, 'Creative Speed:'),
-                        h('p', null, 'Crafting luxury responsive websites, brand identities, and 3D visual experiences that give clients unmistakable digital prestige and immediate trust.')
-                      )
-                    ),
-                    h('div', { className: 'pillar-row' },
-                      h('span', { className: 'pillar-icon' }, '🔍'),
-                      h('div', null,
-                        h('b', null, 'The Meticulous Rule:'),
-                        h('p', null, 'Every line of code, visual layout, and pipeline deliverable is audited and reviewed for zero defects before shipping to production.')
-                      )
-                    )
-                  ),
-
-                  // Capability Tags
-                  h('div', { className: 'page-tags-cluster' },
-                    ['Microsoft Fabric', 'PySpark', 'Agentic AI', 'React & WebGL', 'Brand Design', 'Azure Lakehouse', 'Python'].map((tag, idx) =>
-                      h('span', { key: idx, className: 'page-micro-tag' }, tag)
-                    )
-                  )
-                )
-              ),
-              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
-            ),
-
-            // Back: Decorative Endpaper Facing Left when flipped
-            h('div', { className: 'book-page-face page-back book-endpaper-page' },
-              h('div', { className: 'endpaper-inner' },
-                h('div', { className: 'endpaper-motif' },
-                  h('div', { className: 'endpaper-logo' }, '✦'),
-                  h('span', { className: 'endpaper-quote' },
-                    '“Art and science are two sides of the same coin — one asks what is possible, the other asks how to make it endure.”'
-                  ),
-                  h('span', { className: 'endpaper-cite' }, '— Engineering Philosophy')
-                )
-              ),
-              h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
-            )
-          ),
-
-          // -------------------------------------------------------------
-          // THE FLYING PORTRAIT CARD: Starts as Cover, Flies & Sticks Left!
-          // -------------------------------------------------------------
-          h('div', {
-            ref: flyingCardRef,
-            className: `flying-portrait-card ${activePage === 0 ? 'is-cover-state' : 'is-stuck-left'}`,
-            onClick: activePage === 0 ? () => goToPage(1) : undefined,
-            title: activePage === 0 ? 'Click to open memoir' : undefined,
-            style: { cursor: activePage === 0 ? 'pointer' : 'default' }
-          },
-            h('div', { className: 'portrait-card-inner' },
-              // High-resolution Portrait Image
-              h('img', {
-                src: 'assets/images/tanvi-portrait.webp',
-                alt: 'Tanvi Kakarala — Portrait Cover',
-                className: 'portrait-card-img',
-                loading: 'eager'
-              }),
-
-              // Luxury Vignette Overlay
-              h('div', { className: 'portrait-card-vignette' }),
-
-              // -------------------------------------------------------
-              // COVER EDITORIAL FRAME: Visible at 0% scroll, dissolves as photo flies
-              // -------------------------------------------------------
-              h('div', { ref: coverTitleRef, className: 'cover-editorial-frame' },
-                h('div', { className: 'cover-top-emblem' },
-                  h('span', { className: 'cover-crest-icon' }, '❖'),
-                  h('span', { className: 'cover-folio-tag' }, 'FOLIO MMXXVI')
-                ),
-                h('div', { className: 'cover-title-group' },
-                  h('span', { className: 'cover-pre-title' }, 'MEMOIR // THE LIVING FOLIO'),
-                  h('h1', { className: 'cover-heading' },
-                    'TANVI KAKARALA',
-                    h('br'),
-                    h('i', null, 'The Story Behind The Craft')
-                  ),
-                  h('div', { className: 'cover-divider-gold' }),
-                  h('p', { className: 'cover-subtitle' },
-                    'Enterprise Data Engineering · Digital Solutions Architecture'
-                  )
-                ),
-                h('div', { className: 'cover-footer-prompt' },
+          h('div', { ref: coverRef, className: 'book-leaf book-cover-leaf' },
+            // Front: Closed Cover State
+            h('div', {
+              className: 'book-page-face page-front book-front-cover-artwork',
+              onClick: () => goToPage(1),
+              title: 'Click to open memoir',
+              style: { cursor: 'pointer' }
+            },
+              h('div', { className: 'cover-artwork-wrapper' },
+                h('img', {
+                  src: 'assets/images/book-cover-final.webp',
+                  alt: 'Tanvi Kakarala — Portfolio Book Cover',
+                  className: 'cover-artwork-img',
+                  loading: 'eager'
+                }),
+                // Gilded gold page edges on the right book-block
+                h('div', { className: 'cover-gilded-edge-trim', 'aria-hidden': 'true' }),
+                // Subtle prompt badge
+                h('div', { className: 'cover-prompt-pill' },
                   h('span', { className: 'prompt-icon' }, '→'),
                   h('span', { className: 'prompt-text' }, 'Scroll or Click to Open')
                 )
               ),
-
-              // -------------------------------------------------------
-              // PORTRAIT METADATA BADGE: Illuminates once landed on left!
-              // -------------------------------------------------------
-              h('div', { ref: portraitBadgeRef, className: 'portrait-meta-badge' },
-                h('span', { className: 'portrait-badge-dot' }),
-                h('div', { className: 'portrait-badge-text' },
-                  h('b', null, 'Tanvi Kakarala'),
-                  h('span', null, 'Data Engineer & Digital Solutions Architect')
-                )
-              )
+              h('div', { className: 'page-spine-shadow-right', 'aria-hidden': 'true' })
             ),
-            h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
+
+            // Back: Spread 1 Left — Large Crisp Portrait with Blush-Rose Frame
+            h('div', { className: 'book-page-face page-back book-portrait-spread' },
+              h('div', { className: 'book-page-bevel portrait-page-bevel' },
+                h('div', { className: 'portrait-frame-container' },
+                  h('img', {
+                    src: 'assets/images/tanvi-portrait.webp',
+                    alt: 'Tanvi Kakarala — Portrait',
+                    className: 'book-portrait-img',
+                    loading: 'eager'
+                  }),
+                  h('div', { className: 'portrait-vignette-overlay' }),
+                  h('div', { className: 'portrait-meta-badge' },
+                    h('span', { className: 'portrait-badge-dot' }),
+                    h('div', { className: 'portrait-badge-text' },
+                      h('b', null, 'Tanvi Kakarala'),
+                      h('span', null, 'Data & Creative Builder')
+                    )
+                  )
+                )
+              ),
+              h('div', { className: 'page-spine-shadow-left', 'aria-hidden': 'true' })
+            )
           )
 
         )
@@ -634,15 +632,15 @@
           className: 'book-nav-arrow prev-btn',
           onClick: () => goToPage(Math.max(0, activePage - 1)),
           disabled: activePage === 0,
-          'aria-label': 'Previous page'
+          'aria-label': 'Previous spread'
         }, '‹'),
 
         h('div', { className: 'book-progress-dots' },
           [
             { label: 'Cover' },
-            { label: 'Philosophy' },
-            { label: 'Selected Work' },
-            { label: 'Laurels & Impact' }
+            { label: 'About Intro' },
+            { label: 'Medals & Milestones' },
+            { label: 'Craft Finale' }
           ].map((item, idx) =>
             h('button', {
               key: idx,
@@ -660,7 +658,7 @@
           className: 'book-nav-arrow next-btn',
           onClick: () => goToPage(Math.min(3, activePage + 1)),
           disabled: activePage === 3,
-          'aria-label': 'Next page'
+          'aria-label': 'Next spread'
         }, '›'),
 
         h('div', { className: 'book-scroll-progress-line' },
