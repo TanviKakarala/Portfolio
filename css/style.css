@@ -2625,7 +2625,84 @@ html {
 .mag-sub {
   font: 500 12px var(--font-mono);
   color: var(--cy-subtle);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.mag-lead {
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.55;
+  color: #cfe2f8;
+  margin: 10px 0 16px;
+  font-weight: 400;
+  max-width: 520px;
+}
+
+/* Shaped Architecture Highlights Strip on #work Card */
+.work-arch-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 20px;
+}
+
+.arch-chip {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 11px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arch-chip:hover {
+  background: rgba(0, 245, 255, 0.08);
+  border-color: rgba(0, 245, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 245, 255, 0.15);
+}
+
+.arch-chip-icon {
+  font-size: 15px;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(0, 245, 255, 0.1);
+  border: 1px solid rgba(0, 245, 255, 0.22);
+}
+
+.arch-chip-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.arch-chip-val {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arch-chip-lbl {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--cy-subtle);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mag-points {
@@ -4422,6 +4499,193 @@ html {
 }
 
 /* ==========================================================================
+   SHAPED ARCHITECTURE MODAL BLUEPRINT STYLES
+   ========================================================================== */
+.arch-blueprint-card {
+  background: rgba(10, 18, 32, 0.95);
+  border: 1px solid rgba(0, 245, 255, 0.28);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.arch-blueprint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.blueprint-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cy);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blueprint-badge::before {
+  content: '⚡';
+  font-size: 11px;
+}
+
+.blueprint-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #a0c4e8;
+  background: rgba(0, 245, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
+}
+
+/* System Pipeline Flow */
+.blueprint-pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.pipeline-node {
+  flex: 1;
+  min-width: 140px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  position: relative;
+}
+
+.pipeline-node-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--rose);
+  margin-bottom: 3px;
+}
+
+.pipeline-node-title {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.pipeline-node-desc {
+  font-size: 11px;
+  color: #bcd6ff;
+  line-height: 1.35;
+}
+
+.pipeline-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cy);
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Three Core Architectural Pillars Grid */
+.arch-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.arch-pillar-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 16px;
+  transition: all 0.25s ease;
+}
+
+.arch-pillar-card:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(0, 245, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.arch-pillar-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cy);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.arch-pillar-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.arch-pillar-body {
+  font-size: 12px;
+  line-height: 1.45;
+  color: #bcd6ff;
+}
+
+.arch-pillar-body ul {
+  padding-left: 14px;
+  margin: 6px 0 0;
+}
+
+.arch-pillar-body li {
+  margin-bottom: 4px;
+}
+
+/* 4 Hardware/Performance Metrics */
+.arch-metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.arch-metric-box {
+  background: rgba(0, 245, 255, 0.06);
+  border: 1px solid rgba(0, 245, 255, 0.22);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.arch-metric-number {
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.arch-metric-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--cy-subtle);
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN & MOBILE OPTIMIZATIONS
    ========================================================================== */
 @media (max-width: 900px) {
@@ -4472,6 +4736,15 @@ html {
   .mag {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .work-arch-strip {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+  }
+
+  .arch-metrics-strip {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 
   .ab {

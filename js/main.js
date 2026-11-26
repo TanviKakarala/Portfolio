@@ -628,49 +628,155 @@
     const data = caseStudiesData[key];
     if (!data || !modalContent || !modal) return;
 
-    modalContent.innerHTML = `
-      <div style="margin-bottom: 24px;">
-        <span class="k" style="color: var(--cy);">${data.category}</span>
-        <h2 style="font-family: var(--font-serif); font-size: clamp(24px, 3.2vw, 36px); margin: 6px 0 16px; color: #fff;">${data.title}</h2>
-        <img src="${data.heroImage}" alt="${data.title}" style="width: 100%; max-height: 280px; object-fit: contain; border-radius: 14px; background: #060a12; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.15);">
-      </div>
-
-      <div style="margin-bottom: 20px;">
-        <h4 style="font-family: var(--font-mono); color: var(--rose); font-size: 14px; text-transform: uppercase; margin-bottom: 8px;">Project Overview</h4>
-        <p style="color: #cfe0f0; font-size: 14.5px; line-height: 1.6;">${data.overview}</p>
-      </div>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px;">
-        <div style="background: rgba(255, 255, 255, 0.04); padding: 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <h4 style="font-family: var(--font-mono); color: #ff5f56; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">Key Challenges</h4>
-          <ul style="padding-left: 18px; color: #bcd6ff; font-size: 13.5px; line-height: 1.5;">
-            ${data.challenges.map(c => `<li style="margin-bottom: 6px;">${c}</li>`).join('')}
-          </ul>
+    if (key === 'opulence') {
+      modalContent.innerHTML = `
+        <div style="margin-bottom: 20px;">
+          <span class="live-pill" style="font-size: 10px; margin-bottom: 8px;">● FLAGSHIP ARCHITECTURE DEEP DIVE · PRODUCTION LIVE</span>
+          <h2 style="font-family: var(--font-serif); font-size: clamp(24px, 3.2vw, 36px); margin: 6px 0 14px; color: #fff;">${data.title}</h2>
+          
+          <div style="border-radius: 14px; overflow: hidden; background: #060a12; border: 1px solid rgba(0, 245, 255, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); margin-bottom: 18px;">
+            <header style="display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #0d1522; border-bottom: 1px solid rgba(255,255,255,0.08);">
+              <i style="width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; display: inline-block;"></i>
+              <i style="width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></i>
+              <i style="width: 8px; height: 8px; border-radius: 50%; background: #27c93f; display: inline-block;"></i>
+              <span style="font: 500 11px var(--font-mono); color: #7b9ebd; margin-left: 8px; background: rgba(0,0,0,0.3); padding: 2px 10px; border-radius: 4px;">opulence-intl.com</span>
+            </header>
+            <img src="${data.heroImage}" alt="${data.title}" style="width: 100%; max-height: 260px; object-fit: cover; display: block;">
+          </div>
         </div>
 
-        <div style="background: rgba(255, 255, 255, 0.04); padding: 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);">
-          <h4 style="font-family: var(--font-mono); color: #27c93f; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">Architectural Solutions</h4>
-          <ul style="padding-left: 18px; color: #bcd6ff; font-size: 13.5px; line-height: 1.5;">
-            ${data.solutions.map(s => `<li style="margin-bottom: 6px;">${s}</li>`).join('')}
-          </ul>
+        <!-- 4 Hardware & Performance Metrics Strip -->
+        <div class="arch-metrics-strip">
+          <div class="arch-metric-box">
+            <div class="arch-metric-number">478</div>
+            <div class="arch-metric-label">WebP Frames Preloaded</div>
+          </div>
+          <div class="arch-metric-box">
+            <div class="arch-metric-number">60 FPS</div>
+            <div class="arch-metric-label">Scroll Sync Rate</div>
+          </div>
+          <div class="arch-metric-box">
+            <div class="arch-metric-number">0 KB</div>
+            <div class="arch-metric-label">Framework Overhead</div>
+          </div>
+          <div class="arch-metric-box">
+            <div class="arch-metric-number">&lt; 0.8s</div>
+            <div class="arch-metric-label">Global Edge FCP</div>
+          </div>
         </div>
-      </div>
 
-      <div style="margin-bottom: 24px;">
-        <h4 style="font-family: var(--font-mono); color: var(--cy); font-size: 13px; text-transform: uppercase; margin-bottom: 10px;">Technologies & Tools</h4>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-          ${data.techStack.map(t => `<span style="padding: 5px 12px; border-radius: 99px; background: rgba(0, 245, 255, 0.12); border: 1px solid rgba(0, 245, 255, 0.3); font: 500 12px var(--font-mono); color: #e0f7ff;">${t}</span>`).join('')}
+        <!-- Shaped Architecture Blueprint Pipeline -->
+        <div class="arch-blueprint-card">
+          <div class="arch-blueprint-header">
+            <span class="blueprint-badge">System Architecture Blueprint</span>
+            <span class="blueprint-tag">60 FPS SCROLL PIPELINE</span>
+          </div>
+          <div class="blueprint-pipeline">
+            <div class="pipeline-node">
+              <div class="pipeline-node-num">LAYER 01</div>
+              <div class="pipeline-node-title">Scroll Controller</div>
+              <div class="pipeline-node-desc">Passive scroll event listener tracks normalized Y-offset (0.0 → 1.0) with zero main-thread lock.</div>
+            </div>
+            <div class="pipeline-connector">→</div>
+            <div class="pipeline-node">
+              <div class="pipeline-node-num">LAYER 02</div>
+              <div class="pipeline-node-title">Canvas 2D Engine</div>
+              <div class="pipeline-node-desc">478 WebP frame buffer interpolated on HTML5 Canvas at 60fps for seamless 3D globe rotation.</div>
+            </div>
+            <div class="pipeline-connector">→</div>
+            <div class="pipeline-node">
+              <div class="pipeline-node-num">LAYER 03</div>
+              <div class="pipeline-node-title">Vanilla B2B Core</div>
+              <div class="pipeline-node-desc">Dynamic multi-category catalog, packaging visualizer &amp; direct Web3Forms RFQ dispatch to email.</div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      ${data.liveUrl ? `
-        <div style="margin-top: 20px;">
-          <a href="${data.liveUrl}" target="_blank" rel="noopener" class="btn btn-duo-glow" style="width: 100%;">
-            <span>Launch Live Production Website</span> <span>↗</span>
-          </a>
+        <!-- Three Core Architectural Pillars -->
+        <div class="arch-pillars-grid">
+          <div class="arch-pillar-card">
+            <div class="arch-pillar-num">PILLAR 01</div>
+            <h4 class="arch-pillar-title">3D Canvas Scroll Engine</h4>
+            <div class="arch-pillar-body">
+              Engineered a custom 60fps HTML5 Canvas sequence rendering 478 WebP frames smoothly bound to window scroll position. Delivers cinematic 3D globe rotation with zero WebGL overhead or GPU crashes on mobile devices.
+            </div>
+          </div>
+          <div class="arch-pillar-card">
+            <div class="arch-pillar-num">PILLAR 02</div>
+            <h4 class="arch-pillar-title">Zero-Dependency Core</h4>
+            <div class="arch-pillar-body">
+              Built entirely in pure vanilla HTML5, modern CSS3 variables, and ES6+ JavaScript. Eliminates heavy JS bundle downloads, ensuring instant rendering for commodity buyers across global port networks.
+            </div>
+          </div>
+          <div class="arch-pillar-card">
+            <div class="arch-pillar-num">PILLAR 03</div>
+            <h4 class="arch-pillar-title">Dynamic B2B Pipeline</h4>
+            <div class="arch-pillar-body">
+              Real-time categorized catalog for Coffee, Chicory, Tea, and Spices with spec inspection modals, export packaging visualizers, and direct Web3Forms RFQ inquiry dispatch.
+            </div>
+          </div>
         </div>
-      ` : ''}
-    `;
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-family: var(--font-mono); color: var(--cy); font-size: 12px; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;">Technologies &amp; Architecture Tools</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            ${data.techStack.map(t => `<span style="padding: 5px 12px; border-radius: 99px; background: rgba(0, 245, 255, 0.1); border: 1px solid rgba(0, 245, 255, 0.28); font: 500 11.5px var(--font-mono); color: #e0f7ff;">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        ${data.liveUrl ? `
+          <div style="margin-top: 22px;">
+            <a href="${data.liveUrl}" target="_blank" rel="noopener" class="btn btn-duo-glow" style="width: 100%; justify-content: center;">
+              <span>View GitHub Source Code</span> <span>↗</span>
+            </a>
+          </div>
+        ` : ''}
+      `;
+    } else {
+      modalContent.innerHTML = `
+        <div style="margin-bottom: 24px;">
+          <span class="k" style="color: var(--cy);">${data.category}</span>
+          <h2 style="font-family: var(--font-serif); font-size: clamp(24px, 3.2vw, 36px); margin: 6px 0 16px; color: #fff;">${data.title}</h2>
+          <img src="${data.heroImage}" alt="${data.title}" style="width: 100%; max-height: 280px; object-fit: contain; border-radius: 14px; background: #060a12; padding: 16px; border: 1px solid rgba(255, 255, 255, 0.15);">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-family: var(--font-mono); color: var(--rose); font-size: 14px; text-transform: uppercase; margin-bottom: 8px;">Project Overview</h4>
+          <p style="color: #cfe0f0; font-size: 14.5px; line-height: 1.6;">${data.overview}</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px;">
+          <div style="background: rgba(255, 255, 255, 0.04); padding: 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h4 style="font-family: var(--font-mono); color: #ff5f56; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">Key Challenges</h4>
+            <ul style="padding-left: 18px; color: #bcd6ff; font-size: 13.5px; line-height: 1.5;">
+              ${data.challenges.map(c => `<li style="margin-bottom: 6px;">${c}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div style="background: rgba(255, 255, 255, 0.04); padding: 18px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.1);">
+            <h4 style="font-family: var(--font-mono); color: #27c93f; font-size: 13px; text-transform: uppercase; margin-bottom: 8px;">Architectural Solutions</h4>
+            <ul style="padding-left: 18px; color: #bcd6ff; font-size: 13.5px; line-height: 1.5;">
+              ${data.solutions.map(s => `<li style="margin-bottom: 6px;">${s}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <h4 style="font-family: var(--font-mono); color: var(--cy); font-size: 13px; text-transform: uppercase; margin-bottom: 10px;">Technologies & Tools</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            ${data.techStack.map(t => `<span style="padding: 5px 12px; border-radius: 99px; background: rgba(0, 245, 255, 0.12); border: 1px solid rgba(0, 245, 255, 0.3); font: 500 12px var(--font-mono); color: #e0f7ff;">${t}</span>`).join('')}
+          </div>
+        </div>
+
+        ${data.liveUrl ? `
+          <div style="margin-top: 20px;">
+            <a href="${data.liveUrl}" target="_blank" rel="noopener" class="btn btn-duo-glow" style="width: 100%;">
+              <span>Launch Live Production Website</span> <span>↗</span>
+            </a>
+          </div>
+        ` : ''}
+      `;
+    }
 
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
