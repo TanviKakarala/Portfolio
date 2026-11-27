@@ -4009,10 +4009,415 @@ html {
 }
 
 /* ==========================================================================
-   SECTION 9: INTERACTIVE BRIEF BUILDER & CONTACT
+   SECTION 6: WORK WITH ME — LUXURY VIP BANK CARD THEME
    ========================================================================== */
 #contact {
-  background: linear-gradient(180deg, var(--bg-dark), #140713 60%, #040E17);
+  position: relative;
+  background: linear-gradient(180deg, #02060b 0%, #0d0612 40%, #040e17 100%);
+  padding: 100px 0 120px;
+  overflow: hidden;
+}
+
+.contact-ambient-glow {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  pointer-events: none;
+  filter: blur(80px);
+  border-radius: 50%;
+  opacity: 0.12;
+}
+
+.contact-glow-cyan {
+  top: 15%;
+  left: -12%;
+  background: radial-gradient(circle, #00f5ff 0%, transparent 70%);
+}
+
+.contact-glow-rose {
+  bottom: 10%;
+  right: -12%;
+  background: radial-gradient(circle, #ff6b9d 0%, transparent 70%);
+}
+
+.contact-container {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-header-wrap {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 50px;
+}
+
+.contact-kicker {
+  color: #FFD1DE;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.contact-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(38px, 5.5vw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 16px;
+  line-height: 1.1;
+}
+
+.contact-title-accent {
+  background: linear-gradient(135deg, #FFD1DE 0%, #FF6B9D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-lead {
+  font-size: 16px;
+  color: #a8b3cf;
+  line-height: 1.65;
+  margin: 0 auto;
+}
+
+/* Two-Column Grid: Left Bank Card, Right Brief Console */
+.bank-section-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 460px) 1fr;
+  gap: 40px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .bank-section-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+  }
+}
+
+/* 1. PHYSICAL LUXURY VIP BANK CARD */
+.vip-metal-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  height: 270px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1f1424 0%, #0d121c 45%, #241120 80%, #110813 100%);
+  border: 1px solid rgba(255, 209, 222, 0.35);
+  box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.75),
+              inset 0 1px 1px rgba(255, 255, 255, 0.35),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  user-select: none;
+}
+
+.vip-metal-card:hover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 32px 70px -10px rgba(255, 107, 157, 0.3),
+              inset 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.vip-metal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(125deg, transparent, transparent 14px, rgba(255, 215, 230, 0.025) 14px, rgba(255, 215, 230, 0.025) 28px),
+    radial-gradient(ellipse at 85% 15%, rgba(220, 150, 175, 0.22) 0%, transparent 65%);
+  mix-blend-mode: overlay;
+}
+
+.card-glass-sheen {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  transform: skewX(-25deg);
+  pointer-events: none;
+  animation: cardSheen 8s infinite ease-in-out;
+}
+
+@keyframes cardSheen {
+  0%, 70% { left: -60%; }
+  100% { left: 160%; }
+}
+
+.card-top-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-chip-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.emv-gold-chip {
+  width: 44px;
+  height: 32px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #FDE68A 0%, #D4AF37 40%, #AA820A 100%);
+  border: 1px solid rgba(160, 115, 20, 0.7);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.75), 0 3px 6px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.chip-line {
+  position: absolute;
+  background: rgba(140, 95, 10, 0.65);
+}
+
+.chip-line-1 {
+  width: 100%;
+  height: 1px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.chip-line-2 {
+  width: 1px;
+  height: 100%;
+  left: 36%;
+  top: 0;
+}
+
+.chip-line-3 {
+  width: 1px;
+  height: 100%;
+  right: 36%;
+  top: 0;
+}
+
+.contactless-icon {
+  color: #F8E9EE;
+  opacity: 0.85;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8));
+}
+
+.card-monogram-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-dual-rings {
+  position: relative;
+  width: 36px;
+  height: 22px;
+}
+
+.d-ring {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  top: 0;
+}
+
+.d-ring-cyan {
+  left: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 245, 255, 0.85), rgba(0, 180, 200, 0.5));
+  mix-blend-mode: screen;
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.4);
+}
+
+.d-ring-rose {
+  right: 0;
+  background: radial-gradient(circle at 70% 30%, rgba(255, 107, 157, 0.85), rgba(200, 50, 110, 0.5));
+  mix-blend-mode: screen;
+  box-shadow: 0 0 8px rgba(255, 107, 157, 0.4);
+}
+
+.brand-monogram-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #E6B4C4;
+}
+
+.card-embossed-number {
+  position: relative;
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(16px, 2.3vw, 21px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #F8E9EE;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.95), 0 -1px 0 rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0 8px;
+}
+
+.card-bottom-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.card-sublabel {
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #B58494;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.card-holder-name {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.card-validity-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #F8E9EE;
+}
+
+/* 2. DIRECT CONNECT BADGES */
+.vip-direct-ways {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.vip-way-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.vip-way-badge:hover {
+  background: rgba(255, 209, 222, 0.12);
+  border-color: rgba(255, 209, 222, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.way-badge-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.way-badge-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.way-badge-label {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #a8b3cf;
+}
+
+.way-badge-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 3. BRIEF DISPATCH CONSOLE */
+.bank-brief-box {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: clamp(24px, 3.5vw, 36px) !important;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(28, 18, 32, 0.75) 0%, rgba(12, 18, 28, 0.8) 50%, rgba(24, 13, 25, 0.75) 100%) !important;
+  border: 1px solid rgba(255, 209, 222, 0.25) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65) !important;
+}
+
+.console-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.console-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00F5FF;
+  box-shadow: 0 0 10px #00F5FF;
+  animation: consolePulse 2s infinite ease-in-out;
+}
+
+@keyframes consolePulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+.console-badge-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #FFD1DE;
+}
+
+.bank-wa-btn {
+  background: linear-gradient(135deg, #00f5ff 0%, #ff6b9d 100%) !important;
+  color: #040E17 !important;
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: 0 0 24px rgba(0, 245, 255, 0.35) !important;
+  transition: all 0.3s ease !important;
+}
+
+.bank-wa-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 0 32px rgba(255, 107, 157, 0.5) !important;
 }
 
 .bf {

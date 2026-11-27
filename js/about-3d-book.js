@@ -85,65 +85,21 @@
     <div class="book-ft"><span>04</span><button data-go="n">Next Spread &rsaquo;</button></div>
   </section>
 
-  <!-- SPREAD 3 RIGHT: WORK WITH ME — LUXURY BANK CARD (step === 3) -->
+  <!-- SPREAD 3 RIGHT: CRAFTING WHAT'S NEXT & EDITORIAL FINALE (step === 3) -->
   <section class="pg hid" id="p3">
     <div>
       <div class="hd"><span>Chapter 03</span><span>Let’s Collaborate</span></div>
-      <h2 style="margin-top:8px">WORK WITH ME</h2>
+      <h2 style="margin-top:12px">CRAFTING WHAT’S NEXT</h2>
       <div class="dv"><i></i><span class="dv-dot"></span><i></i></div>
-      <p style="margin-top:6px;font-size:12px;line-height:1.55;color:var(--ink)">Available for enterprise data pipelines, bespoke 3D web craft &amp; intelligent AI automation systems.</p>
+      <p style="margin-top:14px;font-size:13px;line-height:1.75;color:var(--ink)">Whether architecting fault-tolerant cloud data pipelines or shaping tactile, editorial web experiences, I believe great engineering feels effortless, clear and deeply human.</p>
     </div>
 
-    <!-- LUXURY VIP BANK CARD -->
-    <div class="bank-card" id="bankCard">
-      <div class="bank-card-top">
-        <div class="bank-card-chip-group">
-          <div class="emv-chip" aria-hidden="true"></div>
-          <div class="contactless-wave" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8.5 16.5a5 5 0 0 1 0-9"/><path d="M12 19a8.5 8.5 0 0 0 0-14"/><path d="M15.5 21.5a12 12 0 0 0 0-19"/></svg>
-          </div>
-        </div>
-        <div class="bank-card-brand">
-          <div class="brand-rings" aria-hidden="true">
-            <div class="brand-ring-1"></div>
-            <div class="brand-ring-2"></div>
-          </div>
-          <span class="bank-card-tier">SOLUTIONS ELITE</span>
-        </div>
-      </div>
-
-      <div class="bank-card-number">
-        7569 &nbsp;8445 &nbsp;7400 &nbsp;2026
-      </div>
-
-      <div class="bank-card-bottom">
-        <div>
-          <div class="bank-card-holder-label">CARDHOLDER / ARCHITECT</div>
-          <div class="bank-card-holder-name">TANVI KAKARALA</div>
-        </div>
-        <div class="bank-card-expiry">
-          <div class="bank-card-expiry-label">VALID THRU</div>
-          <div class="bank-card-expiry-val">WORLDWIDE · 24/7</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Direct Action Links -->
-    <div>
-      <div class="bank-card-actions">
-        <a class="bank-action-btn primary" href="https://wa.me/917569844574?text=Hi%20Tanvi%2C%20I%20would%20like%20to%20work%20with%20you%20on%20a%20project." target="_blank" rel="noopener">
-          <span>Send WhatsApp Brief</span>
-          <span>💬</span>
-        </a>
-        <a class="bank-action-btn secondary" href="mailto:tanvikakarala@gmail.com">
-          <span>Email Direct</span>
-          <span>✉️</span>
-        </a>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px">
+    <div class="card" style="text-align:center;padding:18px 14px;margin-top:10px;">
+      <img src="assets/images/tanvi-signature.png" style="width:220px;display:block;margin:0 auto 8px" alt="Tanvi Kakarala">
+      <p style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);margin:0 0 14px;">Work • Learn • Grow</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
         <button class="cta a btn" data-go="0" style="margin:0">&#8634; Close Book</button>
-        <button class="cta b btn" data-go="1" style="margin:0">Re-read About &#8599;</button>
+        <a class="cta b btn" href="#contact" style="margin:0;display:inline-flex;align-items:center;gap:6px;text-decoration:none;padding:10px 18px;background:var(--rose);color:#fff;border-radius:99px;font-weight:600;font-size:12px;">Work with Me &darr;</a>
       </div>
     </div>
 

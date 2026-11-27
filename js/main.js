@@ -16,7 +16,7 @@
 
   // 1. Navigation & Anchor Scroll (Top-Right Rect Navbar & Clickable Corner Labels)
   const navPillItems = document.querySelectorAll('.nav-pill-link, .nav-pill-btn, .dock-link, .dock-btn, .nav-rect-link, .nav-rect-btn, .hero-corner-label');
-  const sectionIds = ['hero', 'desks', 'creator', 'engineer', 'work', 'about'];
+  const sectionIds = ['hero', 'desks', 'creator', 'engineer', 'work', 'about', 'contact'];
 
   const sectionToNavMap = {
     hero: 'hero',
@@ -24,7 +24,8 @@
     creator: 'desks',
     engineer: 'desks',
     work: 'work',
-    about: 'about'
+    about: 'about',
+    contact: 'contact'
   };
 
   function setActiveNav(navTarget) {
