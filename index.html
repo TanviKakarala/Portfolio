@@ -7,14 +7,32 @@
   <meta name="description" content="Portfolio of Tanvi Kakarala — Enterprise Data Engineer at TEKsystems, 4× Gold Medalist, Swecha Leader, and Independent Digital Solutions Freelancer specializing in modern web design, AI automation, and cloud data architecture.">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 
-  <!-- Typography: Clash Display, Syne, Fraunces, JetBrains Mono, Outfit & Plus Jakarta Sans -->
+  <!-- Typography: Clash Display, Syne, Fraunces, JetBrains Mono, Outfit, Plus Jakarta Sans, Cormorant Garamond & Alex Brush -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@700,600,500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cardo:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS Engine (Preflight disabled to protect existing site styles) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: {
+        preflight: false,
+      },
+      theme: {
+        extend: {
+          fontFamily: {
+            'editorial-serif': ['Cormorant Garamond', 'Georgia', 'serif'],
+            'signature-script': ['Alex Brush', 'cursive'],
+          }
+        }
+      }
+    };
+  </script>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="css/style.css?v=9.8">
+  <link rel="stylesheet" href="css/style.css?v=11.1">
 </head>
 <body>
 
@@ -905,7 +923,7 @@
   <script src="js/react-dom.production.min.js"></script>
   <script src="js/gsap.min.js"></script>
   <script src="js/ScrollTrigger.min.js"></script>
-  <script src="js/about-3d-book.js?v=9.6"></script>
+  <script src="js/about-3d-book.js?v=11.1"></script>
   <script src="js/hero-entrance.js?v=9.0"></script>
   <script src="js/brain-interactive.js?v=9.0"></script>
   <script src="js/main.js?v=9.2"></script>
