@@ -16,7 +16,7 @@
 
   // 1. Navigation & Anchor Scroll (Top-Right Rect Navbar & Clickable Corner Labels)
   const navPillItems = document.querySelectorAll('.nav-pill-link, .nav-pill-btn, .dock-link, .dock-btn, .nav-rect-link, .nav-rect-btn, .hero-corner-label');
-  const sectionIds = ['hero', 'desks', 'creator', 'engineer', 'work', 'about', 'teaching', 'medals', 'process', 'contact'];
+  const sectionIds = ['hero', 'desks', 'creator', 'engineer', 'work', 'about'];
 
   const sectionToNavMap = {
     hero: 'hero',
@@ -24,11 +24,7 @@
     creator: 'desks',
     engineer: 'desks',
     work: 'work',
-    about: 'about',
-    teaching: 'about',
-    medals: 'about',
-    process: 'about',
-    contact: 'contact'
+    about: 'about'
   };
 
   function setActiveNav(navTarget) {
@@ -44,6 +40,7 @@
   navPillItems.forEach(item => {
     item.addEventListener('click', (e) => {
       const targetId = item.getAttribute('href');
+      const spreadTarget = item.getAttribute('data-spread');
       if (targetId && targetId.startsWith('#')) {
         const targetEl = document.querySelector(targetId);
         if (targetEl) {
@@ -51,6 +48,11 @@
           targetEl.scrollIntoView({ behavior: 'smooth' });
           const targetSection = item.getAttribute('data-section');
           if (targetSection) setActiveNav(targetSection);
+          if (spreadTarget !== null && typeof window.goToBookSpread === 'function') {
+            setTimeout(() => {
+              window.goToBookSpread(+spreadTarget);
+            }, 300);
+          }
         }
       }
     });
@@ -80,7 +82,7 @@
     if (window.scrollY < 80) {
       setActiveNav('hero');
     } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 60) {
-      setActiveNav('contact');
+      setActiveNav('about');
     }
   }, { passive: true });
 

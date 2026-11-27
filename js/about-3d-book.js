@@ -3,6 +3,11 @@
  * TANVI KAKARALA — 3D EDITORIAL PORTFOLIO BOOK
  * Based on Tanvi Kakarala — Portfolio (1)
  * Zero-Diamond Luxury Editorial Aesthetic & Hardware-Accelerated 3D Transforms
+ * Featuring:
+ * - Watermark-free studio wave background
+ * - Merged Academic Mastery (4 Years 4 Gold Medals) & Swecha Social Impact
+ * - Merged 6-Stage Delivery Process & AI-Assisted Manifesto
+ * - Grand Finale: "WORK WITH ME" with Luxury VIP Metallic Bank Card
  * =============================================================================
  */
 
@@ -20,14 +25,18 @@
 <div id="wrap"><div id="stage"><div id="shadow"></div><div id="book">
  <div id="back"></div><div id="pages"></div>
 
- <!-- base right page (changes per spread) -->
+ <!-- =======================================================================
+      BASE RIGHT PAGE (Changes per spread: p1, p2, p3)
+      ======================================================================= -->
  <div class="face R" style="z-index:1;backface-visibility:visible">
+
+  <!-- SPREAD 1 RIGHT: ABOUT ME (step <= 1) -->
   <section class="pg" id="p1">
     <div>
       <div class="hd"><span>Chapter 01</span><span>About Me</span></div>
       <h2>ABOUT ME</h2>
       <div class="dv"><i></i><span class="dv-dot"></span><i></i></div>
-      <p style="margin-top:10px;color:var(--ink)">I’m <b style="color:var(--rose)">Tanvi Kakarala</b>, a Data &amp; Creative Builder crafting resilient cloud data systems alongside expressive, interactive digital experiences. My work bridges analytical rigor with editorial visual precision.</p>
+      <p style="margin-top:8px;color:var(--ink)">I’m <b style="color:var(--rose)">Tanvi Kakarala</b>, a Data &amp; Creative Builder crafting resilient cloud data systems alongside expressive, interactive digital experiences. My work bridges analytical rigor with editorial visual precision.</p>
     </div>
     <div>
       <div class="card t">
@@ -47,16 +56,17 @@
     </div>
   </section>
 
+  <!-- SPREAD 2 RIGHT: MILESTONES & SOCIAL IMPACT (step === 2) -->
   <section class="pg hid" id="p2">
     <div>
       <div class="hd"><span>Chapter 02</span><span>Credentials &amp; Impact</span></div>
-      <h2 class="book-milestones-title">MILESTONES &amp; CERTIFICATIONS</h2>
+      <h2 class="book-milestones-title">MILESTONES &amp; SOCIAL IMPACT</h2>
       <div class="dv"><i></i><span class="dv-dot"></span><i></i></div>
     </div>
     <div class="stats">
       <div><b>99.9%</b>Pipeline SLA</div>
       <div><b>10x</b>ETL Speedup</div>
-      <div><b>25+</b>Systems &amp; Apps</div>
+      <div><b>6+</b>Colleges &amp; Swecha</div>
     </div>
     <div>
       <div class="card p">
@@ -68,38 +78,87 @@
         <p>Migrated legacy reporting onto Microsoft Fabric &amp; PySpark, cutting daily refresh latency by over 75%.</p>
       </div>
       <div class="card p">
-        <h3>Interactive 3D Editorial Web Architecture</h3>
-        <p>Engineered bespoke React, Tailwind and hardware-accelerated 3D storytelling interfaces with high visual fidelity.</p>
+        <h3>Social Impact: Swecha Free Software Movement</h3>
+        <p>GLUG leader: conducted technical bootcamps across 6+ premier colleges (IARE, MLRIT, CBIT, CMR), equipped Govt school labs, and gathered speech datasets for Telugu AI models.</p>
       </div>
     </div>
     <div class="book-ft"><span>04</span><button data-go="n">Next Spread &rsaquo;</button></div>
   </section>
 
+  <!-- SPREAD 3 RIGHT: WORK WITH ME — LUXURY BANK CARD (step === 3) -->
   <section class="pg hid" id="p3">
     <div>
       <div class="hd"><span>Chapter 03</span><span>Let’s Collaborate</span></div>
-      <h2 style="margin-top:12px">CRAFTING WHAT’S NEXT</h2>
+      <h2 style="margin-top:8px">WORK WITH ME</h2>
       <div class="dv"><i></i><span class="dv-dot"></span><i></i></div>
-      <p style="margin-top:16px;font-size:13px;line-height:1.75;color:var(--ink)">Whether architecting fault-tolerant data pipelines or shaping tactile, editorial web experiences, I believe great engineering feels effortless, clear and deeply human.</p>
+      <p style="margin-top:6px;font-size:12px;line-height:1.55;color:var(--ink)">Available for enterprise data pipelines, bespoke 3D web craft &amp; intelligent AI automation systems.</p>
     </div>
-    <div class="card" style="text-align:center;padding:20px 14px">
-      <img src="assets/images/tanvi-signature.png" style="width:230px;display:block;margin:0 auto 8px" alt="Tanvi Kakarala">
-      <p style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mid)">Work • Learn • Grow</p>
-      <div style="margin-top:14px">
-        <button class="cta a btn" data-go="0">&#8634; Close Book</button>
-        <button class="cta b btn" data-go="1">Re-read About &#8599;</button>
+
+    <!-- LUXURY VIP BANK CARD -->
+    <div class="bank-card" id="bankCard">
+      <div class="bank-card-top">
+        <div class="bank-card-chip-group">
+          <div class="emv-chip" aria-hidden="true"></div>
+          <div class="contactless-wave" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8.5 16.5a5 5 0 0 1 0-9"/><path d="M12 19a8.5 8.5 0 0 0 0-14"/><path d="M15.5 21.5a12 12 0 0 0 0-19"/></svg>
+          </div>
+        </div>
+        <div class="bank-card-brand">
+          <div class="brand-rings" aria-hidden="true">
+            <div class="brand-ring-1"></div>
+            <div class="brand-ring-2"></div>
+          </div>
+          <span class="bank-card-tier">SOLUTIONS ELITE</span>
+        </div>
+      </div>
+
+      <div class="bank-card-number">
+        7569 &nbsp;8445 &nbsp;7400 &nbsp;2026
+      </div>
+
+      <div class="bank-card-bottom">
+        <div>
+          <div class="bank-card-holder-label">CARDHOLDER / ARCHITECT</div>
+          <div class="bank-card-holder-name">TANVI KAKARALA</div>
+        </div>
+        <div class="bank-card-expiry">
+          <div class="bank-card-expiry-label">VALID THRU</div>
+          <div class="bank-card-expiry-val">WORLDWIDE · 24/7</div>
+        </div>
       </div>
     </div>
+
+    <!-- Direct Action Links -->
+    <div>
+      <div class="bank-card-actions">
+        <a class="bank-action-btn primary" href="https://wa.me/917569844574?text=Hi%20Tanvi%2C%20I%20would%20like%20to%20work%20with%20you%20on%20a%20project." target="_blank" rel="noopener">
+          <span>Send WhatsApp Brief</span>
+          <span>💬</span>
+        </a>
+        <a class="bank-action-btn secondary" href="mailto:tanvikakarala@gmail.com">
+          <span>Email Direct</span>
+          <span>✉️</span>
+        </a>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px">
+        <button class="cta a btn" data-go="0" style="margin:0">&#8634; Close Book</button>
+        <button class="cta b btn" data-go="1" style="margin:0">Re-read About &#8599;</button>
+      </div>
+    </div>
+
     <div class="book-ft"><span>06</span><span>Hyderabad, India</span></div>
   </section>
  </div>
 
- <!-- leaf 3 : Two Minds, One Identity -->
+ <!-- =======================================================================
+      LEAF 3: TWO MINDS, METHODOLOGY & AI MANIFESTO
+      ======================================================================= -->
  <div class="leaf" id="l3">
   <div class="face R" style="visibility:hidden"></div>
   <div class="face L">
     <section class="pg">
-      <div class="hd"><span>Philosophy</span><span>05</span></div>
+      <div class="hd"><span>Philosophy &amp; Rigor</span><span>05</span></div>
       <div style="text-align:center">
         <svg class="venn" viewBox="0 0 200 200">
           <circle cx="82" cy="100" r="56" fill="rgba(58,138,168,.09)" stroke="#3A8AA8"/>
@@ -108,16 +167,46 @@
           <text x="100" y="97" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" letter-spacing="1.6" fill="#7D4454">PRECISION</text>
           <text x="100" y="112" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="12" letter-spacing="1.6" fill="#7D4454">&amp; POISE</text>
         </svg>
-        <h2 style="font-size:28px;margin-top:10px">Two Minds, One Identity</h2>
+        <h2 style="font-size:26px;margin-top:4px">Two Minds, One Identity</h2>
         <div class="dv c2"><i></i><span class="dv-dot"></span><i></i></div>
-        <p style="max-width:300px;margin:8px auto 0;color:var(--ink)">Analytical architecture meets visual storytelling—combining structured data pipelines with calm, luxury-grade user interfaces.</p>
+        <p style="max-width:320px;margin:4px auto 0;color:var(--ink);font-size:11px;line-height:1.45">Analytical architecture meets visual storytelling—combining structured data pipelines with calm, luxury-grade user interfaces.</p>
       </div>
+
+      <!-- 6-Stage Delivery Process Grid -->
+      <div>
+        <div class="book-process-grid">
+          <div class="book-process-item">
+            <b>01 / Brief &amp; Scope</b>
+            <span>Clear architectural goals &amp; milestones.</span>
+          </div>
+          <div class="book-process-item">
+            <b>02 / Design &amp; Schema</b>
+            <span>Tactile prototypes &amp; lakehouse schemas.</span>
+          </div>
+          <div class="book-process-item">
+            <b>03 / High-Speed Build</b>
+            <span>PySpark ETL, React &amp; hardware motion.</span>
+          </div>
+          <div class="book-process-item">
+            <b>04 / Multi-Device QA</b>
+            <span>Automated quality checks &amp; SLA validation.</span>
+          </div>
+        </div>
+
+        <div class="card p" style="margin-top:2px;padding:8px 10px">
+          <h3 style="font-size:10.5px;margin-bottom:2px">🧠 AI-Assisted, Human-Reviewed</h3>
+          <p style="font-size:10px;line-height:1.4">Leveraging modern AI tooling for 5× velocity, with 100% human-verified code, security &amp; architectural ownership.</p>
+        </div>
+      </div>
+
       <div class="book-ft"><button data-go="p">&lsaquo; Medals</button><span>05</span></div>
     </section>
   </div>
  </div>
 
- <!-- leaf 2 : Medals & Honors -->
+ <!-- =======================================================================
+      LEAF 2: FOUR YEARS. FOUR GOLD MEDALS.
+      ======================================================================= -->
  <div class="leaf" id="l2">
   <div class="face R" id="l2f">
     <div class="pg" style="justify-content:center;align-items:center;text-align:center;font:500 24px 'Cormorant Garamond',serif;letter-spacing:.12em;text-transform:uppercase;color:#8F5364">
@@ -127,42 +216,72 @@
   <div class="face L">
     <section class="pg">
       <div>
-        <div class="hd"><span>Recognition</span><span>Chapter 02</span></div>
-        <h2>MEDALS &amp; HONORS</h2>
+        <div class="hd"><span>Academic Mastery</span><span>Chapter 02</span></div>
+        <h2 style="font-size:27px">FOUR YEARS. FOUR GOLD MEDALS.</h2>
         <div class="dv"><i></i><span class="dv-dot"></span><i></i></div>
+        <p style="font-size:11px;line-height:1.45;color:var(--ink);margin-top:4px">
+          College Topper in <strong>every single year</strong> of B.Tech CSE (AI &amp; ML) at CMR Engineering College. The greatest milestone was escorting my parents onto the grand convocation stage for the presidential felicitation.
+        </p>
       </div>
+
+      <!-- 4 Dropping Gold Medals Row -->
       <div>
-        <div class="card medal">
-          <u style="background:linear-gradient(135deg,#F6E2A8,#D9AC54);color:#5E4212">&#9733;</u>
-          <div>
-            <h3 style="color:#6F3948;text-transform:none;letter-spacing:0;font-size:12px">Academic Excellence &amp; Dean’s Distinction</h3>
-            <small>Gold Honor • Computer &amp; Data Sciences</small>
-            <p>Awarded top-decile scholastic gold medal for sustained technical distinction and capstone research.</p>
+        <div class="book-medals-row">
+          <div class="book-medal-coin">
+            <div class="book-medal-badge">1</div>
+            <div class="book-medal-year">Year 1</div>
+            <div class="book-medal-sub">Rank #1</div>
+          </div>
+          <div class="book-medal-coin">
+            <div class="book-medal-badge">2</div>
+            <div class="book-medal-year">Year 2</div>
+            <div class="book-medal-sub">Rank #1</div>
+          </div>
+          <div class="book-medal-coin">
+            <div class="book-medal-badge">3</div>
+            <div class="book-medal-year">Year 3</div>
+            <div class="book-medal-sub">Rank #1</div>
+          </div>
+          <div class="book-medal-coin">
+            <div class="book-medal-badge">4</div>
+            <div class="book-medal-year">Year 4</div>
+            <div class="book-medal-sub">Rank #1</div>
           </div>
         </div>
-        <div class="card medal">
-          <u style="background:linear-gradient(135deg,#F8D5DF,#D46C8C);color:#fff">&#9733;</u>
+
+        <!-- Academic Distinction Stats -->
+        <div class="stats" style="margin:4px 0 6px">
+          <div><b>93%</b>B.Tech Aggregate</div>
+          <div><b>98%</b>Intermediate MPC</div>
+          <div><b>#1</b>Dept Rank 1</div>
+        </div>
+
+        <!-- Award Cards -->
+        <div class="card medal" style="padding:8px 10px;margin:3px 0">
+          <u style="background:linear-gradient(135deg,#F6E2A8,#D9AC54);color:#5E4212;width:30px;height:30px;font-size:12px">&#9733;</u>
           <div>
-            <h3 style="color:#6F3948;text-transform:none;letter-spacing:0;font-size:12px">Data Engineering Delivery Excellence</h3>
-            <small>Spotlight Award • Enterprise Analytics</small>
-            <p>Recognized for zero-downtime cloud pipeline architecture and high-impact BI automation.</p>
+            <h3 style="color:#6F3948;text-transform:none;letter-spacing:0;font-size:11px;margin-bottom:1px">Academic Excellence &amp; Dean’s Distinction</h3>
+            <small style="font-size:8.5px">Gold Honor • Computer &amp; Data Sciences</small>
           </div>
         </div>
-        <div class="card medal">
-          <u style="background:linear-gradient(135deg,#E6EEF2,#8CB3C4);color:#164558">&#9733;</u>
+
+        <div class="card medal" style="padding:8px 10px;margin:3px 0">
+          <u style="background:linear-gradient(135deg,#F8D5DF,#D46C8C);color:#fff;width:30px;height:30px;font-size:12px">&#9733;</u>
           <div>
-            <h3 style="color:#6F3948;text-transform:none;letter-spacing:0;font-size:12px">Creative UI/UX &amp; Product Innovation</h3>
-            <small>Design Honor • Interactive Web Craft</small>
-            <p>Honored for blending editorial motion systems with intuitive, human-centered digital products.</p>
+            <h3 style="color:#6F3948;text-transform:none;letter-spacing:0;font-size:11px;margin-bottom:1px">Data Engineering Delivery Excellence</h3>
+            <small style="font-size:8.5px">Spotlight Award • Enterprise Analytics</small>
           </div>
         </div>
       </div>
+
       <div class="book-ft"><button data-go="p">&lsaquo; About Me</button><span>03</span></div>
     </section>
   </div>
  </div>
 
- <!-- front cover leaf -->
+ <!-- =======================================================================
+      LEAF 1: FRONT COVER LEAF
+      ======================================================================= -->
  <div class="leaf" id="lc">
   <div class="face" id="cover">
     <div class="spine"></div>
@@ -181,7 +300,7 @@
       <div>
         <div class="card" style="margin-top:0">
           <b style="color:var(--rose);font-size:12px">• Tanvi Kakarala — Data &amp; Creative Builder</b>
-          <p style="font-size:10.5px;color:#8E5B69">Hyderabad, India</p>
+          <p style="font-size:10.5px;color:#8E5B69">Hyderabad, India · TEKsystems Enterprise Analytics</p>
         </div>
         <div class="book-ft" style="margin-top:6px"><button data-go="0">&lsaquo; Cover</button><span>01</span></div>
       </div>
@@ -203,8 +322,8 @@
     const L = [
       'Scroll or click to open',
       'Spread 1 of 3 • About Me',
-      'Spread 2 of 3 • Medals & Recognition',
-      'Spread 3 of 3 • Two Minds, One Identity'
+      'Spread 2 of 3 • Four Years Four Gold Medals',
+      'Spread 3 of 3 • Work With Me'
     ];
 
     const book = $('#book');
@@ -252,6 +371,9 @@
       step = Math.max(0, Math.min(N - 1, n));
       render();
     }
+
+    // Expose globally so navbar and footer can navigate spreads
+    window.goToBookSpread = go;
 
     function render() {
       book.style.transform = step === 0 ? 'translateX(0)' : 'translateX(50%)';
